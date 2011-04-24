@@ -1,0 +1,65 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>GraCoBd.as</title>
+<link rel="stylesheet" type="text/css" href="../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="ActionScriptpackage">package</span>
+<span class="ActionScriptBracket/Brace">{</span>
+    <span class="ActionScriptReserved">import</span> <span class="ActionScriptDefault_Text">flash</span>.<span class="ActionScriptDefault_Text">display</span>.<span class="ActionScriptDefault_Text">Sprite</span>;
+    <span class="ActionScriptReserved">import</span> <span class="ActionScriptDefault_Text">flash</span>.<span class="ActionScriptDefault_Text">system</span>.<span class="ActionScriptDefault_Text">Security</span>;
+    <span class="ActionScriptASDoc">/**
+     * GraCoBd font library.
+     * @author v-seanzo
+     * 
+     */</span>    
+    <span class="ActionScriptReserved">public</span> <span class="ActionScriptclass">class</span> <span class="ActionScriptDefault_Text">GraCoBd</span> <span class="ActionScriptReserved">extends</span> <span class="ActionScriptDefault_Text">Sprite</span>
+    <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptASDoc">/**
+        * The the FontLibrary allow domain is all.
+        */</span>        
+        <span class="ActionScriptDefault_Text">Security</span>.<span class="ActionScriptDefault_Text">allowDomain</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptString">&quot;*&quot;</span><span class="ActionScriptBracket/Brace">)</span>;
+        
+        <span class="ActionScriptComment">//======================================================================
+</span>        <span class="ActionScriptComment">//  Class variables
+</span>        <span class="ActionScriptComment">//======================================================================
+</span>        <span class="ActionScriptASDoc">/**
+         * Embed Font.
+         * Embedded font syntax:
+         * &lt;listing version = &quot;3.0&quot; &gt;
+         * [Embed(    source = &apos;./tahoma.ttf&apos;, 
+         *             fontName = &apos;GraCoBd&apos;,
+         *             [fontStyle = italic | oblique | normal],
+         *             [fontWeight =  bold | heavy | normal],
+         *             [advancedAntiAliasing = true | false],
+         *             [unicodeRange = &apos;&apos;]
+         *         )]
+         * &lt;/listing&gt;
+         * Reference: 
+         * http://www.unicode.org/charts/PDF/U0000.pdf
+         * http://livedocs.adobe.com/flex/3/html/help.html?content=fonts_07.html
+         * C:\Program Files\Adobe\Flex Builder 3\sdks\3.0.0\frameworks\flash-unicode-table.xml
+         */</span>        
+        <span class="ActionScriptBracket/Brace">[</span><span class="ActionScriptMetadata">Embed</span><span class="ActionScriptBracket/Brace">(</span>    <span class="ActionScriptDefault_Text">source</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptString">&apos;./GraCoBd.ttf&apos;</span>, 
+                <span class="ActionScriptDefault_Text">fontName</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptString">&apos;GraCoBd&apos;</span>, 
+                <span class="ActionScriptDefault_Text">fontStyle</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptString">&apos;narmal&apos;</span>,    <span class="ActionScriptComment">//italic | oblique | normal
+</span>                <span class="ActionScriptDefault_Text">fontWeight</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptString">&apos;normal&apos;</span>,    <span class="ActionScriptComment">//bold | heavy | normal
+</span>                <span class="ActionScriptDefault_Text">advancedAntiAliasing</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptReserved">true</span>,     <span class="ActionScriptComment">//true | false
+</span>                <span class="ActionScriptDefault_Text">unicodeRange</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptString">&apos;U+0020-U+002F,U+0030-U+0039,U+003A-U+0040,U+0041-U+005A,U+005B-U+0060,U+0061-U+007A,U+007B-U+007E,U+2026,U+8230&apos;</span>
+                <span class="ActionScriptBracket/Brace">)]</span>
+        <span class="ActionScriptReserved">public</span> <span class="ActionScriptReserved">static</span> <span class="ActionScriptvar">var</span> <span class="ActionScriptDefault_Text">GraCoBd</span><span class="ActionScriptOperator">:</span><span class="ActionScriptDefault_Text">Class</span>;
+        
+        <span class="ActionScriptComment">//======================================================================
+</span>        <span class="ActionScriptComment">//  Variables
+</span>        <span class="ActionScriptComment">//======================================================================
+</span>        
+        <span class="ActionScriptASDoc">/**
+         * The will register fonts.
+         */</span>        
+        <span class="ActionScriptReserved">public</span> <span class="ActionScriptvar">var</span> <span class="ActionScriptDefault_Text">fonts</span><span class="ActionScriptOperator">:</span><span class="ActionScriptDefault_Text">Array</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptBracket/Brace">[</span><span class="ActionScriptDefault_Text">GraCoBd</span><span class="ActionScriptBracket/Brace">]</span>;
+    <span class="ActionScriptBracket/Brace">}</span>
+<span class="ActionScriptBracket/Brace">}</span></pre></body>
+</html>

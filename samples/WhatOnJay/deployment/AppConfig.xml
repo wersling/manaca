@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modules>
+	<module domain="modules/chf/" src="CHFShow.swf"/>
+	<module domain="modules/pepsi/" src="PepsiShow.swf"/>
+	<module domain="modules/epson/" src="EpsonShow.swf"/>
+</modules>

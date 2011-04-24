@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by MESMERiZE (MiZE) -->
+<xs:schema xmlns="www.manaca.net" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="www.manaca.net" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Configuration">
+		<xs:annotation>
+			<xs:documentation>The configuration xml root node</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="AppSettings">
+					<xs:annotation>
+						<xs:documentation>application settings info</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="version" type="xs:string"/>
+							<xs:element name="SecuritySettings" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>secutity settings info</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="CrossDomainPolicies" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The cross domain file list</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="url" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:documentation>The cross domain file url</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="AllowedDomains" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The allowed domain list</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="domain" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:documentation>The domain</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="LoggingSettings" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>logging settings info</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Output" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The Output publisher</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:attribute name="outputHeight" type="xs:unsignedInt" default="150">
+													<xs:annotation>
+														<xs:documentation>define the output display height</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="strong" type="xs:boolean">
+													<xs:annotation>
+														<xs:documentation>define the output is using strong mode.</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute ref="LogLevel"/>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="TracePublisher" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The trace publicsher</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:attribute ref="LogLevel"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="enabled" type="xs:boolean" default="true">
+										<xs:annotation>
+											<xs:documentation>The log function is enabled</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute ref="LogLevel"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ProjectSettings">
+					<xs:annotation>
+						<xs:documentation>project settings info</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Add" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:attribute name="key" type="xs:string"/>
+									<xs:attribute name="value" type="xs:string"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ExtendFile" type="xs:string"/>
+				<xs:element name="Files" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>The external file list</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="File" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:attribute name="name" type="xs:string"/>
+									<xs:attribute name="url" type="xs:string"/>
+									<xs:attribute name="FileType">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="image"/>
+												<xs:enumeration value="swf"/>
+												<xs:enumeration value="xml"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:attribute name="LogLevel" default="debug">
+		<xs:annotation>
+			<xs:documentation>The log level</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="all"/>
+				<xs:enumeration value="debug"/>
+				<xs:enumeration value="info"/>
+				<xs:enumeration value="warn"/>
+				<xs:enumeration value="error"/>
+				<xs:enumeration value="fatal"/>
+				<xs:enumeration value="off"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:attribute>
+</xs:schema>

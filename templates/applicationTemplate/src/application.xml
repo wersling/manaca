@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration xmlns="www.manaca.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <AppSettings>
+        <version>1.0</version>
+        <SecuritySettings>
+            <CrossDomainPolicies>
+                <url/>
+            </CrossDomainPolicies>
+            <AllowedDomains>
+                <domain/>
+            </AllowedDomains>
+        </SecuritySettings>
+        <!-- set debug level to debug|info|warn|error|fatal|off -->
+        <LoggingSettings enabled="true" LogLevel="debug">
+            <Output outputHeight="150" LogLevel="debug" strong="true"/>
+            <TracePublisher LogLevel="debug"/>
+        </LoggingSettings>
+    </AppSettings>
+    <!-- projectSettings and files that can be overridden -->
+    <ExtendFile></ExtendFile>
+    <ProjectSettings>
+        <Add key="SITE_WIDTH" value="910"/>
+    </ProjectSettings>
+    <Files>
+        <File url="settings.xml" name="settings" FileType="xml"/>
+    </Files>
+</Configuration>

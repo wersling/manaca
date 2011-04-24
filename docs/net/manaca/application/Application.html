@@ -1,0 +1,92 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><!-- saved from url=(0014)about:internet --><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" href="../../../style.css" type="text/css" media="screen"><link rel="stylesheet" href="../../../print.css" type="text/css" media="print"><link rel="stylesheet" href="../../../override.css" type="text/css"><meta name="keywords" content="Application,net.manaca.application.Application,config,externalFiles,projectSettings,errorHandler,initialize,initialize,initialize,startup,startup,updateConfiguration"><title>net.manaca.application.Application</title></head><body><script language="javascript" type="text/javascript" src="../../../asdoc.js"></script><script language="javascript" type="text/javascript" src="../../../help.js"></script><script language="javascript" type="text/javascript" src="../../../cookies.js"></script><script language="javascript" type="text/javascript"><!--
+				asdocTitle = 'Application - Manaca 2.0 Core Library - Manaca2';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<script type="text/javascript">
+			scrollToNameAnchor();
+		</script><table class="titleTable" cellpadding="0" cellspacing="0" id="titleTable" style="display:none"><tr><td class="titleTableTitle" align="left">API Documentation</td><td class="titleTableTopNav" align="right"><a href="../../../package-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Packages</a>&nbsp;|&nbsp;<a href="../../../class-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Classes</a>&nbsp;|&nbsp;<a href="../../../all-index-A.html" onclick="loadClassListFrame('../../../index-list.html')">Index</a>&nbsp;|&nbsp;<a id="framesLink1" href="../../../index.html?net/manaca/application/Application.html&amp;net/manaca/application/class-list.html">Frames</a><a id="noFramesLink1" style="display:none" href="" onclick="parent.location=document.location"> No Frames </a></td><td class="titleTableLogo" align="right" rowspan="3"><img src="../../../images/logo.jpg" class="logoImage" alt=" Adobe Logo " title=" Adobe Logo "></td></tr><tr class="titleTableRow2"><td class="titleTableSubTitle" id="subTitle" align="left">Application</td><td class="titleTableSubNav" id="subNav" align="right"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td></tr><tr class="titleTableRow3"><td colspan="3">&nbsp;</td></tr></table><script language="javascript" type="text/javascript" xml:space="preserve">
+				<!--
+				
+					if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Application"); titleBar_setSubNav(false,true,false	,false,false,false,true,false,false	,false,false,false,false,false);}	
+				-->
+			</script><div xmlns:fn="http://www.w3.org/2005/xpath-functions" class="MainContent"><table class="classHeaderTable" cellpadding="0" cellspacing="0"><tr><td class="classHeaderTableLabel">Package</td><td><a href="package-detail.html" onclick="javascript:loadClassListFrame('class-list.html')">net.manaca.application</a></td></tr><tr><td class="classHeaderTableLabel">Class</td><td class="classSignature">public  class  Application</td></tr><tr><td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">Application  <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> flash.display.Sprite</td></tr><tr><td class="classHeaderTableLabel">Implements</td><td> <a href="../../../net/manaca/application/IApplication.html">IApplication</a></td></tr></table><p></p><p></p><p></p>
+               <code>Application</code> is the default access point for flash applications.
+ 
+ <p>You can use a Frame tag define a <code>Preloader</code> object.</p>
+ 
+               <p>You must simply init your application something like this:</p>
+               <div class="listing" version="3.0"><pre>
+ package {
+import net.manaca.application.Application;
+[Frame(factoryClass="net.manaca.preloaders.SimplePreloader")]
+public class ApplicationExample extends Application
+{
+[Embed(source="./application.xml", mimeType="application/octet-stream")]
+private var configClz:Class;
+
+public function ApplicationExample()
+{
+super(configClz);
+}
+
+override protected function startup():void
+{
+}
+}
+}
+ </pre></div>
+ 
+            <p></p><br/><hr></div><a name="propertySummary"></a><div class="summarySection"><div class="summaryTableTitle">Public Properties</div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableProperty"><tr><th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#config" class="signatureLink">config</a> : <a href="../../../net/manaca/application/config/model/configurationInfo.html">configurationInfo</a><div class="summaryTableDescription">[static] [read-only] 
+     Get the application config by config XML.</div></td><td class="summaryTableOwnerCol">Application</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#externalFiles" class="signatureLink">externalFiles</a> : Dictionary<div class="summaryTableDescription">[static] [read-only] 
+     Get external files.</div></td><td class="summaryTableOwnerCol">Application</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#projectSettings" class="signatureLink">projectSettings</a> : Dictionary<div class="summaryTableDescription">[static] [read-only] 
+     Get the project settings by config XML.</div></td><td class="summaryTableOwnerCol">Application</td></tr></table></div><a name="methodSummary"></a><div class="summarySection"><div class="summaryTableTitle">Public Methods </div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableMethod"><tr><th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#Application()" class="signatureLink">Application</a>(config:*)</div><div class="summaryTableDescription">
+     Constructs a new Application instance.</div></td><td class="summaryTableOwnerCol">Application</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#initialize()" class="signatureLink">initialize</a>():void</div><div class="summaryTableDescription">
+     
+     The initialize function will call by proloader complete.</div></td><td class="summaryTableOwnerCol">Application</td></tr></table></div><a name="protectedMethodSummary"></a><div class="summarySection"><div class="summaryTableTitle">Protected Methods </div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableProtectedMethod"><tr><th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#errorHandler()" class="signatureLink">errorHandler</a>(error:Error):void</div><div class="summaryTableDescription">
+     The updateConfiguration function will call by 
+     configuration catched a error.</div></td><td class="summaryTableOwnerCol">Application</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#startup()" class="signatureLink">startup</a>():void</div><div class="summaryTableDescription">
+     The startup function will call by application initialized.</div></td><td class="summaryTableOwnerCol">Application</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#updateConfiguration()" class="signatureLink">updateConfiguration</a>(percentage:uint):void</div><div class="summaryTableDescription">
+     The updateConfiguration function will call by configuration update.</div></td><td class="summaryTableOwnerCol">Application</td></tr></table></div><script language="javascript" type="text/javascript"><!--
+										showHideInherited();
+										--></script><div class="MainContent"><div class="detailSectionHeader">Property Detail</div><a name="propertyDetail"></a><a name="config"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">config</td><td class="detailHeaderType">property</td></tr></table><div class="detailBody"><code>config:<a href="../../../net/manaca/application/config/model/configurationInfo.html">configurationInfo</a></code>&nbsp;&nbsp;[read-only] <p></p><p></p><p>
+     Get the application config by config XML.
+     </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public static function get config():<a href="../../../net/manaca/application/config/model/configurationInfo.html">configurationInfo</a></code><br/></div><a name="propertyDetail"></a><a name="externalFiles"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">externalFiles</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>externalFiles:Dictionary</code>&nbsp;&nbsp;[read-only] <p></p><p></p><p>
+     Get external files.
+     </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public static function get externalFiles():Dictionary</code><br/></div><a name="propertyDetail"></a><a name="projectSettings"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">projectSettings</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>projectSettings:Dictionary</code>&nbsp;&nbsp;[read-only] <p></p><p></p><p>
+     Get the project settings by config XML.
+     </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public static function get projectSettings():Dictionary</code><br/></div><a name="constructorDetail"></a><div class="detailSectionHeader">Constructor Detail</div><a name="Application()"></a><a name="Application()"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">Application</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">Constructor</td></tr></table><div class="detailBody"><code>public function Application(config:*)</code><p></p><p>
+     Constructs a new <code>Application</code> instance.
+     </p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">config</span>:*</code> &mdash; the config xml class.
+     you can writing something like this:
+     <div class="listing" version="3.0"><pre>
+     [Embed(source="./application.xml", mimeType="application/octet-stream")]
+     private var configClz:Class;
+     </pre></div>
+     </td></tr></table></div><a name="methodDetail"></a><div class="detailSectionHeader">Method Detail</div><a name="errorHandler()"></a><a name="errorHandler(Error)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">errorHandler</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td></tr></table><div class="detailBody"><code> protected function errorHandler(error:Error):void</code><p></p><p></p><p>
+     The updateConfiguration function will call by 
+     configuration catched a error.
+     You can override the function.
+     </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">error</span>:Error</code> &mdash; the catched error.
+     
+     </td></tr></table></p></div><a name="initialize()"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">initialize</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public final function initialize():void</code><p></p><p></p><p>
+     
+     The initialize function will call by proloader complete.
+     </p></div><a name="startup()"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">startup</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> protected function startup():void</code><p></p><p></p><p>
+     The startup function will call by application initialized.
+     You need override the function.
+     <p>for example:</p>
+     </p><br/><span class="label">Throws</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code><a href="../../../net/manaca/errors/AbstractOperationError.html">AbstractOperationError</a> </code> &mdash; thrown the error 
+     indicate that an operation marked by the developer has not override 
+     the abstract function.
+     </td></tr></table><br/><span class="label"> Example </span><br/>
+     <pre>
+     final override public function startup(...rest):void
+     {
+             trace("The application started!")
+     }
+     </pre>
+     </div><a name="updateConfiguration()"></a><a name="updateConfiguration(uint)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">updateConfiguration</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> protected function updateConfiguration(percentage:uint):void</code><p></p><p></p><p>
+     The updateConfiguration function will call by configuration update.
+     You can override the function.
+     </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">percentage</span>:uint</code></td></tr></table></p></div><br/><br/><hr><br/><p></p><center class="copyright"><footer></footer><br/>Fri Jul 3 2009, 12:06 PM +08:00  </center></div></body></html><!--<br/>Fri Jul 3 2009, 12:06 PM +08:00  -->

@@ -1,0 +1,7 @@
+1. import the template to Flex Builder.
+2. Move the project to your work path.
+3. Rename the project.
+4. Disconnect the svn connect.
+5. Modify build.properties file "application.name" value.
+6. Modify build.xml file project name.
+7. Delete the file.

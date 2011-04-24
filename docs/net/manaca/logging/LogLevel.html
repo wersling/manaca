@@ -1,0 +1,107 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><!-- saved from url=(0014)about:internet --><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" href="../../../style.css" type="text/css" media="screen"><link rel="stylesheet" href="../../../print.css" type="text/css" media="print"><link rel="stylesheet" href="../../../override.css" type="text/css"><meta name="keywords" content="LogLevel,net.manaca.logging.LogLevel,ALL,DEBUG,ERROR,FATAL,INFO,OFF,WARN,level,level,logger,name,name,value,addPublisher,clone,debug,debug,error,error,fatal,fatal,getDate,getLevel,getLogger,getLoggerName,getMessage,getPublishers,hasPublisher,info,info,isLoggable,log,publish,removePublisher,toString,toString,valueOf,warn,warn"><title>net.manaca.logging.LogLevel</title></head><body><script language="javascript" type="text/javascript" src="../../../asdoc.js"></script><script language="javascript" type="text/javascript" src="../../../help.js"></script><script language="javascript" type="text/javascript" src="../../../cookies.js"></script><script language="javascript" type="text/javascript"><!--
+				asdocTitle = 'LogLevel - Manaca 2.0 Core Library - Manaca2';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<script type="text/javascript">
+			scrollToNameAnchor();
+		</script><table class="titleTable" cellpadding="0" cellspacing="0" id="titleTable" style="display:none"><tr><td class="titleTableTitle" align="left">API Documentation</td><td class="titleTableTopNav" align="right"><a href="../../../package-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Packages</a>&nbsp;|&nbsp;<a href="../../../class-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Classes</a>&nbsp;|&nbsp;<a href="../../../all-index-A.html" onclick="loadClassListFrame('../../../index-list.html')">Index</a>&nbsp;|&nbsp;<a id="framesLink1" href="../../../index.html?net/manaca/logging/LogLevel.html&amp;net/manaca/logging/class-list.html">Frames</a><a id="noFramesLink1" style="display:none" href="" onclick="parent.location=document.location"> No Frames </a></td><td class="titleTableLogo" align="right" rowspan="3"><img src="../../../images/logo.jpg" class="logoImage" alt=" Adobe Logo " title=" Adobe Logo "></td></tr><tr class="titleTableRow2"><td class="titleTableSubTitle" id="subTitle" align="left">LogLevel</td><td class="titleTableSubNav" id="subNav" align="right"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#constantSummary">Constants</a></td></tr><tr class="titleTableRow3"><td colspan="3">&nbsp;</td></tr></table><script language="javascript" type="text/javascript" xml:space="preserve">
+				<!--
+				
+					if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("LogLevel"); titleBar_setSubNav(true,true,false	,false,false,false,true,false,false	,false,false,false,false,false);}	
+				-->
+			</script><div xmlns:fn="http://www.w3.org/2005/xpath-functions" class="MainContent"><table class="classHeaderTable" cellpadding="0" cellspacing="0"><tr><td class="classHeaderTableLabel">Package</td><td><a href="package-detail.html" onclick="javascript:loadClassListFrame('class-list.html')">net.manaca.logging</a></td></tr><tr><td class="classHeaderTableLabel">Class</td><td class="classSignature">public  class  LogLevel</td></tr><tr><td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">LogLevel  <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> Object</td></tr></table><p></p><p></p><p></p>
+ The Level class defines a set of standard logging levels that can be 
+ used to control logging output. 
+ 
+ The logging Level objects are ordered and are specified by ordered integers. 
+ Enabling logging at a given level also enables logging at all higher levels. 
+ 
+ <p>In addition there is a level OFF that can be used to turn off logging, 
+ and a level ALL that can be used to enable logging of all messages. </p>
+ 
+ The levels in descending order are:
+  <ul>
+                  <li>
+                     <code>LogLevel.FATAL</code> designates events that are very
+    harmful and will eventually lead to application failure</li>
+ 
+                  <li>
+                     <code>LogLevel.ERROR</code> designates error events
+    that might still allow the application to continue running.</li>
+ 
+                  <li>
+                     <code>LogLevel.WARN</code> designates events that could be
+    harmful to the application operation</li>
+ 
+                  <li>
+                     <code>LogLevel.INFO</code> designates informational messages
+    that highlight the progress of the application at
+    coarse-grained level.</li>
+ 
+                  <li>
+                     <code>LogLevel.DEBUG</code> designates informational
+    level messages that are fine grained and most helpful when
+    debugging an application.</li>
+ 
+                  <li>
+                     <code>LogLevel.ALL</code> intended to force a target to
+    process all messages.</li>
+               </ul>
+            <p></p><br/><hr></div><a name="propertySummary"></a><div class="summarySection"><div class="summaryTableTitle">Public Properties</div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableProperty"><tr><th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#name" class="signatureLink">name</a> : String<div class="summaryTableDescription">
+     The non-localized string name of the Level.</div></td><td class="summaryTableOwnerCol">LogLevel</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#value" class="signatureLink">value</a> : int<div class="summaryTableDescription">
+     The integer value for this level.</div></td><td class="summaryTableOwnerCol">LogLevel</td></tr></table></div><a name="methodSummary"></a><div class="summarySection"><div class="summaryTableTitle">Public Methods </div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableMethod"><tr><th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#LogLevel()" class="signatureLink">LogLevel</a>(name:String, value:int)</div><div class="summaryTableDescription">
+     Constructs a new LogLevel instance.</div></td><td class="summaryTableOwnerCol">LogLevel</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#toString()" class="signatureLink">toString</a>():String</div><div class="summaryTableDescription">
+     Return a string of the LogLevel.</div></td><td class="summaryTableOwnerCol">LogLevel</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#valueOf()" class="signatureLink">valueOf</a>():Number</div><div class="summaryTableDescription">
+     Return value of the LogLevel.</div></td><td class="summaryTableOwnerCol">LogLevel</td></tr></table></div><a name="constantSummary"></a><div class="summarySection"><div class="summaryTableTitle">Public Constants</div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableConstant"><tr><th>&nbsp;</th><th colspan="2">Constant</th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#ALL" class="signatureLink">ALL</a> : <a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a><div class="summaryTableDescription">[static] 
+      Tells a target to process all messages.</div></td><td class="summaryTableOwnerCol">LogLevel</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#DEBUG" class="signatureLink">DEBUG</a> : <a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a><div class="summaryTableDescription">[static] 
+      Designates informational level
+      messages that are fine grained and most helpful when debugging an
+      application.</div></td><td class="summaryTableOwnerCol">LogLevel</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#ERROR" class="signatureLink">ERROR</a> : <a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a><div class="summaryTableDescription">[static] 
+      Designates error events that might
+      still allow the application to continue running.</div></td><td class="summaryTableOwnerCol">LogLevel</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#FATAL" class="signatureLink">FATAL</a> : <a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a><div class="summaryTableDescription">[static] 
+      Designates events that are very
+      harmful and will eventually lead to application failure.</div></td><td class="summaryTableOwnerCol">LogLevel</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#INFO" class="signatureLink">INFO</a> : <a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a><div class="summaryTableDescription">[static] 
+      Designates informational messages that
+      highlight the progress of the application at coarse-grained level.</div></td><td class="summaryTableOwnerCol">LogLevel</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#OFF" class="signatureLink">OFF</a> : <a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a><div class="summaryTableDescription">[static] 
+     Designates events off is a special level that can be 
+     used to turn off logging.</div></td><td class="summaryTableOwnerCol">LogLevel</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#WARN" class="signatureLink">WARN</a> : <a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a><div class="summaryTableDescription">[static] 
+      Designates events that could be
+      harmful to the application operation.</div></td><td class="summaryTableOwnerCol">LogLevel</td></tr></table></div><script language="javascript" type="text/javascript"><!--
+										showHideInherited();
+										--></script><div class="MainContent"><div class="detailSectionHeader">Property Detail</div><a name="propertyDetail"></a><a name="name"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">name</td><td class="detailHeaderType">property</td></tr></table><div class="detailBody"><code>public var name:String</code><p></p><p></p><p>
+     The non-localized string name of the Level.
+     </p></div><a name="propertyDetail"></a><a name="value"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">value</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>public var value:int</code><p></p><p></p><p>
+     The integer value for this level.
+     </p></div><a name="constructorDetail"></a><div class="detailSectionHeader">Constructor Detail</div><a name="LogLevel()"></a><a name="LogLevel(String,int)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">LogLevel</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">Constructor</td></tr></table><div class="detailBody"><code>public function LogLevel(name:String, value:int)</code><p></p><p>
+     Constructs a new <code>LogLevel</code> instance.
+     </p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">name</span>:String</code> &mdash; a level name.
+     </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">value</span>:int</code> &mdash; a number
+     
+     </td></tr></table></div><a name="methodDetail"></a><div class="detailSectionHeader">Method Detail</div><a name="toString()"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">toString</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td></tr></table><div class="detailBody"><code> public function toString():String</code><p></p><p></p><p>
+     Return a string of the LogLevel.
+     </p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>String</code></td></tr></table><p><span class="label">See also</span></p><div class="seeAlso">Object.toString()</div></div><a name="valueOf()"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">valueOf</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function valueOf():Number</code><p></p><p></p><p>
+     Return value of the LogLevel.
+     </p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>Number</code> &mdash; 
+     </td></tr></table><p><span class="label">See also</span></p><div class="seeAlso">Object.valueOf()</div></div><div class="detailSectionHeader">Constant Detail</div><a name="constantDetail"></a><a name="ALL"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">ALL</td><td class="detailHeaderType">Constant</td></tr></table><div class="detailBody"><code>public static const ALL:<a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a></code><p></p><p></p><p>
+      Tells a target to process all messages.
+     </p></div><a name="constantDetail"></a><a name="DEBUG"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">DEBUG</td><td class="detailHeaderType">Constant</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>public static const DEBUG:<a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a></code><p></p><p></p><p>
+      Designates informational level
+      messages that are fine grained and most helpful when debugging an
+      application.
+     </p></div><a name="constantDetail"></a><a name="ERROR"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">ERROR</td><td class="detailHeaderType">Constant</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>public static const ERROR:<a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a></code><p></p><p></p><p>
+      Designates error events that might
+      still allow the application to continue running.
+     </p></div><a name="constantDetail"></a><a name="FATAL"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">FATAL</td><td class="detailHeaderType">Constant</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>public static const FATAL:<a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a></code><p></p><p></p><p>
+      Designates events that are very
+      harmful and will eventually lead to application failure.
+     </p></div><a name="constantDetail"></a><a name="INFO"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">INFO</td><td class="detailHeaderType">Constant</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>public static const INFO:<a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a></code><p></p><p></p><p>
+      Designates informational messages that
+      highlight the progress of the application at coarse-grained level.
+     </p></div><a name="constantDetail"></a><a name="OFF"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">OFF</td><td class="detailHeaderType">Constant</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>public static const OFF:<a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a></code><p></p><p></p><p>
+     Designates events off is a special level that can be 
+     used to turn off logging.
+     </p></div><a name="constantDetail"></a><a name="WARN"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">WARN</td><td class="detailHeaderType">Constant</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>public static const WARN:<a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a></code><p></p><p></p><p>
+      Designates events that could be
+      harmful to the application operation.
+     </p></div><br/><br/><hr><br/><p></p><center class="copyright"><footer></footer><br/>Fri Jul 3 2009, 12:06 PM +08:00  </center></div></body></html><!--<br/>Fri Jul 3 2009, 12:06 PM +08:00  -->

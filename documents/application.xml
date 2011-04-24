@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="www.manaca.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="www.manaca.net appliction.xsd">
+	<appSettings>
+		<securitySettings>
+			<crossDomainPolicies>
+				<url/>
+			</crossDomainPolicies>
+			<allowedDomains>
+				<domain/>
+			</allowedDomains>
+		</securitySettings>
+		<logging enabled="true" level="debug">
+			<publisher publisherType="Output"></publisher>
+		</logging>
+	</appSettings>
+	<projectSettings>
+		<add value="" key=""/>
+	</projectSettings>
+	<files>
+		<file url="" name="" fileType="image"/>
+	</files>
+</configuration>

@@ -1,0 +1,146 @@
+<!-- The file modify for adobe cairngorm-->
+<project name="manaca">
+
+	<!-- Load the properties file. -->
+	<property file="build.properties" />
+
+	<!-- Define the Flex tasks. -->
+	<taskdef
+		resource="flexTasks.tasks"
+		classpath="antlib/flexTasks.jar" />
+
+	<!-- Set the FLEX_HOME property. -->
+	<property name="FLEX_HOME" value="${flex.sdk.home}"/>
+
+	<target name="main" depends="checkos, clean, compile, doc,package " />
+
+	<target name="checkos">
+		<condition property="isWindows">
+      		<os family="windows"/>
+		</condition>
+	</target>
+
+	<target name="clean">
+		<!--
+		Create the output directory.
+		-->
+		<delete dir="${output.dir}" />
+		<mkdir dir="${output.dir}" />
+
+		<!--
+		Create the temp directory.
+		-->
+		<delete dir="${temp.dir}" />
+		<mkdir dir="${temp.dir}" />
+	</target>
+
+	<target name="compile">
+		<property name="config" value="${temp.dir}/config.xml" />
+
+		<!-- Generate the config file. -->
+		<xslt
+			in="../.flexLibProperties"
+			out="${config}"
+		    style="config.xsl">
+		</xslt>
+
+		<compc
+		    output="${output.swc}"
+			
+			allow-source-path-overlap="true"
+			headless-server="true"
+			warn-no-constructor="false">
+
+			<!-- Config file. -->
+			<load-config filename="${config}" />
+
+		    <!-- List of path elements that form the roots of ActionScript class hierarchies. -->
+			<source-path path-element="${src.dir}" />
+
+			<!-- List of SWC files or directories that contain SWC files. -->
+		    <external-library-path dir="${flex.sdk.home}/frameworks/libs" append="true">
+				<include name="*.swc" />
+		    	<include name="player/9/*.swc" />
+			</external-library-path>
+		</compc>
+	</target>
+
+	<target name="doc" if="isWindows">
+		<exec
+			executable="${asdoc.exe}"
+			failonerror="true">
+			<!--
+			<arg line="-templates-path ${asdoc.templates}" />
+			-->
+			<arg line="-source-path ${src.dir}" />
+			<arg line="-doc-sources ${src.dir}" />
+			<arg line="-window-title '${asdoc.title}'" />
+			<arg line="-output ${asdoc.output}" />
+		</exec>
+	</target>
+
+	<target name="package" depends="packageBinary, packageSource, packageDocs" />
+
+	<target name="packageBinary">
+		<!--
+		Create the binary distribution.
+		-->
+		<zip
+			basedir="../bin"
+			includes="*.swc"
+			destfile="${bin.zip}" 
+		/>
+	</target>
+
+	<target name="packageSource">
+		<!--
+		Create the source distribution.
+		-->
+		<zip 
+			basedir="../src" 
+			includes="**/*.*" 
+			destfile="${src.zip}"/>
+	</target>
+
+	<target name="packageDocs" if="isWindows">
+		<!--
+		Create the documentation distribution.
+		-->
+		<zip
+			basedir="${asdoc.output}"
+			includes="**/*.*"
+			destfile="${doc.zip}" />
+	</target>
+	
+	<target name="compileTests">
+			<exec executable="${mxmlc.exe}">
+				<!-- Point to the main test runner's application mxml file -->
+				<arg line="'${tests.dir}/src/${testRunner.name}.as'" />
+				
+				<!-- Place the built .swf file in the "bin" directory -->
+				<arg line="-o '${temp.dir}/${testRunner.name}.swf'" />
+				
+				<!-- Define source directories for "src" and "tests" -->
+				<arg line="-sp ${src.dir}" />
+				<arg line="-sp ${tests.dir}/src" />
+				
+				<!-- Include in the asunit.swc in the class path -->
+				<arg line="-l ${tests.dir}/libs/asunit.swc" />
+			</exec>
+		</target>
+		
+		<!--
+			Runs the unit tests for the library in the stand-alone Flash Player
+		-->
+		<target name="test" depends="compileTests">
+			<!--
+				If/When we add support for determinig the status of unit tests
+				as part of the ANT build process, we need to change the spawn to
+				"no" so that ANT waits until the test runner closes before
+				proceeding.
+			-->
+			<exec executable="${flashDebugPlayer.exe}" spawn="yes">
+				<arg line="${temp.dir}/${testRunner.name}.swf" />
+			</exec>
+		</target>
+</project>

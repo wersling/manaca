@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<index>
+	<title>Source of EmbedFontInFlexExample</title>
+	<nodes>
+		<node label="libs">
+		</node>
+		<node label="src" icon="classpathIcon" expanded="true">
+			<node label="Castelar.as" icon="actionScriptIcon" url="source/Castelar.as.html"/>
+			<node label="Castelar.ttf" url="source/Castelar.ttf"/>
+			<node selected="true" label="EmbedFontInFlexExample.mxml" icon="mxmlAppIcon" url="source/EmbedFontInFlexExample.mxml.html"/>
+			<node label="FontManager.as" icon="actionScriptIcon" url="source/FontManager.as.html"/>
+			<node label="GraCoBd.as" icon="actionScriptIcon" url="source/GraCoBd.as.html"/>
+			<node label="GraCoBd.ttf" url="source/GraCoBd.ttf"/>
+			<node label="Tahoma.as" icon="actionScriptIcon" url="source/Tahoma.as.html"/>
+			<node label="Tahoma.ttf" url="source/Tahoma.ttf"/>
+		</node>
+	</nodes>
+</index>

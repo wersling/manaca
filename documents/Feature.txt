@@ -1,0 +1,28 @@
+===================================
+INNER:
+-----------------------------------
+LayoutList/Paging
+Command pattern
+Map/Set
+Transition
+Loading Queue
+Logging
+Stage manager
+Preloader
+Cookie
+XML util
+
+===================================
+EXTERNAL:
+-----------------------------------
+Debug & gc by hex
+TransformTool by senocular
+Animation by yahoo
+Layout by yahoo
+
+
+===================================
+TODO:
+-----------------------------------
+Appliction config
+Controls

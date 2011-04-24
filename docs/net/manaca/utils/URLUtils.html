@@ -1,0 +1,93 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><!-- saved from url=(0014)about:internet --><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" href="../../../style.css" type="text/css" media="screen"><link rel="stylesheet" href="../../../print.css" type="text/css" media="print"><link rel="stylesheet" href="../../../override.css" type="text/css"><meta name="keywords" content="URLUtils,net.manaca.utils.URLUtils,GB2312toUTF8,UTF8toGB2312,benchmark,calledMethod,cdata,clear,clearTimeOut,getBitmapWithReflection,getName,getProperty,getSize,getTimeOut,htmlEncode,intercept,isExist,isTimeOut,ltrim,openWindow,remove,removeValueFromArray,replace,rtrim,setProperty,stretch,stripGtAndLt,substitute,substituteByID,toArray,toProperType,toUNString,trim,validateEmail,zeroPad"><title>net.manaca.utils.URLUtils</title></head><body><script language="javascript" type="text/javascript" src="../../../asdoc.js"></script><script language="javascript" type="text/javascript" src="../../../help.js"></script><script language="javascript" type="text/javascript" src="../../../cookies.js"></script><script language="javascript" type="text/javascript"><!--
+				asdocTitle = 'URLUtils - Manaca 2.0 Core Library - Manaca2';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<script type="text/javascript">
+			scrollToNameAnchor();
+		</script><table class="titleTable" cellpadding="0" cellspacing="0" id="titleTable" style="display:none"><tr><td class="titleTableTitle" align="left">API Documentation</td><td class="titleTableTopNav" align="right"><a href="../../../package-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Packages</a>&nbsp;|&nbsp;<a href="../../../class-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Classes</a>&nbsp;|&nbsp;<a href="../../../all-index-A.html" onclick="loadClassListFrame('../../../index-list.html')">Index</a>&nbsp;|&nbsp;<a id="framesLink1" href="../../../index.html?net/manaca/utils/URLUtils.html&amp;net/manaca/utils/class-list.html">Frames</a><a id="noFramesLink1" style="display:none" href="" onclick="parent.location=document.location"> No Frames </a></td><td class="titleTableLogo" align="right" rowspan="3"><img src="../../../images/logo.jpg" class="logoImage" alt=" Adobe Logo " title=" Adobe Logo "></td></tr><tr class="titleTableRow2"><td class="titleTableSubTitle" id="subTitle" align="left">URLUtils</td><td class="titleTableSubNav" id="subNav" align="right"><a href="#methodSummary">Methods</a></td></tr><tr class="titleTableRow3"><td colspan="3">&nbsp;</td></tr></table><script language="javascript" type="text/javascript" xml:space="preserve">
+				<!--
+				
+					if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("URLUtils"); titleBar_setSubNav(false,false,false	,false,false,false,true,false,false	,false,false,false,false,false);}	
+				-->
+			</script><div xmlns:fn="http://www.w3.org/2005/xpath-functions" class="MainContent"><table class="classHeaderTable" cellpadding="0" cellspacing="0"><tr><td class="classHeaderTableLabel">Package</td><td><a href="package-detail.html" onclick="javascript:loadClassListFrame('class-list.html')">net.manaca.utils</a></td></tr><tr><td class="classHeaderTableLabel">Class</td><td class="classSignature">public  class  URLUtils</td></tr><tr><td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">URLUtils  <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> Object</td></tr></table><p></p><p></p><p></p>
+ Utility for creating pop-up windows, which helps you to launch pop-ups
+ without restriction
+ 
+ ActionScript 3.0 / Flash 9
+ 
+ Note:
+ 1.   Pop-up type
+      In Flash, the pop-ups will be treated as two different approaches
+      in browsers.
+      •   Mouse-click pop-ups, Flash opens a window with a Mouse-click
+      •   Auto-launch pop-ups, Flash opens pop-ups without a Mouse-click
+ 
+ 2.   Flash Code
+      OTE we have to use the MouseEvent.CLICK for capturing Mouse
+      Event while opening a window. The MouseEvent.MOUSE_DOWN doesn't work
+      on some of browsers.
+ 
+ 3.   Flash Object
+      1.  In Firefox,
+      In order for the Firefox to trust the Flash object, thus allow popup
+      windows, we need to set the wmode property of the Flash object to
+      "opaque" or "transparent" (obviously don't use transparent unless we
+      really need to). This is required when working together with the
+      Flash player \>= 9.0.115, even for Mouse-click pop-ups.
+ 
+      However, if we want to use full screen feature in Flash, we need to
+      set the wmode to "window" in the following situation: Flash player >
+      9.0.115 and non-IE browsers. Fortunately all pop-ups work in this
+      situation after tested.
+ 
+      2.  In Internet Explorer,
+      We need to set the wmode property of the Flash object to "window" in
+      order to make the Auto-launch pop-ups work.
+ 
+      onclusions:
+      If we don’t need Flash full screen and Auto-launch pop-ups in
+      project, we can simply set the wmode property of the Flash object to
+      "opaque". This approach would be able to help us to prevent all
+      Mouse-click pop-ups blocking.
+ 
+      If we need either Flash full screen or Auto-launch pop-ups (in
+      Internet Explorer), we can set the wmode property of the Flash
+      object to "window" as default. Then set the wmode property to
+      “opaque”, if it’s running in Flash players \>= 9.0.115 and non-IE
+      browsers. The JavaScript of checking Flash player and browsers in
+      Flash.js could be like the following:
+ 
+      Additionally, we need to set the allowScriptAccess property of the
+      Flash object to "always" if Flash object and Flash wrapper are
+      hosted in the different domains.
+ 
+      One more thing: our Flash object will need to have an id in order
+      for the ExternalInterface class to work.
+ 
+ 4.   Test report
+      The Mouse-click pop-ups are tested on the following browsers with
+      Flash Player 9.0.28 - 9.0.124:
+      •   Internet Explorer 6.0 - Windows
+      •   Internet Explorer 7.0 - Windows
+      •   Firefox 2.0 - Windows
+      •   Firefox 3.0 - Windows
+      •   Opera 9.5 - Windows
+      •   Safari 3.1.1 - Mac
+ 
+      The Auto-launch pop-ups are not allowed nlyin the following
+      configurations:
+      •   Flash Player 9.0.115 - Firefox 2.0
+      •   Flash Player 9.0.115 - Firefox 3.0
+ 
+ based on script by
+ <p></p><p><span class="classHeaderTableLabel">See also</span></p><div class="seeAlso"><a href="http://apdevblog.com/problems-using-navigatetourl/" target="mm_external">based on script by</a><br/><a href="http://skovalyov.blogspot.com/2007/01/" target="mm_external">how-to-prevent-pop-up-blocking-in.html and based on script by</a><br/><a href="http://thesaj.wordpress.com/2008/02/12/" target="mm_external">the-nightmare-that-is-_blank-part-ii-help</a></div><br/><hr></div><a name="methodSummary"></a><div class="summarySection"><div class="summaryTableTitle">Public Methods </div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableMethod"><tr><th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#openWindow()" class="signatureLink">openWindow</a>(url:String, window:String = _blank, features:String):void</div><div class="summaryTableDescription">[static] 
+     Open a new browser window and prevent browser from blocking it.</div></td><td class="summaryTableOwnerCol">URLUtils</td></tr></table></div><script language="javascript" type="text/javascript"><!--
+										showHideInherited();
+										--></script><div class="MainContent"><a name="methodDetail"></a><div class="detailSectionHeader">Method Detail</div><a name="openWindow()"></a><a name="openWindow(String,String,String)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">openWindow</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td></tr></table><div class="detailBody"><code> public static function openWindow(url:String, window:String = _blank, features:String):void</code><p></p><p></p><p>
+     Open a new browser window and prevent browser from blocking it.
+     
+     </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">url</span>:String</code> &mdash;        url to be opened
+     </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">window</span>:String</code> (default = <code>_blank</code>)<code></code> &mdash;     window target
+     </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">features</span>:String</code> &mdash;   additional features for window.open function
+     </td></tr></table></p></div><br/><br/><hr><br/><p></p><center class="copyright"><footer></footer><br/>Fri Jul 3 2009, 12:06 PM +08:00  </center></div></body></html><!--<br/>Fri Jul 3 2009, 12:06 PM +08:00  -->

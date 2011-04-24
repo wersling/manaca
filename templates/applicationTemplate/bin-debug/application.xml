@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="www.manaca.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <appSettings>
+        <version>1.0</version>
+        <securitySettings>
+            <crossDomainPolicies>
+                <url/>
+            </crossDomainPolicies>
+            <allowedDomains>
+                <domain/>
+            </allowedDomains>
+        </securitySettings>
+        <!-- set debug level to debug|info|warn|error|fatal|off -->
+        <loggingSettings enabled="true" logLevel="debug">
+            <Output outputHeight="150" logLevel="debug" strong="true"/>
+            <TracePublisher logLevel="debug"/>
+        </loggingSettings>
+    </appSettings>
+    <!-- projectSettings and files that can be overridden -->
+    <extendFile>settings.xml</extendFile>
+    <projectSettings>
+        <!--
+        <add key="BASE_IMAGE_PATH" value="value1"/>
+        -->
+    </projectSettings>
+    <files>
+        <file url="settings.xml" name="file" fileType="xml"/>
+    </files>
+</configuration>

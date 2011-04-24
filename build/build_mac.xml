@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     2009-4-16 上午10:36:30                                                        
+
+     Manaca2    
+     build Manaca2 library
+                   
+     v-seanzo                                                                
+     ====================================================================== -->
+<project name="Manaca2" basedir="../" default="build-all-release">
+    <description>
+            build Manaca2 library
+    </description>
+        
+    <property environment="env"/>
+    <!-- Define variables/paths used in this build script -->
+    <property file="./build/build.properties" />
+        
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: properties              
+          Have you edit the properties file to make sure the paths are right 
+          oo your system?
+         - - - - - - - - - - - - - - - - -  -->
+    <target name="properties">
+        <fail unless="asdoc.jar">The "asdoc.jar" property must be set in ${build.dir}/build.properties.</fail>
+        <fail unless="compc.jar">The "compc.jar" property must be set in ${build.dir}/build.properties.</fail>
+        <fail unless="mxmlc.jar">The "mxmlc.jar" property must be set in ${build.dir}/build.properties.</fail>
+    </target>
+    
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: compile-tests                      
+          Compile the unit tests for the library, placing the test runner .swf 
+          file in the bin directory.
+         - - - - - - - - - - - - - - - - - -->
+    <target name="compile-tests" depends="properties, create-test-suite">
+        <!-- copy file to bin dir -->
+        <copy todir="${bin.dir}" includeEmptyDirs="false">
+            <fileset dir="${tests.dir}/${testRunner.dir}">
+                <exclude name="**/*.as" />
+                <exclude name="**/*.mxml" />
+            </fileset>
+        </copy>
+        
+        <exec executable="${mxmlc.jar}" dir="${basedir}">
+            <!-- Point to the main test runner's application mxml file -->
+            <arg line="'${tests.dir}/${testRunner.dir}/${testRunner.name}.mxml'" />
+            
+            <!-- Use AIR configuration file -->
+            <!--
+            <arg line="-load-config '${flex.sdk.lib.dir}/../air-config.xml'" />
+            -->
+            
+            <!-- Place the built .swf file in the "bin" directory -->
+            <arg line="-o '${bin.dir}/${testRunner.name}.swf'" />
+            
+            <!-- Define source directories for "src" and "tests" -->
+            <arg line="-sp ${src.dir}" />
+            <arg line="-sp ${tests.dir}/src" />
+            
+            <!-- Include the necessary framework libraries in the class path -->
+            <arg line="-l '${flex.sdk.lib.dir}'" />
+            
+            <!-- Include in the flexunit.swc in the class path -->
+            <arg line="-l ${flexunit.swc}" />
+            
+            <!-- Include locale-specific items in the path -->
+            <arg line="-locale ${flex.sdk.locale}" />
+            <arg line="-l '${flex.sdk.locale.dir}'" />
+        </exec>
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: create-test-suite                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="create-test-suite">
+        <java classname="com.allurent.flexunit.framework.AllTestsFileGenerator" 
+            fork="true" failonerror="true" logError="true"
+            output="${tests.dir}/src/FlexUnitAllTests.as">
+            <classpath>
+                <pathelement location="${build.dir}/arc-flexunit.jar" />
+            </classpath>
+            <arg value="${tests.dir}/src" />
+            <arg value="arc-flexunit.filters" />
+        </java>
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: tests                      
+          Runs the unit tests for the library in the stand-alone Flash Player
+         - - - - - - - - - - - - - - - - - -->
+    <target name="tests" depends="compile-tests">
+        <!--
+            If/When we add support for determinig the status of unit tests
+            as part of the ANT build process, we need to change the spawn to
+            "no" so that ANT waits until the test runner closes before
+            proceeding.
+        -->
+        <exec executable="${flashDebugPlayer.exe}" spawn="yes">
+            <arg line="${bin.dir}/${testRunner.name}.swf" />
+        </exec>
+    </target>
+    
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: library                      
+          Compile all of the classes under the 'src' tree into a .swc file
+         - - - - - - - - - - - - - - - - - -->
+    <target name="library" depends="properties">
+        <java jar="${compc.jar}" dir="${basedir}" failonerror="true" fork="true">
+            <!-- Specify the name of the output file -->
+            <arg line="-o '${bin.dir}/${project.name.versioned}.swc'" />
+            
+            <!-- Specify the main source path as "src" -->
+            <arg line="-sp ${src.dir}" />
+            <arg line="-load-config '${env.FLEX_HOME}/frameworks/flex-config.xml'"/>
+            <arg line="-local-fonts-snapshot '${env.FLEX_HOME}/frameworks/localFonts.ser'"/>
+            <arg value="-library-path=${src.libs}"/>
+            <!-- Include all of the classes in the "src" tree -->
+            <arg line="-is ${src.dir}" />
+        </java>
+    </target>
+    
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: docs                      
+          Generate ASDoc output for the library
+         - - - - - - - - - - - - - - - - - -->
+    <target name="docs" depends="properties">
+        <!-- Clean out the contents of the doc directory, without delete "docs" -->
+        <!--
+        <delete includeemptydirs="true">
+            <fileset dir="${docs.dir}" includes="**/*" />
+        </delete>
+        -->
+        <java jar="${asdoc.jar}" failonerror="true" fork="true">
+            <!-- Place the documentation in the "docs" directory -->
+            <arg line="-o ${docs.dir}" />
+            <!-- <arg line="-keep-xml" /> -->
+            
+            <!-- Specify the main source path as "src" -->
+            <arg line="-sp ${src.dir}" />
+            
+            <!-- Document all of the classes in the "src" tree -->
+            <arg line="-ds ${src.dir} " />
+            
+            <arg value="-library-path=${src.libs}"/>
+            
+            <arg line="-load-config '${env.FLEX_HOME}/frameworks/flex-config.xml'"/>
+            <arg line="-local-fonts-snapshot '${env.FLEX_HOME}/frameworks/localFonts.ser'"/>
+            
+            <!-- Include the library name in the window title -->
+            <arg line="-window-title 'Manaca 2.0 Core Library - ${project.name}' "/>
+        </java>
+    </target>
+
+    <!-- ================================= 
+          target: build-all-release              
+         ================================= -->
+    <target name="build-all-release" 
+         depends="properties, tests, library, docs" 
+         description="Build release version including documentation and test">
+    </target>
+
+    <!-- ================================= 
+          target: test              
+         ================================= -->
+    <target name="test" 
+         depends="properties, tests" 
+         description="Build and test the project">
+    </target>
+</project>

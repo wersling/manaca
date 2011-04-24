@@ -1,0 +1,131 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><!-- saved from url=(0014)about:internet --><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" href="../../../style.css" type="text/css" media="screen"><link rel="stylesheet" href="../../../print.css" type="text/css" media="print"><link rel="stylesheet" href="../../../override.css" type="text/css"><meta name="keywords" content="Logger,net.manaca.logging.Logger,ALL,DEBUG,ERROR,FATAL,INFO,OFF,WARN,level,level,logger,name,name,value,addPublisher,clone,debug,debug,error,error,fatal,fatal,getDate,getLevel,getLogger,getLoggerName,getMessage,getPublishers,hasPublisher,info,info,isLoggable,log,publish,removePublisher,toString,toString,valueOf,warn,warn"><title>net.manaca.logging.Logger</title></head><body><script language="javascript" type="text/javascript" src="../../../asdoc.js"></script><script language="javascript" type="text/javascript" src="../../../help.js"></script><script language="javascript" type="text/javascript" src="../../../cookies.js"></script><script language="javascript" type="text/javascript"><!--
+				asdocTitle = 'Logger - Manaca 2.0 Core Library - Manaca2';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<script type="text/javascript">
+			scrollToNameAnchor();
+		</script><table class="titleTable" cellpadding="0" cellspacing="0" id="titleTable" style="display:none"><tr><td class="titleTableTitle" align="left">API Documentation</td><td class="titleTableTopNav" align="right"><a href="../../../package-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Packages</a>&nbsp;|&nbsp;<a href="../../../class-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Classes</a>&nbsp;|&nbsp;<a href="../../../all-index-A.html" onclick="loadClassListFrame('../../../index-list.html')">Index</a>&nbsp;|&nbsp;<a id="framesLink1" href="../../../index.html?net/manaca/logging/Logger.html&amp;net/manaca/logging/class-list.html">Frames</a><a id="noFramesLink1" style="display:none" href="" onclick="parent.location=document.location"> No Frames </a></td><td class="titleTableLogo" align="right" rowspan="3"><img src="../../../images/logo.jpg" class="logoImage" alt=" Adobe Logo " title=" Adobe Logo "></td></tr><tr class="titleTableRow2"><td class="titleTableSubTitle" id="subTitle" align="left">Logger</td><td class="titleTableSubNav" id="subNav" align="right"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td></tr><tr class="titleTableRow3"><td colspan="3">&nbsp;</td></tr></table><script language="javascript" type="text/javascript" xml:space="preserve">
+				<!--
+				
+					if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Logger"); titleBar_setSubNav(false,true,false	,false,false,false,true,false,false	,false,false,false,false,false);}	
+				-->
+			</script><div xmlns:fn="http://www.w3.org/2005/xpath-functions" class="MainContent"><table class="classHeaderTable" cellpadding="0" cellspacing="0"><tr><td class="classHeaderTableLabel">Package</td><td><a href="package-detail.html" onclick="javascript:loadClassListFrame('class-list.html')">net.manaca.logging</a></td></tr><tr><td class="classHeaderTableLabel">Class</td><td class="classSignature">public  class  Logger</td></tr><tr><td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">Logger  <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> Object</td></tr></table><p></p><p></p><p></p>
+               <code>Logger</code> implements <code>ILogger</code> all methods.
+ 
+ <p>The basic methods to log messages are <code>debug</code>, <code>info</code>,
+ <code>error</code>,<code>warning</code> and <code>fatal</code>.</p>
+ 
+               <p>Logger objects may be obtained by calls on one of the getLogger factory methods.
+ These will either create a new Logger or return a suitable existing Logger.</p>
+ 
+               <p>Each Logger keeps track of a "parent" Logger, which is its nearest existing
+ ancestor in the Logger namespace.</p>
+ 
+               <p>Logging messages will be forwarded to registered publisher objects,
+ which can forward the messages to a variety of destinations, including consoles,
+ files, OS logs, etc.</p>
+ 
+               <p>The basic workflow of using loggers is as follows:</p>
+            <p></p><p><span class="classHeaderTableLabel">See also</span></p><div class="seeAlso"><a href="LogLevel.html" target="">net.manaca.logging.LogLevel</a><br/><a href="ILogPublisher.html" target="">net.manaca.logging.ILogPublisher</a></div><br/><hr></div><a name="propertySummary"></a><div class="summarySection"><div class="summaryTableTitle">Public Properties</div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableProperty"><tr><th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#level" class="signatureLink">level</a> : <a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a><div class="summaryTableDescription">
+     The log Level that has been specified for this Logger.</div></td><td class="summaryTableOwnerCol">Logger</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#name" class="signatureLink">name</a> : String<div class="summaryTableDescription">[read-only] 
+     The name for this logger.</div></td><td class="summaryTableOwnerCol">Logger</td></tr></table></div><a name="methodSummary"></a><div class="summarySection"><div class="summaryTableTitle">Public Methods </div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableMethod"><tr><th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#Logger()" class="signatureLink">Logger</a>(logName:String)</div><div class="summaryTableDescription">
+     Constructs a new Logger instance.</div></td><td class="summaryTableOwnerCol">Logger</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#addPublisher()" class="signatureLink">addPublisher</a>(publisher:<a href="../../../net/manaca/logging/ILogPublisher.html">ILogPublisher</a>):void</div><div class="summaryTableDescription">
+     Add a publicsher to the Logger.</div></td><td class="summaryTableOwnerCol">Logger</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#debug()" class="signatureLink">debug</a>(message:*, ... rest):void</div><div class="summaryTableDescription">
+     </div></td><td class="summaryTableOwnerCol">Logger</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#error()" class="signatureLink">error</a>(message:*, ... rest):void</div><div class="summaryTableDescription">
+     </div></td><td class="summaryTableOwnerCol">Logger</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#fatal()" class="signatureLink">fatal</a>(message:*, ... rest):void</div><div class="summaryTableDescription">
+     </div></td><td class="summaryTableOwnerCol">Logger</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#getLogger()" class="signatureLink">getLogger</a>(logName:String = null):<a href="../../../net/manaca/logging/Logger.html">Logger</a></div><div class="summaryTableDescription">[static] 
+     Returns the logger associated with the specified category.</div></td><td class="summaryTableOwnerCol">Logger</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#getPublishers()" class="signatureLink">getPublishers</a>():Array</div><div class="summaryTableDescription">
+     Get the publishers associated with this logger.</div></td><td class="summaryTableOwnerCol">Logger</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#hasPublisher()" class="signatureLink">hasPublisher</a>(publisher:<a href="../../../net/manaca/logging/ILogPublisher.html">ILogPublisher</a>):Boolean</div><div class="summaryTableDescription">
+     Check a publicsher in the Logger.</div></td><td class="summaryTableOwnerCol">Logger</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#info()" class="signatureLink">info</a>(message:*, ... rest):void</div><div class="summaryTableDescription">
+     </div></td><td class="summaryTableOwnerCol">Logger</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#log()" class="signatureLink">log</a>(level:<a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a>, message:Array, rest:*):void</div><div class="summaryTableDescription">
+      Logs the specified data at the given level.</div></td><td class="summaryTableOwnerCol">Logger</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#removePublisher()" class="signatureLink">removePublisher</a>(publisher:<a href="../../../net/manaca/logging/ILogPublisher.html">ILogPublisher</a>):void</div><div class="summaryTableDescription">
+     Remove a publicsher from the Logger.</div></td><td class="summaryTableOwnerCol">Logger</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#warn()" class="signatureLink">warn</a>(message:*, ... rest):void</div><div class="summaryTableDescription">
+     </div></td><td class="summaryTableOwnerCol">Logger</td></tr></table></div><script language="javascript" type="text/javascript"><!--
+										showHideInherited();
+										--></script><div class="MainContent"><div class="detailSectionHeader">Property Detail</div><a name="propertyDetail"></a><a name="level"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">level</td><td class="detailHeaderType">property</td></tr></table><div class="detailBody"><code>level:<a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a></code>&nbsp;&nbsp;[read-write] <p></p><p></p><p>
+     The log Level that has been specified for this Logger.
+     </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get level():<a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a></code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set level(value:<a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a>):void</code><br/></div><a name="propertyDetail"></a><a name="name"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">name</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>name:String</code>&nbsp;&nbsp;[read-only] <p></p><p></p><p>
+     The name for this logger.
+     </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get name():String</code><br/></div><a name="constructorDetail"></a><div class="detailSectionHeader">Constructor Detail</div><a name="Logger()"></a><a name="Logger(String)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">Logger</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">Constructor</td></tr></table><div class="detailBody"><code>public function Logger(logName:String)</code><p></p><p>
+     Constructs a new <code>Logger</code> instance.
+     </p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">logName</span>:String</code> &mdash; the logger name.
+     
+     </td></tr></table></div><a name="methodDetail"></a><div class="detailSectionHeader">Method Detail</div><a name="addPublisher()"></a><a name="addPublisher(net.manaca.logging.ILogPublisher)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">addPublisher</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td></tr></table><div class="detailBody"><code> public function addPublisher(publisher:<a href="../../../net/manaca/logging/ILogPublisher.html">ILogPublisher</a>):void</code><p></p><p></p><p>
+     Add a publicsher to the Logger.
+     </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">publisher</span>:<a href="../../../net/manaca/logging/ILogPublisher.html">ILogPublisher</a></code> &mdash; publicsher.
+     </td></tr></table></p><p><span class="label">See also</span></p><div class="seeAlso">com.msn.logging.ILogPublisher</div></div><a name="debug()"></a><a name="debug(,restParam)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">debug</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function debug(message:*, ... rest):void</code><p></p><p></p><p>
+     </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">message</span>:*</code></td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code>... <span class="label">rest</span></code></td></tr></table></p></div><a name="error()"></a><a name="error(,restParam)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">error</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function error(message:*, ... rest):void</code><p></p><p></p><p>
+     </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">message</span>:*</code></td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code>... <span class="label">rest</span></code></td></tr></table></p></div><a name="fatal()"></a><a name="fatal(,restParam)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">fatal</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function fatal(message:*, ... rest):void</code><p></p><p></p><p>
+     </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">message</span>:*</code></td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code>... <span class="label">rest</span></code></td></tr></table></p></div><a name="getLogger()"></a><a name="getLogger(String)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">getLogger</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public static function getLogger(logName:String = null):<a href="../../../net/manaca/logging/Logger.html">Logger</a></code><p></p><p></p><p>
+     Returns the logger associated with the specified category.
+     </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">logName</span>:String</code> (default = <code>null</code>)<code></code> &mdash; The logName of the logger that should be returned.
+     </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code><a href="../../../net/manaca/logging/Logger.html">Logger</a></code> &mdash; An instance of a logger object for the specified name.
+     If the name doesn"t exist, a new instance with the specified
+     name is returned.
+     </td></tr></table></div><a name="getPublishers()"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">getPublishers</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function getPublishers():Array</code><p></p><p></p><p>
+     Get the publishers associated with this logger.
+     </p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>Array</code> &mdash; all publicshers.
+     </td></tr></table></div><a name="hasPublisher()"></a><a name="hasPublisher(net.manaca.logging.ILogPublisher)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">hasPublisher</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function hasPublisher(publisher:<a href="../../../net/manaca/logging/ILogPublisher.html">ILogPublisher</a>):Boolean</code><p></p><p></p><p>
+     Check a publicsher in the Logger.
+     </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">publisher</span>:<a href="../../../net/manaca/logging/ILogPublisher.html">ILogPublisher</a></code> &mdash; a publicsher.
+     </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>Boolean</code> &mdash; true if the publisher existent.
+     </td></tr></table><p><span class="label">See also</span></p><div class="seeAlso">com.msn.logging.ILogPublisher</div></div><a name="info()"></a><a name="info(,restParam)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">info</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function info(message:*, ... rest):void</code><p></p><p></p><p>
+     </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">message</span>:*</code></td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code>... <span class="label">rest</span></code></td></tr></table></p></div><a name="log()"></a><a name="log(net.manaca.logging.LogLevel,Array,)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">log</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function log(level:<a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a>, message:Array, rest:*):void</code><p></p><p></p><p>
+      Logs the specified data at the given level.
+     
+      <p>The String specified for logging can contain braces with an index
+      indicating which additional parameter should be inserted
+      into the String before it is logged.
+      For example "the first additional parameter was {0} the second was {1}"
+      is translated into "the first additional parameter was 10 the
+      second was 15" when called with 10 and 15 as parameters.</p>
+     
+      </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">level</span>:<a href="../../../net/manaca/logging/LogLevel.html">LogLevel</a></code> &mdash; The level this information should be logged at.
+      Valid values are:
+      <ul>
+        <li><code>LogLevel.FATAL</code> designates events that are very
+        harmful and will eventually lead to application failure</li>
+     
+        <li><code>LogLevel.ERROR</code> designates error events
+        that might still allow the application to continue running.</li>
+     
+        <li><code>LogLevel.WARN</code> designates events that could be
+        harmful to the application operation</li>
+     
+        <li><code>LogLevel.INFO</code> designates informational messages
+        that highlight the progress of the application at
+        coarse-grained level.</li>
+     
+        <li><code>LogLevel.DEBUG</code> designates informational
+        level messages that are fine grained and most helpful when
+        debugging an application.</li>
+     
+        <li><code>LogLevel.ALL</code> intended to force a target to
+        process all messages.</li>
+      </ul>
+     
+      </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">message</span>:Array</code> &mdash; The information to log.
+      This String can contain special marker characters of the form {x},
+      where x is a zero based index that will be replaced with
+      the additional parameters found at that index if specified.
+     
+      </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">rest</span>:*</code> &mdash; Additional parameters that can be subsituted in the str
+      parameter at each "{<code>x</code>}" location, where <code>x</code>
+      is an integer (zero based) index value into the Array of values
+      specified.
+     
+      </td></tr></table></p><br/><span class="label"> Example </span><br/>
+      <pre>
+      var logger:ILogger = Logger.getLogger("myLog");
+      logger.log(LogLevel.DEBUG, "here is some channel info {0} and {1}", LogLevel.DEBUG, 15.4, true);
+     
+      // This will log the following String as a DEBUG log message:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+     
+     </div><a name="removePublisher()"></a><a name="removePublisher(net.manaca.logging.ILogPublisher)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">removePublisher</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function removePublisher(publisher:<a href="../../../net/manaca/logging/ILogPublisher.html">ILogPublisher</a>):void</code><p></p><p></p><p>
+     Remove a publicsher from the Logger.
+     </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">publisher</span>:<a href="../../../net/manaca/logging/ILogPublisher.html">ILogPublisher</a></code> &mdash; a publicsher.
+     </td></tr></table></p><p><span class="label">See also</span></p><div class="seeAlso">com.msn.logging.ILogPublisher</div></div><a name="warn()"></a><a name="warn(,restParam)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">warn</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function warn(message:*, ... rest):void</code><p></p><p></p><p>
+     </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">message</span>:*</code></td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code>... <span class="label">rest</span></code></td></tr></table></p></div><br/><br/><hr><br/><p></p><center class="copyright"><footer></footer><br/>Fri Jul 3 2009, 12:06 PM +08:00  </center></div></body></html><!--<br/>Fri Jul 3 2009, 12:06 PM +08:00  -->
