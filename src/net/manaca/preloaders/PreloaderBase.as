@@ -124,7 +124,11 @@ public class PreloaderBase extends MovieClip
      */
     protected function enterFrameHandler(event:Event):void
     {
-        if (loaderInfo.bytesLoaded == loaderInfo.bytesTotal)
+        var loaded:uint = loaderInfo.bytesLoaded;
+        var total:uint = loaderInfo.bytesTotal;
+        if((loaded >= total && total > 0) || (total == 0 && loaded > 0) 
+            || (root is MovieClip && (MovieClip(root).totalFrames > 2) && 
+                (MovieClip(root).framesLoaded >= 2)))
         {
             removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
             initialize();
