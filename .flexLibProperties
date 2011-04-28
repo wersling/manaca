@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="1">
   <includeClasses>
     <classEntry path="net.manaca.application.Application"/>
     <classEntry path="net.manaca.application.BaseApplication"/>
@@ -96,6 +96,7 @@
     <classEntry path="net.manaca.utils.ArrayUtil"/>
     <classEntry path="net.manaca.utils.BitmapDataUtil"/>
     <classEntry path="net.manaca.utils.Cookie"/>
+    <classEntry path="net.manaca.utils.DeepVO"/>
     <classEntry path="net.manaca.utils.NumberUtil"/>
     <classEntry path="net.manaca.utils.Stretcher"/>
     <classEntry path="net.manaca.utils.StringUtil"/>
@@ -109,7 +110,6 @@
     <classEntry path="net.manaca.xml.types.SchemaSimpleNode"/>
     <classEntry path="net.manaca.xml.types.SchemaString"/>
     <classEntry path="net.manaca.xml.types.SchemaUint"/>
-    <classEntry path="net.manaca.utils.DeepVO"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

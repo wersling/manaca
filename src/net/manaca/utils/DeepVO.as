@@ -68,5 +68,17 @@ public class DeepVO
     {
         return params.length;
     }
+    
+    /**
+     * 获得父级VO
+     * @return 
+     * 
+     */    
+    public function getParent():DeepVO
+    {
+        var p:Array = params.concat();
+        p.pop();
+        return new DeepVO("/" + p.join("/"));
+    }
 }
 }
