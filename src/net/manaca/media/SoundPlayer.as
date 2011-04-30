@@ -160,7 +160,16 @@ public class SoundPlayer extends Sound
             _soundChannel.soundTransform = transform;
         }
     }
-
+    
+    /**
+     * play progress
+     * @return 
+     * 
+     */    
+    public function get progress():Number
+    {
+        return soundChannel.position / getEstimatedTotalTime();
+    }
     //==========================================================================
     //  Methods
     //==========================================================================
