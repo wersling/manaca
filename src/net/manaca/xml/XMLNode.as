@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2011, wersling.com All rights reserved.
+ */
 package net.manaca.xml
 {
 public class XMLNode extends Object

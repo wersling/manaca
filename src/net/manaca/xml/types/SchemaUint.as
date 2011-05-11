@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2011, wersling.com All rights reserved.
+ */
 package net.manaca.xml.types
 {
 public class SchemaUint extends SchemaSimpleNode
