@@ -3,7 +3,6 @@ package net.manaca.application.config
 import flash.events.EventDispatcher;
 import flash.utils.Dictionary;
 
-import net.manaca.application.config.model.FileTypeInfo;
 import net.manaca.errors.IllegalArgumentError;
 import net.manaca.loading.queue.LoadingEvent;
 import net.manaca.loading.queue.MultiLoading;
@@ -59,7 +58,7 @@ public class FilePreloadingHelper extends EventDispatcher
     //==========================================================================
     private var info:XML;
     private var loadingQueue:MultiLoading;
-    private var files:Dictionary;
+    public var files:Dictionary;
     //==========================================================================
     //  Properties
     //==========================================================================
@@ -97,15 +96,14 @@ public class FilePreloadingHelper extends EventDispatcher
      */
     public function start():void
     {
-        files = new Dictionary(true);
+        files = new Dictionary();
 
         loadingQueue = new MultiLoading();
         addEventListeners();
-
         for each(var file:XML in info.Files.File)
         {
             var loader:* = null;
-            switch(file.@FileType)
+            switch(String(file.@type))
             {
                 case FileTypeInfo.IMAGE:
                 {
@@ -129,9 +127,9 @@ public class FilePreloadingHelper extends EventDispatcher
             }
             if(loader)
             {
-                files[file.@name] = loader;
+                files[String(file.@name)] = loader;
             }
-            Tracer.debug("Start loading file:" + file.@url);
+            Tracer.debug("Start loading file:" + [file.@name, file.@url]);
         }
         loadingQueue.start();
     }

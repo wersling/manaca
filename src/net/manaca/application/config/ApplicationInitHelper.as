@@ -8,7 +8,6 @@ import flash.events.EventDispatcher;
 import flash.system.Security;
 import flash.utils.Dictionary;
 
-import net.manaca.application.config.model.LogLevelInfo;
 import net.manaca.errors.IllegalArgumentError;
 import net.manaca.logging.LogLevel;
 import net.manaca.logging.Tracer;

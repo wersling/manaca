@@ -7,9 +7,6 @@ import flash.utils.Dictionary;
 import net.manaca.application.config.ApplicationInitHelper;
 import net.manaca.application.config.ConfigFileHelper;
 import net.manaca.application.config.FilePreloadingHelper;
-import net.manaca.application.config.model.ConfigurationInfo;
-import net.manaca.application.thread.BatchEvent;
-import net.manaca.application.thread.ProcessEvent;
 import net.manaca.core.AbstractHandler;
 import net.manaca.errors.FrameworkError;
 import net.manaca.errors.IllegalArgumentError;
@@ -93,9 +90,12 @@ public class Application extends Sprite implements IApplication
 
     private var config:*;
     private var configXML:XML;
-    private var projectSettings:Dictionary;
+    private var projectSettings:Dictionary = new Dictionary();
     private var externalFiles:Dictionary;
     private var filePreloading:FilePreloadingHelper;
+    //==========================================================================
+    //  Constructor
+    //==========================================================================
     /**
      * Constructs a new <code>Application</code> instance.
      * @param config the config xml class.
@@ -143,23 +143,23 @@ public class Application extends Sprite implements IApplication
         configFile.init(config);
     }
     
-    private function configFile_completeHandler(event:Event):void
+    private function initApp():void
     {
-        ConfigFileHelper(event.target).addEventListener(Event.COMPLETE,
-            configFile_completeHandler);
-        
-        configXML = ConfigFileHelper(event.target).config;
-        
+        //init stage,logging
         new ApplicationInitHelper().init(stage, configXML);
+        
+        //init project settings
+        for each(var item:XML in configXML.ProjectSettings.Add)
+        {
+            this.projectSettings[String(item.@key)] = String(item.@value);
+        }
+        
+        //start loading files
         filePreloading = new FilePreloadingHelper(configXML);
         filePreloading.addEventListener(LoadingEvent.COMPLETE, 
             loadCompletedHandler);
         filePreloading.addEventListener(LoadingEvent.PROGRESS, progressHandler);
-        
-    }
-    
-    private function loadCompletedHandler(event:LoadingEvent):void
-    {
+        filePreloading.start();
     }
     /**
      * The startup function will call by application initialized.
@@ -187,7 +187,7 @@ public class Application extends Sprite implements IApplication
      * @param percent
      *
      */
-    protected function updateConfiguration(percentage:uint):void
+    protected function updateProgress(percent:uint):void
     {
     }
 
@@ -203,56 +203,35 @@ public class Application extends Sprite implements IApplication
         throw new FrameworkError(error.toString());
     }
 
-    /**
-     * remove configuration events.
-     *
-     */
-    private function removeConfigurationEvents():void
-    {
-    }
-
     //==========================================================================
     //  Event handlers
     //==========================================================================
-    /**
-     * handle configuration finish event.
-     * @param event
-     *
-     */
-    private function configurationFinishHandler(event:BatchEvent):void
+    private function configFile_completeHandler(event:Event):void
     {
-        removeConfigurationEvents();
+        ConfigFileHelper(event.target).addEventListener(Event.COMPLETE,
+            configFile_completeHandler);
+        
+        configXML = ConfigFileHelper(event.target).config;
+        
+        initApp();
+    }
+    
+    private function progressHandler(event:LoadingEvent):void
+    {
+        updateProgress(event.percent);
+    }
+    
+    private function loadCompletedHandler(event:LoadingEvent):void
+    {
+        this.externalFiles = filePreloading.externalFiles;
+        
+        filePreloading.addEventListener(LoadingEvent.COMPLETE, 
+            loadCompletedHandler);
+        filePreloading.addEventListener(LoadingEvent.PROGRESS, progressHandler);
+        filePreloading.dispose();
+        filePreloading = null;
+        
         startup();
-    }
-
-    /**
-     * handle configuration update event.
-     * @param event
-     *
-     */
-    private function configurationUpdateHandler(event:BatchEvent):void
-    {
-        updateConfiguration(event.percentage);
-    }
-
-    /**
-     * handle configuration batch error event.
-     * @param event
-     *
-     */
-    private function configurationBatchErrorHandler(event:BatchEvent):void
-    {
-        errorHandler(event.error);
-    }
-
-    /**
-     * handle configuration process error event.
-     * @param event
-     *
-     */
-    private function configurationProcessErrorHandler(event:ProcessEvent):void
-    {
-        errorHandler(event.error);
     }
 }
 }

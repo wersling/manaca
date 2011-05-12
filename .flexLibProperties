@@ -4,26 +4,8 @@
     <classEntry path="net.manaca.application.Application"/>
     <classEntry path="net.manaca.application.BaseApplication"/>
     <classEntry path="net.manaca.application.IApplication"/>
-    <classEntry path="net.manaca.application.config.ApplicationInitHelper"/>
-    <classEntry path="net.manaca.application.config.ExtendFileConfiguration"/>
-    <classEntry path="net.manaca.application.config.FilePreloadConfiguration"/>
-    <classEntry path="net.manaca.application.config.LoggingConfiguration"/>
-    <classEntry path="net.manaca.application.config.SecuritySettingsConfiguration"/>
-    <classEntry path="net.manaca.application.config.StageConfiguration"/>
-    <classEntry path="net.manaca.application.config.model.AddInfo"/>
-    <classEntry path="net.manaca.application.config.model.AllowedDomainsInfo"/>
-    <classEntry path="net.manaca.application.config.model.AppSettingsInfo"/>
-    <classEntry path="net.manaca.application.config.model.ConfigurationInfo"/>
-    <classEntry path="net.manaca.application.config.model.CrossDomainPoliciesInfo"/>
-    <classEntry path="net.manaca.application.config.model.FileInfo"/>
-    <classEntry path="net.manaca.application.config.model.FileTypeInfo"/>
-    <classEntry path="net.manaca.application.config.model.FilesInfo"/>
-    <classEntry path="net.manaca.application.config.model.LogLevelInfo"/>
-    <classEntry path="net.manaca.application.config.model.LoggingSettingsInfo"/>
-    <classEntry path="net.manaca.application.config.model.OutputInfo"/>
-    <classEntry path="net.manaca.application.config.model.ProjectSettingsInfo"/>
-    <classEntry path="net.manaca.application.config.model.SecuritySettingsInfo"/>
-    <classEntry path="net.manaca.application.config.model.TracePublisherInfo"/>
+    <classEntry path="net.manaca.application.config.FileTypeInfo"/>
+    <classEntry path="net.manaca.application.config.LogLevelInfo"/>
     <classEntry path="net.manaca.application.thread.AbstractBatch"/>
     <classEntry path="net.manaca.application.thread.AbstractProcess"/>
     <classEntry path="net.manaca.application.thread.BatchEvent"/>
@@ -63,18 +45,6 @@
     <classEntry path="net.manaca.events.TransitionEvent"/>
     <classEntry path="net.manaca.formatters.DateFormatter"/>
     <classEntry path="net.manaca.formatters.DateInfo"/>
-    <classEntry path="net.manaca.loaderqueue.ILoaderAdapter"/>
-    <classEntry path="net.manaca.loaderqueue.ILoaderQueue"/>
-    <classEntry path="net.manaca.loaderqueue.LoaderQueue"/>
-    <classEntry path="net.manaca.loaderqueue.LoaderQueueConst"/>
-    <classEntry path="net.manaca.loaderqueue.LoaderQueueEvent"/>
-    <classEntry path="net.manaca.loaderqueue.adapter.AbstractLoaderAdapter"/>
-    <classEntry path="net.manaca.loaderqueue.adapter.BackupLoaderAdapter"/>
-    <classEntry path="net.manaca.loaderqueue.adapter.BackupURLLoaderAdapter"/>
-    <classEntry path="net.manaca.loaderqueue.adapter.LoaderAdapter"/>
-    <classEntry path="net.manaca.loaderqueue.adapter.MPSoundAdapter"/>
-    <classEntry path="net.manaca.loaderqueue.adapter.URLLoaderAdapter"/>
-    <classEntry path="net.manaca.loaderqueue.adapter.URLStreamAdapter"/>
     <classEntry path="net.manaca.loading.queue.ILoading"/>
     <classEntry path="net.manaca.loading.queue.LoadingEvent"/>
     <classEntry path="net.manaca.loading.queue.LoadingInfo"/>
@@ -90,7 +60,6 @@
     <classEntry path="net.manaca.logging.publishers.LongingPublisher"/>
     <classEntry path="net.manaca.logging.publishers.Output"/>
     <classEntry path="net.manaca.logging.publishers.TracePublisher"/>
-    <classEntry path="net.manaca.utils.DepthUtil"/>
     <classEntry path="net.manaca.managers.FontManager"/>
     <classEntry path="net.manaca.managers.IToolTipDisplay"/>
     <classEntry path="net.manaca.managers.PopUpManager"/>
@@ -98,18 +67,6 @@
     <classEntry path="net.manaca.managers.ToolTipDisplay"/>
     <classEntry path="net.manaca.managers.ToolTipManager"/>
     <classEntry path="net.manaca.media.SoundPlayer"/>
-    <classEntry path="net.manaca.modules.AbstractModule"/>
-    <classEntry path="net.manaca.modules.IModuleContext"/>
-    <classEntry path="net.manaca.modules.IModuleDisplay"/>
-    <classEntry path="net.manaca.modules.IModuleFactory"/>
-    <classEntry path="net.manaca.modules.IModuleInfo"/>
-    <classEntry path="net.manaca.modules.ModuleEvent"/>
-    <classEntry path="net.manaca.modules.ModuleFactory"/>
-    <classEntry path="net.manaca.modules.ModuleInfo"/>
-    <classEntry path="net.manaca.modules.ModuleManager"/>
-    <classEntry path="net.manaca.modules.ModuleManagerImpl"/>
-    <classEntry path="net.manaca.modules.ModuleMediator"/>
-    <classEntry path="net.manaca.modules.ModuleVO"/>
     <classEntry path="net.manaca.preloaders.PreloaderBase"/>
     <classEntry path="net.manaca.preloaders.SimplePreloader"/>
     <classEntry path="net.manaca.tracking.Tracking"/>
@@ -122,7 +79,6 @@
     <classEntry path="net.manaca.utils.NumberUtil"/>
     <classEntry path="net.manaca.utils.Stretcher"/>
     <classEntry path="net.manaca.utils.StringUtil"/>
-    <classEntry path="net.manaca.utils.FunctionUtil"/>
     <classEntry path="net.manaca.utils.URLUtils"/>
     <classEntry path="net.manaca.xml.XMLNode"/>
     <classEntry path="net.manaca.xml.types.SchemaBoolean"/>
@@ -132,7 +88,6 @@
     <classEntry path="net.manaca.xml.types.SchemaSimpleNode"/>
     <classEntry path="net.manaca.xml.types.SchemaString"/>
     <classEntry path="net.manaca.xml.types.SchemaUint"/>
-    <classEntry path="net.manaca.application.config.ConfigFileHelper"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

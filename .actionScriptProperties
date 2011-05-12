@@ -48,8 +48,6 @@
           </libraryPathEntry>
         </excludedEntries>
       </libraryPathEntry>
-      <libraryPathEntry kind="1" linkType="1" path="${FLEXUNIT_LIB_LOCATION}/version4libs/"/>
-      <libraryPathEntry kind="1" linkType="1" path="${FLEXUNIT_LOCALE_LOCATION}/version4locale/"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
