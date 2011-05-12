@@ -6,6 +6,7 @@ import flash.utils.Dictionary;
 
 import net.manaca.application.config.ApplicationInitHelper;
 import net.manaca.application.config.ConfigFileHelper;
+import net.manaca.application.config.FilePreloadingHelper;
 import net.manaca.application.config.model.ConfigurationInfo;
 import net.manaca.application.thread.BatchEvent;
 import net.manaca.application.thread.ProcessEvent;
@@ -13,6 +14,7 @@ import net.manaca.core.AbstractHandler;
 import net.manaca.errors.FrameworkError;
 import net.manaca.errors.IllegalArgumentError;
 import net.manaca.errors.SingletonError;
+import net.manaca.loading.queue.LoadingEvent;
 
 /**
  * <code>Application</code> is the default access point for flash applications.
@@ -93,9 +95,7 @@ public class Application extends Sprite implements IApplication
     private var configXML:XML;
     private var projectSettings:Dictionary;
     private var externalFiles:Dictionary;
-    private var configFile:ConfigFileHelper;
-    private var initHelper:ApplicationInitHelper;
-
+    private var filePreloading:FilePreloadingHelper;
     /**
      * Constructs a new <code>Application</code> instance.
      * @param config the config xml class.
@@ -140,17 +140,26 @@ public class Application extends Sprite implements IApplication
         var configFile:ConfigFileHelper = new ConfigFileHelper();
         configFile.addEventListener(Event.COMPLETE,
             configFile_completeHandler);
+        configFile.init(config);
     }
     
     private function configFile_completeHandler(event:Event):void
     {
-        event.target.addEventListener(Event.COMPLETE,
+        ConfigFileHelper(event.target).addEventListener(Event.COMPLETE,
             configFile_completeHandler);
         
-        configXML = configFile.config;
+        configXML = ConfigFileHelper(event.target).config;
         
-        initHelper = new ApplicationInitHelper()
-        initHelper.init(stage, config);
+        new ApplicationInitHelper().init(stage, configXML);
+        filePreloading = new FilePreloadingHelper(configXML);
+        filePreloading.addEventListener(LoadingEvent.COMPLETE, 
+            loadCompletedHandler);
+        filePreloading.addEventListener(LoadingEvent.PROGRESS, progressHandler);
+        
+    }
+    
+    private function loadCompletedHandler(event:LoadingEvent):void
+    {
     }
     /**
      * The startup function will call by application initialized.
@@ -200,14 +209,6 @@ public class Application extends Sprite implements IApplication
      */
     private function removeConfigurationEvents():void
     {
-        initHelper.removeEventListener(BatchEvent.BATCH_FINISH, 
-                                        configurationFinishHandler);
-        initHelper.removeEventListener(BatchEvent.BATCH_UPDATE, 
-                                        configurationUpdateHandler);
-        initHelper.removeEventListener(BatchEvent.BATCH_ERROR, 
-                                        configurationBatchErrorHandler);
-        initHelper.removeEventListener(ProcessEvent.PROCESS_ERROR, 
-                                        configurationProcessErrorHandler);
     }
 
     //==========================================================================
@@ -221,7 +222,6 @@ public class Application extends Sprite implements IApplication
     private function configurationFinishHandler(event:BatchEvent):void
     {
         removeConfigurationEvents();
-        initHelper.dispose();
         startup();
     }
 

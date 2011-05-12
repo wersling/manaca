@@ -61,18 +61,6 @@ public class ApplicationInitHelper extends EventDispatcher
         
         this.config = config;
         
-        initQueue();
-    }
-    
-    public function dispose():void
-    {
-        
-    }
-    /**
-     * add configuration process.
-     */
-    private function initQueue():void
-    {
         initStage();
         initLogging();
         initSecurity();

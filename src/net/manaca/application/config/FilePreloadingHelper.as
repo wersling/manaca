@@ -1,32 +1,38 @@
 package net.manaca.application.config
 {
-import flash.errors.IOError;
+import flash.events.EventDispatcher;
 import flash.utils.Dictionary;
 
-import net.manaca.application.config.model.FileInfo;
-import net.manaca.application.config.model.FilesInfo;
 import net.manaca.application.config.model.FileTypeInfo;
-import net.manaca.application.thread.AbstractProcess;
 import net.manaca.errors.IllegalArgumentError;
 import net.manaca.loading.queue.LoadingEvent;
 import net.manaca.loading.queue.MultiLoading;
 import net.manaca.logging.Tracer;
+/**
+ * Dispatched when the loading completed.
+ * @eventType net.manaca.loading.queue.LoadingEvent.COMPLETE
+ */
+[Event(name = "complete", type = "net.manaca.loading.queue.LoadingEvent")]
 
+/**
+ * Dispatched when the loading error.
+ * @eventType net.manaca.loading.queue.LoadingEvent.ERROR
+ */
+[Event(name = "error", type = "net.manaca.loading.queue.LoadingEvent")]
+
+/**
+ * Dispatched when the loading update.
+ * @eventType net.manaca.loading.queue.LoadingEvent.PROGRESS
+ */
+[Event(name = "progress", type = "net.manaca.loading.queue.LoadingEvent")]
 /**
  * The FilePreloadConfiguration loading the files by xml files node.
  * You can get these files in externalFiles map.
  * @author Sean
  *
  */
-public class FilePreloadConfiguration extends AbstractProcess
+public class FilePreloadingHelper extends EventDispatcher
 {
-    //==========================================================================
-    //  Variables
-    //==========================================================================
-    private var info:FilesInfo;
-    private var loadingQueue:MultiLoading;
-    private var files:Dictionary;
-
     //==========================================================================
     //  Constructor
     //==========================================================================
@@ -35,7 +41,7 @@ public class FilePreloadConfiguration extends AbstractProcess
      * @param info the files list.
      *
      */
-    public function FilePreloadConfiguration(info:FilesInfo)
+    public function FilePreloadingHelper(info:XML)
     {
         super();
 
@@ -48,7 +54,12 @@ public class FilePreloadConfiguration extends AbstractProcess
             throw new IllegalArgumentError("invalid info argument:" + info);
         }
     }
-
+    //==========================================================================
+    //  Variables
+    //==========================================================================
+    private var info:XML;
+    private var loadingQueue:MultiLoading;
+    private var files:Dictionary;
     //==========================================================================
     //  Properties
     //==========================================================================
@@ -60,7 +71,7 @@ public class FilePreloadConfiguration extends AbstractProcess
      * @return
      *
      */
-    override public function get percentage():uint
+    public function get percentage():uint
     {
         return loadingQueue ? loadingQueue.percent : 0;
     }
@@ -84,51 +95,45 @@ public class FilePreloadConfiguration extends AbstractProcess
     /**
      * Start loading all files.
      */
-    override protected function run():void
+    public function start():void
     {
         files = new Dictionary(true);
 
         loadingQueue = new MultiLoading();
         addEventListeners();
 
-        var len:uint = info.getFileCount();
-        if(len > 0)
+        for each(var file:XML in info.Files.File)
         {
-            var file:FileInfo;
-            for(var i:uint = 0 ;i < len; i++ )
+            var loader:* = null;
+            switch(file.@FileType)
             {
-                file = info.getFileAt(i);
-                if(file)
+                case FileTypeInfo.IMAGE:
                 {
-                    var loader:* = null;
-                    switch(file.FileType.valueOf())
-                    {
-                        case FileTypeInfo.IMAGE:
-                            loader = loadingQueue.addImageURL(file.url, 10);
-                            break;
-                        case FileTypeInfo.SWF:
-                            loader = loadingQueue.addSwfURL(file.url, 10);
-                            break;
-                        case FileTypeInfo.XML:
-                            loader = loadingQueue.addXMLURL(file.url, 10);
-                            break;
-                    }
-
-                    if(loader)
-                    {
-                        files[file.name] = loader;
-                    }
-
-                    Tracer.debug("Start loading file:" + file.url);
+                    loader = loadingQueue.addImageURL(file.@url, 10);
+                    break;
+                }
+                case FileTypeInfo.SWF:
+                {
+                    loader = loadingQueue.addSwfURL(file.@url, 10);
+                    break;
+                }
+                case FileTypeInfo.XML:
+                {
+                    loader = loadingQueue.addXMLURL(file.@url, 10);
+                    break;
+                }
+                default:
+                {
+                    
                 }
             }
-
-            loadingQueue.start();
+            if(loader)
+            {
+                files[file.@name] = loader;
+            }
+            Tracer.debug("Start loading file:" + file.@url);
         }
-        else
-        {
-            finish();
-        }
+        loadingQueue.start();
     }
 
     private function addEventListeners():void
@@ -151,7 +156,7 @@ public class FilePreloadConfiguration extends AbstractProcess
      * dispose the instance.
      *
      */
-    override public function dispose():void
+    public function dispose():void
     {
         if(loadingQueue)
         {
@@ -159,8 +164,6 @@ public class FilePreloadConfiguration extends AbstractProcess
             loadingQueue.dispose();
             loadingQueue = null;
         }
-        
-        super.dispose();
     }
 
     //==========================================================================
@@ -173,7 +176,7 @@ public class FilePreloadConfiguration extends AbstractProcess
      */
     private function loadCompletedHandler(event:LoadingEvent):void
     {
-        this.finish();
+        dispatchEvent(event.clone());
     }
 
     /**
@@ -183,7 +186,7 @@ public class FilePreloadConfiguration extends AbstractProcess
      */
     private function errorHandler(event:LoadingEvent):void
     {
-        this.dispatchErrorEvent(new IOError(event.error.toString()));
+        Tracer.error(event.error);
     }
 
     /**
@@ -193,7 +196,7 @@ public class FilePreloadConfiguration extends AbstractProcess
      */
     private function progressHandler(event:LoadingEvent):void
     {
-        this.dispatchUpdateEvent();
+        dispatchEvent(event.clone());
     }
 }
 }
