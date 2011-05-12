@@ -11,15 +11,15 @@ public class Stretcher
     //  Class variables
     //==========================================================================
     /** Stretches the clip nonuniform to fit the container. */
-    public static var EXACTFIT:String = "exactfit";
+    static public var EXACTFIT:String = "exactfit";
     /** Stretches the clip uniform to fill the container, 
         with parts being cut off. 
     */
-    public static var FILL:String = "fill";
+    static public var FILL:String = "fill";
     /** No stretching, but the clip is placed in the center of the container. */
-    public static var NONE:String = "none";
+    static public var NONE:String = "none";
     /** Stretches the clip uniform to fit the container, with bars added. */
-    public static var UNIFORM:String = "uniform";
+    static public var UNIFORM:String = "uniform";
     
     //==========================================================================
     //  Methods
@@ -32,7 +32,7 @@ public class Stretcher
     * @param height	    The target height.
     * @param type	    The stretching type.
     */
-    public static function stretch(display:DisplayObject,
+    static public function stretch(display:DisplayObject,
                                         width:Number,height:Number,
                                         type:String="uniform"):void 
     {

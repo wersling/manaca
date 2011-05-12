@@ -51,7 +51,7 @@ public class AbstractHandler
      * that an operation marked by the developer as abstract has not been 
      * overwritten.
      */
-    public static function handlerClass(instance:Object, type:Class):void
+    static public function handlerClass(instance:Object, type:Class):void
     {
         if ( getQualifiedClassName(instance) == getQualifiedClassName(type) )
         {
@@ -70,7 +70,7 @@ public class AbstractHandler
      * an operation marked by the developer as abstract has not 
      * been overwritten.
      */
-    public static function handlerFunction(methodName:String):void
+    static public function handlerFunction(methodName:String):void
     {
         var message:String = methodName + 
                 " method is abstract and must be implemented by subclasses.";

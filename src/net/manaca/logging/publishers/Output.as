@@ -48,22 +48,22 @@ public class Output extends Sprite implements ILogPublisher
     /**
      * max text show length number.
      */
-    public static var MAX_TXT_LENGTH:int = 1000;
+    static public var MAX_TXT_LENGTH:int = 1000;
     /**
      * max text show line number.
      */
-    public static var MAX_LINE:int = 50;
+    static public var MAX_LINE:int = 50;
 
     //is outo expand.
-    private static var autoExpand:Boolean = true;
+    static private var autoExpand:Boolean = true;
     //the yes/no strong.
-    private static var isStrong:Boolean = false;
+    static private var isStrong:Boolean = false;
 
-    private static var title:String = "Wersling Output v2.0";
+    static private var title:String = "Wersling Output v2.0";
     /**
      *  @private
      */
-    public static var instance:Output;
+    static public var instance:Output;
 
     //==========================================================================
     //  Variables

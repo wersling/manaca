@@ -2,13 +2,11 @@ package net.manaca.loading.queue
 {
 import flash.events.Event;
 
-import net.manaca.events.FrameworkEvent;
-
 /**
  * The LoadingEvent object is dispatched into the event flow whenever LoadingQueue events occur. 
  * @author Sean Zou
  */    
-public class LoadingEvent extends FrameworkEvent
+public class LoadingEvent extends Event
 {
     //==========================================================================
     //  Class methods

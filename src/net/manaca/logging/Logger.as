@@ -56,7 +56,7 @@ public class Logger
      * If the name doesn"t exist, a new instance with the specified
      * name is returned.
      */
-    public static function getLogger(logName:String = null):Logger
+    static public function getLogger(logName:String = null):Logger
     {
         if (logName == null || logName == "")
         {

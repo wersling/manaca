@@ -54,7 +54,7 @@ public class ModuleEvent extends ProgressEvent
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static const ERROR:String = "error";
+    static public const ERROR:String = "error";
 
     /**
      *  Dispatched when the module is in the process of downloading. This module is
@@ -87,7 +87,7 @@ public class ModuleEvent extends ProgressEvent
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static const PROGRESS:String = "progress";
+    static public const PROGRESS:String = "progress";
 
     /**
      *  Dispatched when the module has finished downloading.     
@@ -119,7 +119,7 @@ public class ModuleEvent extends ProgressEvent
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static const READY:String = "ready";
+    static public const READY:String = "ready";
 
     /**
      *  Dispatched when the module is unloaded.
@@ -152,7 +152,7 @@ public class ModuleEvent extends ProgressEvent
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static const UNLOAD:String = "unload";
+    static public const UNLOAD:String = "unload";
 
     //--------------------------------------------------------------------------
     //

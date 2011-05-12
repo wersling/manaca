@@ -20,7 +20,7 @@ public class CommandManager extends EventDispatcher
     /**
      *  @private
      */
-    private static var instance:CommandManager;
+    static private var instance:CommandManager;
 
     //==========================================================================
     //  Class methods
@@ -30,7 +30,7 @@ public class CommandManager extends EventDispatcher
      *  Returns the sole instance of this singleton class,
      *  creating it if it does not already exist.
      */
-    public static function getInstance():CommandManager
+    static public function getInstance():CommandManager
     {
         if (!instance)
         {                

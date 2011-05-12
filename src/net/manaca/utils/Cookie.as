@@ -7,19 +7,10 @@ import flash.utils.flash_proxy;
 /**
  * The Cookie carry a proxy provide a more useful SharedObject.
  * @author v-seanzo
- * 
- */    
+ *
+ */
 dynamic public class Cookie extends Proxy
 {
-    //==========================================================================
-    //  Variables
-    //==========================================================================
-    private var _name:String;
-
-    private var _timeOut:Number;
-
-    private var _so:SharedObject;
-
     //==========================================================================
     //  Constructor
     //==========================================================================
@@ -27,24 +18,31 @@ dynamic public class Cookie extends Proxy
      * Constructs a new <code>Cookie</code> instance.
      * @param name the SharedObject name.
      * @param timeOut the value time out value.
-     * 
-     */    
+     *
+     */
     public function Cookie(name:String, timeOut:Number = 3600)
     {
         super();
         this._name = name;
         this._timeOut = timeOut;
-        
+
         _so = SharedObject.getLocal(name);
     }
-
+    //==========================================================================
+    //  Variables
+    //==========================================================================
+    private var _name:String;
+    
+    private var _timeOut:Number;
+    
+    private var _so:SharedObject;
     //==========================================================================
     //  Properties
     //==========================================================================
     /**
      * The SharedObject name.
-     * @return 
-     * 
+     * @return
+     *
      */
     public function getName():String
     {
@@ -53,8 +51,8 @@ dynamic public class Cookie extends Proxy
 
     /**
      * Get time out value.
-     * @return 
-     * 
+     * @return
+     *
      */
     public function getTimeOut():Number
     {
@@ -63,8 +61,8 @@ dynamic public class Cookie extends Proxy
 
     /**
      * Get the SharedObject size.
-     * @return 
-     * 
+     * @return
+     *
      */
     public function getSize():uint
     {
@@ -74,19 +72,20 @@ dynamic public class Cookie extends Proxy
     //==========================================================================
     //  Methods
     //==========================================================================
-    
+
     /**
      * Clear when timeout.
      */
     public function clearTimeOut():void
     {
         var obj:* = _so.data.cookie;
-        if(obj == null) return;
-        for(var key:String in obj)
+        if (obj == null)
+            return;
+        for (var key:String in obj)
         {
-            if(isTimeOut(obj[key].time))
+            if (isTimeOut(obj[key].time))
             {
-                remove(key); 
+                remove(key);
             }
         }
         _so.flush();
@@ -94,7 +93,7 @@ dynamic public class Cookie extends Proxy
 
     /**
      * Remove all cookie.
-     * 
+     *
      */
     public function clear():void
     {
@@ -105,34 +104,34 @@ dynamic public class Cookie extends Proxy
     /**
      * Check timeout.
      * @param time
-     * @return 
-     * 
+     * @return
+     *
      */
     public function isTimeOut(time:Number):Boolean
     {
         var today:Date = new Date();
-        return time + _timeOut * 1000 < today.getTime(); 
+        return time + _timeOut * 1000 < today.getTime();
     }
 
     /**
      * Check Cookie item exist.
      * @param key
-     * @return 
-     * 
+     * @return
+     *
      */
     public function isExist(key:String):Boolean
-    { 
+    {
         return _so.data.cookie != null && _so.data.cookie[key] != null;
-    } 
+    }
 
     /**
      * Remove Cookie item by key.
      * @param key
-     * 
+     *
      */
     public function remove(key:String):void
-    { 
-        if(isExist(key))
+    {
+        if (isExist(key))
         {
             delete _so.data.cookie[key];
             _so.flush();
@@ -140,26 +139,26 @@ dynamic public class Cookie extends Proxy
     }
 
     /**
-     * 
+     *
      * @param name
-     * @return 
-     * 
+     * @return
+     *
      */
-    override flash_proxy function getProperty(name:*):* 
+    override flash_proxy function getProperty(name:*):*
     {
         return isExist(name) ? _so.data.cookie[name].value : null;
     }
 
     /**
-     * 
+     *
      * @param name
      * @param value
-     * 
+     *
      */
-    override flash_proxy function setProperty(name:*, value:*):void 
+    override flash_proxy function setProperty(name:*, value:*):void
     {
         var obj:Object;
-        if(isExist(name))
+        if (isExist(name))
         {
             obj = _so.data.cookie[name];
         }
@@ -167,21 +166,21 @@ dynamic public class Cookie extends Proxy
         {
             obj = new Object();
         }
-        
-        var today:Date = new Date(); 
-        obj.time = today.getTime().toString(); 
+
+        var today:Date = new Date();
+        obj.time = today.getTime().toString();
         obj.name = name;
         obj.value = value;
-        
+
         createCookie();
-        
+
         _so.data.cookie[name] = obj;
         _so.flush();
     }
 
     private function createCookie():void
     {
-        if(_so.data.cookie == null)
+        if (_so.data.cookie == null)
         {
             _so.data.cookie = new Object();
             _so.flush();

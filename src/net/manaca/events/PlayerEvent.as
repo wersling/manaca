@@ -2,7 +2,7 @@ package net.manaca.events
 {
 import flash.events.Event;
 
-public class PlayerEvent extends FrameworkEvent
+public class PlayerEvent extends Event
 {
     /**
      * Dispatched when the play state chenged.

@@ -4,17 +4,17 @@ package net.manaca.utils
 /**
  * The ArrayUtil utility class is an all-static class with methods for working with Array objects.
  * @author v-seanzo
- * 
- */    
+ *
+ */
 public class ArrayUtil
 {
     /**
      * Switch a objcet to array.
      * @param obj
-     * @return 
-     * 
+     * @return
+     *
      */
-    public static function toArray(obj:Object):Array
+    static public function toArray(obj:Object):Array
     {
         if (!obj)
         {
@@ -28,7 +28,7 @@ public class ArrayUtil
         {
             var result:Array = new Array();
             var len:uint = XMLList(obj).length();
-            for(var i:uint = 0 ;i < len; i++)
+            for (var i:uint = 0; i < len; i++)
             {
                 result.push(XMLList(obj)[i]);
             }
@@ -36,7 +36,7 @@ public class ArrayUtil
         }
         else
         {
-            return [ obj ];
+            return [obj];
         }
     }
 
@@ -45,17 +45,17 @@ public class ArrayUtil
      * @param arr The array from which the value will be removed
      * @param value The object that will be removed from the array.
      */
-    public static function removeValueFromArray(arr:Array, value:Object):void
+    static public function removeValueFromArray(arr:Array, value:Object):void
     {
         var len:uint = arr.length;
-        
-        for(var i:Number = len;i > -1; i--)
+
+        for (var i:Number = len; i > -1; i--)
         {
-            if(arr[i] === value)
+            if (arr[i] === value)
             {
                 arr.splice(i, 1);
             }
-        }                    
+        }
     }
 }
 }

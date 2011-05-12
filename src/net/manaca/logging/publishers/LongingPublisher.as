@@ -22,12 +22,12 @@ public class LongingPublisher extends AbstractLogPublisher implements ILogPublis
     /**
      * connecation name.
      */
-    public static const CONN_NAME:String = "_manaca_log_console";
+    static public const CONN_NAME:String = "_manaca_log_console";
 
     /**
      * connecation function Name.
      */
-    public static const CONN_FUN:String = "log";
+    static public const CONN_FUN:String = "log";
 
     /**
      * the lacal connection

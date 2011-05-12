@@ -5,8 +5,8 @@ package net.manaca.xml
 {
 public class XMLNode extends Object
 {
-    public static const ATTRIBUTE:int			= 0;
-    public static const ELEMENT:int   			= 1;
+    static public const ATTRIBUTE:int			= 0;
+    static public const ELEMENT:int   			= 1;
     
     protected var domNode:*;
 

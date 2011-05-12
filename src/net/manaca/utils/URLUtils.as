@@ -89,8 +89,8 @@ import flash.net.navigateToURL;
  */
 public class URLUtils
 {
-    private static const WINDOW_OPEN_FUNCTION:String = "window.open";
-    private static var browserName:String;
+    static private const WINDOW_OPEN_FUNCTION:String = "window.open";
+    static private var browserName:String;
 
     /**
      * Open a new browser window and prevent browser from blocking it.
@@ -99,7 +99,7 @@ public class URLUtils
      * @param window     window target
      * @param features   additional features for window.open function
      */
-    public static function openWindow(url:String, window:String = "_blank",
+    static public function openWindow(url:String, window:String = "_blank",
                                       features:String = ""):void
     {
         if(!browserName)
@@ -141,7 +141,7 @@ public class URLUtils
     /**
      * @return current browser name.
      */
-    private static function getBrowserName():String
+    static private function getBrowserName():String
     {
         var browser:String;
         var browserAgent:String;
@@ -190,9 +190,9 @@ public class URLUtils
  */
 class Browser
 {
-    public static const MSIE:String         = "MSIE";
-    public static const Firefox:String      = "Firefox";
-    public static const Safari:String       = "Safari";
-    public static const Opera:String        = "Opera";
-    public static const Undefined:String    = "Undefined";
+    static public const MSIE:String         = "MSIE";
+    static public const Firefox:String      = "Firefox";
+    static public const Safari:String       = "Safari";
+    static public const Opera:String        = "Opera";
+    static public const Undefined:String    = "Undefined";
 }

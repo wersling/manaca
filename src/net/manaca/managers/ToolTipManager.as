@@ -24,24 +24,24 @@ public class ToolTipManager extends EventDispatcher
     /**
      * Define mouse over target this time start show tooltip.
      */        
-    public static var TRIGG_TIME:uint = 1000;
+    static public var TRIGG_TIME:uint = 1000;
     /**
      * Define the tooltip max display time.
      */        
-    public static var MAX_DISPLAY_TIME:uint = 5000;
+    static public var MAX_DISPLAY_TIME:uint = 5000;
     /**
      * Define reset the fast mode time.
      */        
-    public static var QUASH_TIME:uint = 1000;
+    static public var QUASH_TIME:uint = 1000;
     /**
      * Define the faet mode display tooltip time.
      */
-    public static var FAST_DISPLAY_TIME:uint = 50;
+    static public var FAST_DISPLAY_TIME:uint = 50;
 
     /**
      *  @private
      */
-    private static var instance:ToolTipManager;
+    static private var instance:ToolTipManager;
 
     //==========================================================================
     //  Class methods
@@ -51,7 +51,7 @@ public class ToolTipManager extends EventDispatcher
      *  Returns the sole instance of this singleton class,
      *  creating it if it does not already exist.
      */
-    public static function getInstance():ToolTipManager
+    static public function getInstance():ToolTipManager
     {
         if (!instance)
         {                

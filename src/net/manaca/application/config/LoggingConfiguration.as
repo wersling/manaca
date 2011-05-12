@@ -149,7 +149,6 @@ public class LoggingConfiguration extends AbstractProcess
                 break;
             }
         }
-
         return result;
     }
 }

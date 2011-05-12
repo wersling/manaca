@@ -8,7 +8,7 @@ import flash.events.Event;
  * @author SeanZou
  * 
  */    
-public class TransitionEvent extends FrameworkEvent
+public class TransitionEvent extends Event
 {
     //==========================================================================
     //  Class variables
@@ -17,22 +17,22 @@ public class TransitionEvent extends FrameworkEvent
      * Dispatched when the transition out.
      * @eventType transitionOut
      */    
-    public static const TRANSITION_OUT:String = "transitionOut";
+    static public const TRANSITION_OUT:String = "transitionOut";
     /**
      * Dispatched when the transition in.
      * @eventType transitionIn
      */    
-    public static const TRANSITION_IN:String = "transitionIn";
+    static public const TRANSITION_IN:String = "transitionIn";
     /**
      * Dispatched when the transition out completed.
      * @eventType transitionOutComplete
      */    
-    public static const TRANSITION_OUT_COMPLETE:String = "transitionOutComplete";
+    static public const TRANSITION_OUT_COMPLETE:String = "transitionOutComplete";
     /**
      * Dispatched when the transition in completed.
      * @eventType transitionInComplete
      */    
-    public static const TRANSITION_IN_COMPLETE:String = "transitionInComplete";
+    static public const TRANSITION_IN_COMPLETE:String = "transitionInComplete";
 
     //==========================================================================
     //  Constructor
@@ -45,7 +45,9 @@ public class TransitionEvent extends FrameworkEvent
      * @param cancelable
      * 
      */
-    public function TransitionEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false)
+    public function TransitionEvent(type:String, 
+                                    bubbles:Boolean = false, 
+                                    cancelable:Boolean = false)
     {
         super(type, bubbles, cancelable);
     }

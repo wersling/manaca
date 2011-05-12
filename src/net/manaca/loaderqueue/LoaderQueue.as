@@ -12,7 +12,8 @@ import flash.utils.Timer;
  * 任务队列全部完成后派发
  * @eventType net.manaca.loaderqueue.LoaderQueueEvent.TASK_QUEUE_COMPLETED
  */
-[Event(name="taskQueueCompleted", type="net.manaca.loaderqueue.LoaderQueueEvent")]
+[Event(name="taskQueueCompleted", 
+    type="net.manaca.loaderqueue.LoaderQueueEvent")]
 
 /**
  * 任务队列及下载队列的管理器

@@ -1,17 +1,18 @@
 package net.manaca.utils
 {
+
 /**
  * 将一个SWFAddress获得的value封装成一个对象，便于操作.
  * @author wersling
- * 
+ *
  */
 public class DeepVO
 {
     /**
      * 构造函数
      * @param path SWFAddress获取的value.
-     * 
-     */    
+     *
+     */
     public function DeepVO(path:String)
     {
         this._path = path;
@@ -26,13 +27,14 @@ public class DeepVO
     //----------------------------------
     /**
      * @private
-     */    
+     */
     private var _path:String;
+
     /**
      * SWFAddress获取的value.
-     * @return 
-     * 
-     */    
+     * @return
+     *
+     */
     public function get path():String
     {
         return _path;
@@ -43,37 +45,37 @@ public class DeepVO
     //----------------------------------
     /**
      * @praivate
-     */    
+     */
     private var _params:Array = [];
-    
+
     /**
      * 将路径以/拆分的数组.
-     * @return 
-     * 
-     */    
+     * @return
+     *
+     */
     public function get params():Array
     {
         return _params;
     }
-    
+
     //----------------------------------
     //  length
     //----------------------------------
     /**
      * 将路径以/拆分的数据长度.
-     * @return 
-     * 
-     */    
+     * @return
+     *
+     */
     public function get length():int
     {
         return params.length;
     }
-    
+
     /**
      * 获得父级VO
-     * @return 
-     * 
-     */    
+     * @return
+     *
+     */
     public function getParent():DeepVO
     {
         var p:Array = params.concat();

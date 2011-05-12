@@ -1,9 +1,11 @@
 package net.manaca.application
 {
 import flash.display.Sprite;
+import flash.events.Event;
 import flash.utils.Dictionary;
 
-import net.manaca.application.config.BaseApplicationConfiguration;
+import net.manaca.application.config.ApplicationInitHelper;
+import net.manaca.application.config.ConfigFileHelper;
 import net.manaca.application.config.model.ConfigurationInfo;
 import net.manaca.application.thread.BatchEvent;
 import net.manaca.application.thread.ProcessEvent;
@@ -46,8 +48,10 @@ public class Application extends Sprite implements IApplication
     //==========================================================================
     //  Class variables
     //==========================================================================
-    /* Singleton for this application */
-    private static var instance:Application;
+    /**
+     * Singleton for this application
+     */    
+    static private var instance:Application;
     //==========================================================================
     //  Class methods
     //==========================================================================
@@ -58,7 +62,7 @@ public class Application extends Sprite implements IApplication
      */
     static public function get externalFiles():Dictionary
     {
-        return instance.configuration.externalFiles;
+        return instance.externalFiles;
     }
 
     /**
@@ -66,9 +70,9 @@ public class Application extends Sprite implements IApplication
      * @return
      *
      */
-    static public function get config():ConfigurationInfo
+    static public function get config():XML
     {
-        return instance.configuration.configInfo;
+        return instance.configXML;
     }
 
     /**
@@ -78,7 +82,7 @@ public class Application extends Sprite implements IApplication
      */
     static public function get projectSettings():Dictionary
     {
-        return instance.configuration.projectSettings;
+        return instance.projectSettings;
     }
 
     //==========================================================================
@@ -86,7 +90,11 @@ public class Application extends Sprite implements IApplication
     //==========================================================================
 
     private var config:*;
-    private var configuration:BaseApplicationConfiguration;
+    private var configXML:XML;
+    private var projectSettings:Dictionary;
+    private var externalFiles:Dictionary;
+    private var configFile:ConfigFileHelper;
+    private var initHelper:ApplicationInitHelper;
 
     /**
      * Constructs a new <code>Application</code> instance.
@@ -129,18 +137,21 @@ public class Application extends Sprite implements IApplication
      */
     final public function initialize():void
     {
-        configuration = new BaseApplicationConfiguration(stage, config);
-        configuration.addEventListener(BatchEvent.BATCH_FINISH, 
-                                            configurationFinishHandler);
-        configuration.addEventListener(BatchEvent.BATCH_UPDATE, 
-                                            configurationUpdateHandler);
-        configuration.addEventListener(BatchEvent.BATCH_ERROR, 
-                                            configurationBatchErrorHandler);
-        configuration.addEventListener(ProcessEvent.PROCESS_ERROR, 
-                                            configurationProcessErrorHandler);
-        configuration.start();
+        var configFile:ConfigFileHelper = new ConfigFileHelper();
+        configFile.addEventListener(Event.COMPLETE,
+            configFile_completeHandler);
     }
-
+    
+    private function configFile_completeHandler(event:Event):void
+    {
+        event.target.addEventListener(Event.COMPLETE,
+            configFile_completeHandler);
+        
+        configXML = configFile.config;
+        
+        initHelper = new ApplicationInitHelper()
+        initHelper.init(stage, config);
+    }
     /**
      * The startup function will call by application initialized.
      * You need override the function.
@@ -189,13 +200,13 @@ public class Application extends Sprite implements IApplication
      */
     private function removeConfigurationEvents():void
     {
-        configuration.removeEventListener(BatchEvent.BATCH_FINISH, 
+        initHelper.removeEventListener(BatchEvent.BATCH_FINISH, 
                                         configurationFinishHandler);
-        configuration.removeEventListener(BatchEvent.BATCH_UPDATE, 
+        initHelper.removeEventListener(BatchEvent.BATCH_UPDATE, 
                                         configurationUpdateHandler);
-        configuration.removeEventListener(BatchEvent.BATCH_ERROR, 
+        initHelper.removeEventListener(BatchEvent.BATCH_ERROR, 
                                         configurationBatchErrorHandler);
-        configuration.removeEventListener(ProcessEvent.PROCESS_ERROR, 
+        initHelper.removeEventListener(ProcessEvent.PROCESS_ERROR, 
                                         configurationProcessErrorHandler);
     }
 
@@ -210,7 +221,7 @@ public class Application extends Sprite implements IApplication
     private function configurationFinishHandler(event:BatchEvent):void
     {
         removeConfigurationEvents();
-        configuration.clear();
+        initHelper.dispose();
         startup();
     }
 

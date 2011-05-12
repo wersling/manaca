@@ -1,4 +1,4 @@
-package net.manaca.managers
+package net.manaca.utils
 {
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
@@ -6,14 +6,14 @@ import flash.display.DisplayObjectContainer;
 /**
  * DepthManager to manage the depth of display objects.
  */
-public class DepthManager
+public class DepthUtil
 {
 
     /**
      * Bring the display to all brother display's bottom.
      * @param display the display to be set to bottom
      */
-    public static function bringToBottom(display:DisplayObject):void
+    static public function bringToBottom(display:DisplayObject):void
     {
         var parent:DisplayObjectContainer = display.parent;
         if(parent == null)
@@ -29,7 +29,7 @@ public class DepthManager
     /**
      * Bring the display to all brother displays' top.
      */
-    public static function bringToTop(display:DisplayObject):void
+    static public function bringToTop(display:DisplayObject):void
     {
         var parent:DisplayObjectContainer = display.parent;
         if(parent == null)
@@ -52,7 +52,7 @@ public class DepthManager
      * Returns is the display is on the top depths in DepthManager's valid depths.
      * Valid depths is that depths from MIN_DEPTH to MAX_DEPTH.
      */
-    public static function isTop(display:DisplayObject):Boolean
+    static public function isTop(display:DisplayObject):Boolean
     {
         var parent:DisplayObjectContainer = display.parent;
         if(parent == null)
@@ -67,7 +67,7 @@ public class DepthManager
      * @param display the display to be set to bottom
      * @return is the display is at the bottom
      */
-    public static function isBottom(display:DisplayObject):Boolean
+    static public function isBottom(display:DisplayObject):Boolean
     {
         var parent:DisplayObjectContainer = display.parent;
         if(parent == null)
@@ -86,7 +86,7 @@ public class DepthManager
      * Return if display is just first bebow the aboveDisplay.
      * if them don't have the same parent, whatever depth they has just return false.
      */
-    public static function isJustBelow(display:DisplayObject, aboveDisplay:DisplayObject):Boolean
+    static public function isJustBelow(display:DisplayObject, aboveDisplay:DisplayObject):Boolean
     {
         var parent:DisplayObjectContainer = display.parent;
         if(parent == null)
@@ -105,7 +105,7 @@ public class DepthManager
      * Returns if display is just first above the aboveDisplay.
      * if them don't have the same parent, whatever depth they has just return false.
      */
-    public static function isJustAbove(display:DisplayObject, aboveDisplay:DisplayObject):Boolean
+    static public function isJustAbove(display:DisplayObject, aboveDisplay:DisplayObject):Boolean
     {
         return isJustBelow(aboveDisplay, display);
     }

@@ -19,7 +19,7 @@ public class StringUtil
      *    will be removed.
      *    @returns A String with whitespace removed from the begining and end    
      */            
-    public static function trim(input:String):String
+    static public function trim(input:String):String
     {
         return StringUtil.ltrim(StringUtil.rtrim(input));
     }
@@ -29,7 +29,7 @@ public class StringUtil
      *    @param input The String whose beginning whitespace will will be removed.
      *    @returns A String with whitespace removed from the begining    
      */    
-    public static function ltrim(input:String):String
+    static public function ltrim(input:String):String
     {
         var size:Number = input.length;
         for(var i:Number = 0;i < size; i++)
@@ -47,7 +47,7 @@ public class StringUtil
      *    @param input The String whose ending whitespace will will be removed.
      *    @returns A String with whitespace removed from the end    
      */    
-    public static function rtrim(input:String):String
+    static public function rtrim(input:String):String
     {
         var size:Number = input.length;
         for(var i:Number = size;i > 0; i--)
@@ -95,7 +95,7 @@ public class StringUtil
      *  // this will output the following string:
      *  // "here is some info "15.4" and true"
      */
-    public static function substitute(input:String, ... rest):String
+    static public function substitute(input:String, ... rest):String
     {
         // Replace all of the parameters in the msg string.
         var len:uint = rest.length;
@@ -121,7 +121,7 @@ public class StringUtil
      *  Substitutes "{$id}" tokens within the specified string
      *  with the respective object arguments passed in.
      */
-    public static function substituteByID(input:String, containObj:Object):String
+    static public function substituteByID(input:String, containObj:Object):String
     {
         // Replace all of the paramenters in the passed string.
         for ( var i:String in containObj) 
@@ -143,7 +143,7 @@ public class StringUtil
      *    @returns A new String with the replace string replaced with the 
      *    replaceWith string.
      */
-    public static function replace(input:String, replace:String, replaceWith:String):String
+    static public function replace(input:String, replace:String, replaceWith:String):String
     {
         return input.split(replace).join(replaceWith);
     }
@@ -155,7 +155,7 @@ public class StringUtil
      * @param addedChars
      * @return 
      */    
-    public static function intercept(input:String,limited:uint,addedChars:String):String
+    static public function intercept(input:String,limited:uint,addedChars:String):String
     {
         if(input == null) return "";
         if(input.length > limited && limited > 0) 
@@ -169,7 +169,7 @@ public class StringUtil
     /**
      * HTML encode
      */
-    public static function htmlEncode(input:String):String
+    static public function htmlEncode(input:String):String
     {
         input = replace(input, "&", "&amp;");
         input = replace(input, "\"", "&quot;");
@@ -182,7 +182,7 @@ public class StringUtil
     /**
      * Make a string CDATA
      */
-    public static function cdata(theURL:String):XML
+    static public function cdata(theURL:String):XML
     {
         var x:XML = new XML("<![CDATA[" + theURL + "]]>");
         return x;
@@ -191,7 +191,7 @@ public class StringUtil
     /**
      * Strip out &lt;, &gt;
      */
-    public static function stripGtAndLt(input:String):String
+    static public function stripGtAndLt(input:String):String
     {
         input = replace(input, "<", "&lt;");
         input = replace(input, ">", "&gt;");        
@@ -201,7 +201,7 @@ public class StringUtil
     /**
      * validate Email address
      */
-    public static function validateEmail(input:String):Boolean
+    static public function validateEmail(input:String):Boolean
     {
         var pattern:RegExp = /(\w|[_.\-])+@((\w|-)+\.)+\w{2,4}+/;
         var result:Object = pattern.exec(input);
@@ -216,7 +216,7 @@ public class StringUtil
      * Encoding for String
      * Change GB2312 to UTF8
      */
-    public static function GB2312toUTF8(input:*):String
+    static public function GB2312toUTF8(input:*):String
     {
         var byte:ByteArray = new ByteArray();
         byte.writeMultiByte(input, "gb2312");
@@ -224,7 +224,7 @@ public class StringUtil
         return byte.readMultiByte(byte.bytesAvailable, "utf-8"); 
     }
 
-    public static function UTF8toGB2312(input:*):String
+    static public function UTF8toGB2312(input:*):String
     {
         var byte:ByteArray = new ByteArray();
         byte.writeMultiByte(input, "utf-8");
@@ -235,7 +235,7 @@ public class StringUtil
     /**
      * add zero padding
      */
-    public static function zeroPad(num:uint):String
+    static public function zeroPad(num:uint):String
     {
         var output:String;
         if (num < 10)
@@ -255,7 +255,7 @@ public class StringUtil
      * @return 
      * 
      */
-    public static function toUNString(str:String):String
+    static public function toUNString(str:String):String
     {
         var myPattern:RegExp = /%u(....)/g;
         var reslut:String = str.replace(myPattern, replStr);
@@ -299,7 +299,7 @@ public class StringUtil
      * trace( StringUtil.toProperType( "10.0", false ) == "10.0" ); // true
      * </listing>
      */
-    public static function toProperType( str:String, priority:Boolean = true ):* 
+    static public function toProperType( str:String, priority:Boolean = true ):* 
     {
         // Number type change
         var num:Number = parseFloat(str);

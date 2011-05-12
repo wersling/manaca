@@ -58,12 +58,13 @@ public class FontManager extends EventDispatcher
      * @throws com.msn.beet.errors.ArgumentNullException 
      * if the textField is null.
      */
-    public static function setText(textField:TextField, 
-                                            text:String, fontName:String,
-                                            isHtml:Boolean = false,
-                                            size:Number = NaN,
-                                            color:Number = NaN
-                                            ):void
+    static public function setText(textField:TextField, 
+                                   text:String, 
+                                   fontName:String,
+                                   isHtml:Boolean = false,
+                                   size:Number = NaN,
+                                   color:Number = NaN
+                                    ):void
     {
         if (textField == null) 
         {

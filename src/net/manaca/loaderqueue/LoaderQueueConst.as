@@ -11,11 +11,10 @@ package net.manaca.loaderqueue
  */
 public class LoaderQueueConst
 {
-    public static const STATE_COMPLETED:String = "completed";
-    public static const STATE_ERROR:String = "error";
-    public static const STATE_REMOVED:String = "removed";
-    public static const STATE_STARTED:String = "started";
-    public static const STATE_WAITING:String = "waiting";
-//	public static const STATE_PAUSE:String = "4";
+    static public const STATE_COMPLETED:String = "completed";
+    static public const STATE_ERROR:String = "error";
+    static public const STATE_REMOVED:String = "removed";
+    static public const STATE_STARTED:String = "started";
+    static public const STATE_WAITING:String = "waiting";
 }
 }

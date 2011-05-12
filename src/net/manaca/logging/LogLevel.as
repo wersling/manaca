@@ -47,43 +47,43 @@ public class LogLevel
      * Designates events off is a special level that can be 
      * used to turn off logging.
      */
-    public static const OFF:LogLevel = new LogLevel("OFF", 1024);
+    static public const OFF:LogLevel = new LogLevel("OFF", 1024);
 
     /**
      *  Designates events that are very
      *  harmful and will eventually lead to application failure.
      */
-    public static const FATAL:LogLevel = new LogLevel("FATAL", 32);
+    static public const FATAL:LogLevel = new LogLevel("FATAL", 32);
 
     /**
      *  Designates error events that might
      *  still allow the application to continue running.
      */
-    public static const ERROR:LogLevel = new LogLevel("ERROR", 16);
+    static public const ERROR:LogLevel = new LogLevel("ERROR", 16);
 
     /**
      *  Designates events that could be
      *  harmful to the application operation.
      */
-    public static const WARN:LogLevel = new LogLevel("WARN", 8);
+    static public const WARN:LogLevel = new LogLevel("WARN", 8);
 
     /**
      *  Designates informational messages that
      *  highlight the progress of the application at coarse-grained level.
      */
-    public static const INFO:LogLevel = new LogLevel("INFO", 4);
+    static public const INFO:LogLevel = new LogLevel("INFO", 4);
 
     /**
      *  Designates informational level
      *  messages that are fine grained and most helpful when debugging an
      *  application.
      */
-    public static const DEBUG:LogLevel = new LogLevel("DEBUG", 2);
+    static public const DEBUG:LogLevel = new LogLevel("DEBUG", 2);
 
     /**
      *  Tells a target to process all messages.
      */
-    public static const ALL:LogLevel = new LogLevel("ALL", 0);
+    static public const ALL:LogLevel = new LogLevel("ALL", 0);
 
     //==========================================================================
     //  Constructor

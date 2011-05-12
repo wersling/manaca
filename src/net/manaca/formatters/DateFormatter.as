@@ -439,7 +439,7 @@ public class DateFormatter
      * @return
      *
      */
-    private static function setValue(value:Object, key:int):String
+    static private function setValue(value:Object, key:int):String
     {
         var result:String = "";
         var vLen:int = value.toString().length;
@@ -458,30 +458,30 @@ public class DateFormatter
     /**
      * all support char.
      */
-    private static const VALID_PATTERN_CHARS:String = "Y,M,d,E,t,H,h,K,k,m,s,S";
+    static private const VALID_PATTERN_CHARS:String = "Y,M,d,E,t,H,h,K,k,m,s,S";
     /** */
-    private static const YEAR:String = "Y";  //年  Year  1996; 96
+    static private const YEAR:String = "Y";  //年  Year  1996; 96
     /** */
-    private static const MONTH:String = "M";  //年中的月份  Month  July; Jul; 07
+    static private const MONTH:String = "M";  //年中的月份  Month  July; Jul; 07
     /** */
-    private static const DATE_IN_MONTH:String = "d";  //月份中的天数  Number  10
+    static private const DATE_IN_MONTH:String = "d";  //月份中的天数  Number  10
     /** */
-    private static const DATE_OF_WEEK:String = "E";  //星期中的天数  Text  Tuesday; Tue
+    static private const DATE_OF_WEEK:String = "E";  //星期中的天数  Text  Tuesday; Tue
     /** */
-    private static const TIME_OF_DAY:String = "t";  //Am/pm 标记  Text  PM
+    static private const TIME_OF_DAY:String = "t";  //Am/pm 标记  Text  PM
     /** */
-    private static const HOUR_OF_DAY0:String = "K";  //一天中的小时数（0-23）  Number  0
+    static private const HOUR_OF_DAY0:String = "K";  //一天中的小时数（0-23）  Number  0
     /** */
-    private static const HOUR_OF_DAY1:String = "H";  //一天中的小时数（1-24）  Number  24
+    static private const HOUR_OF_DAY1:String = "H";  //一天中的小时数（1-24）  Number  24
     /** */
-    private static const HOUR0:String = "k";  //am/pm 中的小时数（0-11）  Number  0
+    static private const HOUR0:String = "k";  //am/pm 中的小时数（0-11）  Number  0
     /** */
-    private static const HOUR1:String = "h";  //am/pm 中的小时数（1-12）  Number  12
+    static private const HOUR1:String = "h";  //am/pm 中的小时数（1-12）  Number  12
     /** */
-    private static const MINUTE:String = "m";  //小时中的分钟数  Number  30
+    static private const MINUTE:String = "m";  //小时中的分钟数  Number  30
     /** */
-    private static const SECOND:String = "s";  //分钟中的秒数  Number  55
+    static private const SECOND:String = "s";  //分钟中的秒数  Number  55
     /** */
-    private static const MILLISECOND:String = "S";  //毫秒数  Number  978
+    static private const MILLISECOND:String = "S";  //毫秒数  Number  978
 }
 }

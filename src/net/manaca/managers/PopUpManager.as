@@ -4,6 +4,7 @@ import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 
 import net.manaca.errors.SingletonError;
+import net.manaca.utils.DepthUtil;
 
 /**
  * The PopUpManager singleton class creates new top-level windows and
@@ -16,13 +17,13 @@ public class PopUpManager
     /**
      *  @private
      */
-    private static var instance:PopUpManager;
+    static private var instance:PopUpManager;
 
     /**
      *  Returns the sole instance of this singleton class,
      *  creating it if it does not already exist.
      */
-    public static function getInstance():PopUpManager
+    static public function getInstance():PopUpManager
     {
         if (!instance)
         {                
@@ -116,7 +117,7 @@ public class PopUpManager
     {
         if(popUp)
         {
-            DepthManager.bringToTop(popUp);
+            DepthUtil.bringToTop(popUp);
         }
     }
 
