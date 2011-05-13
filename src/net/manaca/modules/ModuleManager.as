@@ -22,7 +22,15 @@ public class ModuleManager
      */    
     static private const moduleMap:Map = new Map();
     
-    static public var loaderQueueIns:LoaderQueue;
+    /**
+     * @praivte
+     */ 
+    static private var managerSingleton:ModuleManagerImpl;
+    
+    /**
+     * @private
+     */    
+    static internal var loaderQueueIns:LoaderQueue;
     
     /**
      * 查看引用的对象是否与已知 IModuleFactory 
@@ -49,7 +57,7 @@ public class ModuleManager
     
     /**
      * 初始化模块
-     * @param moudles 
+     * @param moudles 模块文件列表
      * @param loaderQueue 加载队列
      */    
     static public function init(moudles:Vector.<ModuleVO>, 
@@ -73,11 +81,6 @@ public class ModuleManager
     {
         return moduleMap.getValue(moduleName);
     }
-    
-    /**
-     * @praivte
-     */ 
-    static private var managerSingleton:ModuleManagerImpl;
     
     /**
      * @praivte

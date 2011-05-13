@@ -7,6 +7,9 @@ import net.manaca.errors.IllegalArgumentError;
 import net.manaca.loading.queue.LoadingEvent;
 import net.manaca.loading.queue.MultiLoading;
 import net.manaca.logging.Tracer;
+import net.manaca.modules.ModuleVO;
+import net.manaca.utils.URLUtils;
+
 /**
  * Dispatched when the loading completed.
  * @eventType net.manaca.loading.queue.LoadingEvent.COMPLETE
@@ -37,26 +40,30 @@ public class FilePreloadingHelper extends EventDispatcher
     //==========================================================================
     /**
      * Constructs a new <code>FilePreloadConfiguration</code> instance.
-     * @param info the files list.
+     * @param filesXML the files list.
      *
      */
-    public function FilePreloadingHelper(info:XML)
+    public function FilePreloadingHelper(filesXML:XMLList, 
+                                         modules:Vector.<ModuleVO>)
     {
         super();
-
-        if(info != null)
+        
+        if(filesXML != null)
         {
-            this.info = info;
+            this.filesXML = filesXML;
         }
         else
         {
-            throw new IllegalArgumentError("invalid info argument:" + info);
+            throw new IllegalArgumentError("invalid info argument:" + filesXML);
         }
+        
+        this.modules = modules;
     }
     //==========================================================================
     //  Variables
     //==========================================================================
-    private var info:XML;
+    private var filesXML:XMLList;
+    private var modules:Vector.<ModuleVO>;
     private var loadingQueue:MultiLoading;
     public var files:Dictionary;
     //==========================================================================
@@ -79,11 +86,11 @@ public class FilePreloadingHelper extends EventDispatcher
     //  externalFiles
     //----------------------------------
     /**
-     * Get the external files map.
+     * Get the preload files map.
      * @return
      *
      */
-    public function get externalFiles():Dictionary
+    public function get preloadFiles():Dictionary
     {
         return files;
     }
@@ -100,24 +107,31 @@ public class FilePreloadingHelper extends EventDispatcher
 
         loadingQueue = new MultiLoading();
         addEventListeners();
-        for each(var file:XML in info.Files.File)
+        for each(var file:XML in filesXML)
         {
             var loader:* = null;
+            var url:String = String(file.@url);
+            
+            if(String(file.@clearCache) == "true")
+            {
+                url = URLUtils.clearCacheUrl(url);
+            }
+            
             switch(String(file.@type))
             {
                 case FileTypeInfo.IMAGE:
                 {
-                    loader = loadingQueue.addImageURL(file.@url, 10);
+                    loader = loadingQueue.addImageURL(url, 10);
                     break;
                 }
                 case FileTypeInfo.SWF:
                 {
-                    loader = loadingQueue.addSwfURL(file.@url, 10);
+                    loader = loadingQueue.addSwfURL(url, 10);
                     break;
                 }
                 case FileTypeInfo.XML:
                 {
-                    loader = loadingQueue.addXMLURL(file.@url, 10);
+                    loader = loadingQueue.addXMLURL(url, 10);
                     break;
                 }
                 default:
@@ -129,7 +143,17 @@ public class FilePreloadingHelper extends EventDispatcher
             {
                 files[String(file.@name)] = loader;
             }
-            Tracer.debug("Start loading file:" + [file.@name, file.@url]);
+            Tracer.debug("Start loading file:" + [file.@name, url]);
+        }
+        
+        for each(var moduleVO:ModuleVO in modules)
+        {
+            if(moduleVO.preloading)
+            {
+                loader = loadingQueue.addSwfURL(moduleVO.url, 10);
+                Tracer.debug("Preloading module:" + 
+                    [moduleVO.name, moduleVO.url]);
+            }
         }
         loadingQueue.start();
     }

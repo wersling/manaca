@@ -137,7 +137,19 @@ public class URLUtils
             navigateToURL(new URLRequest(url), window);
         }
     }
-
+    
+    static public function clearCacheUrl(url:String):String
+    {
+        if(url.indexOf("?") != -1)
+        {
+            url += "&temp=" + new Date().getTime();
+        }
+        else
+        {
+            url += "?temp=" + new Date().getTime();
+        }
+        return url;
+    }
     /**
      * @return current browser name.
      */

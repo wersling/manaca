@@ -8,10 +8,14 @@ import net.manaca.application.config.ApplicationInitHelper;
 import net.manaca.application.config.ConfigFileHelper;
 import net.manaca.application.config.FilePreloadingHelper;
 import net.manaca.core.AbstractHandler;
+import net.manaca.core.manaca_internal;
 import net.manaca.errors.FrameworkError;
 import net.manaca.errors.IllegalArgumentError;
 import net.manaca.errors.SingletonError;
+import net.manaca.loaderqueue.LoaderQueue;
 import net.manaca.loading.queue.LoadingEvent;
+import net.manaca.modules.ModuleManager;
+import net.manaca.modules.ModuleVO;
 
 /**
  * <code>Application</code> is the default access point for flash applications.
@@ -52,47 +56,12 @@ public class Application extends Sprite implements IApplication
      */    
     static private var instance:Application;
     //==========================================================================
-    //  Class methods
-    //==========================================================================
-    /**
-     * Get external files.
-     * @return
-     *
-     */
-    static public function get externalFiles():Dictionary
-    {
-        return instance.externalFiles;
-    }
-
-    /**
-     * Get the application config by config XML.
-     * @return
-     *
-     */
-    static public function get config():XML
-    {
-        return instance.configXML;
-    }
-
-    /**
-     * Get the project settings by config XML.
-     * @return
-     *
-     */
-    static public function get projectSettings():Dictionary
-    {
-        return instance.projectSettings;
-    }
-
-    //==========================================================================
     //  Variables
     //==========================================================================
-
     private var config:*;
     private var configXML:XML;
-    private var projectSettings:Dictionary = new Dictionary();
-    private var externalFiles:Dictionary;
     private var filePreloading:FilePreloadingHelper;
+    private const loaderQueueIns:LoaderQueue = new LoaderQueue(8, 100);
     //==========================================================================
     //  Constructor
     //==========================================================================
@@ -145,22 +114,45 @@ public class Application extends Sprite implements IApplication
     
     private function initApp():void
     {
+        Bootstrap.getInstance().manaca_internal::init(configXML);
+        
         //init stage,logging
         new ApplicationInitHelper().init(stage, configXML);
         
-        //init project settings
-        for each(var item:XML in configXML.ProjectSettings.Add)
+        //set server name
+        var href:String = Bootstrap.getInstance().href;
+        if (!href || href.indexOf("http") == -1 || 
+            href.indexOf("localhost") != -1)
         {
-            this.projectSettings[String(item.@key)] = String(item.@value);
+            Bootstrap.getInstance().
+                manaca_internal::setServerByName("flashDev");
+        }
+        else
+        {
+            Bootstrap.getInstance().
+                manaca_internal::setServerByName("release");
         }
         
+        //init modules
+        var modules:Vector.<ModuleVO> = new Vector.<ModuleVO>();
+        for each(var moduleNode:XML in configXML.Modules.Module)
+        {
+            var moduleVO:ModuleVO = new ModuleVO(moduleNode);
+            moduleVO.url = Bootstrap.getInstance().getSwfPath(moduleVO.url);
+            modules.push(moduleVO);
+        }
+        
+        ModuleManager.init(modules, Bootstrap.getInstance().loaderQueue);
+        
         //start loading files
-        filePreloading = new FilePreloadingHelper(configXML);
+        filePreloading = 
+            new FilePreloadingHelper(configXML.Files.File, modules);
         filePreloading.addEventListener(LoadingEvent.COMPLETE, 
             loadCompletedHandler);
         filePreloading.addEventListener(LoadingEvent.PROGRESS, progressHandler);
         filePreloading.start();
     }
+    
     /**
      * The startup function will call by application initialized.
      * You need override the function.
@@ -206,24 +198,42 @@ public class Application extends Sprite implements IApplication
     //==========================================================================
     //  Event handlers
     //==========================================================================
+    /**
+     * Handler then the config file loaded.
+     * @param event
+     * 
+     */    
     private function configFile_completeHandler(event:Event):void
     {
         ConfigFileHelper(event.target).addEventListener(Event.COMPLETE,
             configFile_completeHandler);
         
         configXML = ConfigFileHelper(event.target).config;
-        
-        initApp();
+        if(configXML)
+        {
+            initApp();
+        }
     }
     
+    /**
+     * Handler the external files loading progressHanlder
+     * @param event
+     * 
+     */    
     private function progressHandler(event:LoadingEvent):void
     {
         updateProgress(event.percent);
     }
     
+    /**
+     * Handler then the external files.
+     * @param event
+     * 
+     */    
     private function loadCompletedHandler(event:LoadingEvent):void
     {
-        this.externalFiles = filePreloading.externalFiles;
+        Bootstrap.getInstance().
+            manaca_internal::setPreloadFiles(filePreloading.preloadFiles);
         
         filePreloading.addEventListener(LoadingEvent.COMPLETE, 
             loadCompletedHandler);
