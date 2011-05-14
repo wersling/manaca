@@ -1,32 +1,33 @@
 package net.manaca.application.config
 {
+import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.net.URLRequest;
 import flash.utils.Dictionary;
 
+import net.manaca.application.Bootstrap;
 import net.manaca.errors.IllegalArgumentError;
-import net.manaca.loading.queue.LoadingEvent;
-import net.manaca.loading.queue.MultiLoading;
+import net.manaca.loaderqueue.ILoaderAdapter;
+import net.manaca.loaderqueue.LoaderProgressCounter;
+import net.manaca.loaderqueue.LoaderQueue;
+import net.manaca.loaderqueue.adapter.LoaderAdapter;
+import net.manaca.loaderqueue.adapter.URLLoaderAdapter;
+import net.manaca.loaderqueue.adapter.URLStreamAdapter;
 import net.manaca.logging.Tracer;
 import net.manaca.modules.ModuleVO;
 import net.manaca.utils.URLUtils;
 
 /**
- * Dispatched when the loading completed.
- * @eventType net.manaca.loading.queue.LoadingEvent.COMPLETE
+ * 任务队列总进度更新时派发
+ * @eventType flash.events.Event.CHANGE
  */
-[Event(name = "complete", type = "net.manaca.loading.queue.LoadingEvent")]
-
+[Event(name="change", type="flash.events.Event")]
 /**
- * Dispatched when the loading error.
- * @eventType net.manaca.loading.queue.LoadingEvent.ERROR
+ * 任务队列完成时派发
+ * @eventType flash.events.Event.COMPLETE
  */
-[Event(name = "error", type = "net.manaca.loading.queue.LoadingEvent")]
+[Event(name="complete", type="flash.events.Event")]
 
-/**
- * Dispatched when the loading update.
- * @eventType net.manaca.loading.queue.LoadingEvent.PROGRESS
- */
-[Event(name = "progress", type = "net.manaca.loading.queue.LoadingEvent")]
 /**
  * The FilePreloadConfiguration loading the files by xml files node.
  * You can get these files in externalFiles map.
@@ -64,7 +65,7 @@ public class FilePreloadingHelper extends EventDispatcher
     //==========================================================================
     private var filesXML:XMLList;
     private var modules:Vector.<ModuleVO>;
-    private var loadingQueue:MultiLoading;
+    private var loaderProgressCounter:LoaderProgressCounter;
     public var files:Dictionary;
     //==========================================================================
     //  Properties
@@ -79,7 +80,8 @@ public class FilePreloadingHelper extends EventDispatcher
      */
     public function get percentage():uint
     {
-        return loadingQueue ? loadingQueue.percent : 0;
+        return loaderProgressCounter ? 
+            int(loaderProgressCounter.totalProgress * 100): 0;
     }
 
     //----------------------------------
@@ -105,11 +107,12 @@ public class FilePreloadingHelper extends EventDispatcher
     {
         files = new Dictionary();
 
-        loadingQueue = new MultiLoading();
+        var loadingQueue:LoaderQueue = Bootstrap.getInstance().loaderQueue;
+        loaderProgressCounter =  new LoaderProgressCounter();
         addEventListeners();
         for each(var file:XML in filesXML)
         {
-            var loader:* = null;
+            var loader:ILoaderAdapter = null;
             var url:String = String(file.@url);
             
             if(String(file.@clearCache) == "true")
@@ -121,27 +124,30 @@ public class FilePreloadingHelper extends EventDispatcher
             {
                 case FileTypeInfo.IMAGE:
                 {
-                    loader = loadingQueue.addImageURL(url, 10);
+                    loader = new LoaderAdapter(1, new URLRequest(url));
                     break;
                 }
                 case FileTypeInfo.SWF:
                 {
-                    loader = loadingQueue.addSwfURL(url, 10);
+                    loader = new LoaderAdapter(1, new URLRequest(url));
                     break;
                 }
                 case FileTypeInfo.XML:
                 {
-                    loader = loadingQueue.addXMLURL(url, 10);
+                    loader = new URLLoaderAdapter(1, new URLRequest(url));
                     break;
                 }
                 default:
                 {
-                    
+                    loader = new URLStreamAdapter(1, new URLRequest(url));
+                    break;
                 }
             }
             if(loader)
             {
                 files[String(file.@name)] = loader;
+                loadingQueue.addItem(loader);
+                loaderProgressCounter.addItem(loader);
             }
             Tracer.debug("Start loading file:" + [file.@name, url]);
         }
@@ -150,28 +156,29 @@ public class FilePreloadingHelper extends EventDispatcher
         {
             if(moduleVO.preloading)
             {
-                loader = loadingQueue.addSwfURL(moduleVO.url, 10);
+                loader = new URLStreamAdapter(1, new URLRequest(moduleVO.url));
+                loadingQueue.addItem(loader);
+                loaderProgressCounter.addItem(loader);
                 Tracer.debug("Preloading module:" + 
                     [moduleVO.name, moduleVO.url]);
             }
         }
-        loadingQueue.start();
+        loaderProgressCounter.start();
     }
 
     private function addEventListeners():void
     {
-        loadingQueue.addEventListener(LoadingEvent.COMPLETE, 
+        loaderProgressCounter.addEventListener(Event.COMPLETE, 
                                                     loadCompletedHandler);
-        loadingQueue.addEventListener(LoadingEvent.ERROR, errorHandler);
-        loadingQueue.addEventListener(LoadingEvent.PROGRESS, progressHandler);
+        loaderProgressCounter.addEventListener(Event.CHANGE, progressHandler);
     }
 
     private function removeEventListeners():void
     {
-        loadingQueue.removeEventListener(LoadingEvent.COMPLETE, 
-                                                    loadCompletedHandler);
-        loadingQueue.removeEventListener(LoadingEvent.ERROR, errorHandler);
-        loadingQueue.removeEventListener(LoadingEvent.PROGRESS, progressHandler);
+        loaderProgressCounter.removeEventListener(Event.COMPLETE, 
+            loadCompletedHandler);
+        loaderProgressCounter.removeEventListener(Event.CHANGE, 
+            progressHandler);
     }
 
     /**
@@ -180,11 +187,11 @@ public class FilePreloadingHelper extends EventDispatcher
      */
     public function dispose():void
     {
-        if(loadingQueue)
+        if(loaderProgressCounter)
         {
             removeEventListeners();
-            loadingQueue.dispose();
-            loadingQueue = null;
+            loaderProgressCounter.dispose();
+            loaderProgressCounter = null;
         }
     }
 
@@ -196,19 +203,9 @@ public class FilePreloadingHelper extends EventDispatcher
      * @param event
      *
      */
-    private function loadCompletedHandler(event:LoadingEvent):void
+    private function loadCompletedHandler(event:Event):void
     {
         dispatchEvent(event.clone());
-    }
-
-    /**
-     * handle loading file error.
-     * @param event
-     *
-     */
-    private function errorHandler(event:LoadingEvent):void
-    {
-        Tracer.error(event.error);
     }
 
     /**
@@ -216,7 +213,7 @@ public class FilePreloadingHelper extends EventDispatcher
      * @param event
      *
      */
-    private function progressHandler(event:LoadingEvent):void
+    private function progressHandler(event:Event):void
     {
         dispatchEvent(event.clone());
     }

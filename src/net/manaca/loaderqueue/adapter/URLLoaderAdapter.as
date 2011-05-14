@@ -47,6 +47,18 @@ public class URLLoaderAdapter extends AbstractLoaderAdapter
         return container.bytesTotal;
     }
 
+    public function get progress():Number
+    {
+        if(bytesLoaded && bytesTotal)
+        {
+            return bytesLoaded / bytesTotal;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
     private var _container:URLLoader;
     public function get container():URLLoader
     {
@@ -64,9 +76,9 @@ public class URLLoaderAdapter extends AbstractLoaderAdapter
      */
     override public function dispose():void
     {
-		stop();
-		super.dispose();
-		_container = null;
+        stop();
+        super.dispose();
+        _container = null;
     }
 
     public function start():void

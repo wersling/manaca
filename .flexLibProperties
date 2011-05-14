@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="1">
+<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
   <includeClasses>
     <classEntry path="net.manaca.application.Application"/>
     <classEntry path="net.manaca.application.BaseApplication"/>
@@ -45,11 +45,6 @@
     <classEntry path="net.manaca.events.TransitionEvent"/>
     <classEntry path="net.manaca.formatters.DateFormatter"/>
     <classEntry path="net.manaca.formatters.DateInfo"/>
-    <classEntry path="net.manaca.loading.queue.ILoading"/>
-    <classEntry path="net.manaca.loading.queue.LoadingEvent"/>
-    <classEntry path="net.manaca.loading.queue.LoadingInfo"/>
-    <classEntry path="net.manaca.loading.queue.LoadingQueue"/>
-    <classEntry path="net.manaca.loading.queue.MultiLoading"/>
     <classEntry path="net.manaca.logging.ILogPublisher"/>
     <classEntry path="net.manaca.logging.LogLevel"/>
     <classEntry path="net.manaca.logging.LogRecord"/>
@@ -88,6 +83,7 @@
     <classEntry path="net.manaca.xml.types.SchemaSimpleNode"/>
     <classEntry path="net.manaca.xml.types.SchemaString"/>
     <classEntry path="net.manaca.xml.types.SchemaUint"/>
+    <classEntry path="net.manaca.loaderqueue.LoaderProgressCounter"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

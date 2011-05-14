@@ -3,11 +3,13 @@
  */
 package net.manaca.loaderqueue.adapter
 {
+import flash.events.ProgressEvent;
+import flash.net.URLRequest;
+import flash.net.URLStream;
+
 import net.manaca.loaderqueue.ILoaderAdapter;
 import net.manaca.loaderqueue.LoaderQueueEvent;
 
-import flash.net.URLRequest;
-import flash.net.URLStream;
 /**
  * 将URLStream类包装成可用于LoaderQueue的适配器
  * @see net.manaca.loaderqueue#LoaderQueue
@@ -28,14 +30,28 @@ public class URLStreamAdapter extends AbstractLoaderAdapter implements ILoaderAd
     //==========================================================================
     //  Properties
     //==========================================================================
+    private var _bytesLoaded:Number = 0;
     public function get bytesLoaded():Number
     {
-        return container.bytesAvailable;
+        return _bytesLoaded;
     }
 
+    private var _bytesTotal:Number = 0;
     public function get bytesTotal():Number
     {
-        return 0;
+        return _bytesTotal;
+    }
+    
+    public function get progress():Number
+    {
+        if(bytesLoaded && bytesTotal)
+        {
+            return bytesLoaded / bytesTotal;
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     //----------------------------------
@@ -60,7 +76,7 @@ public class URLStreamAdapter extends AbstractLoaderAdapter implements ILoaderAd
     override public function dispose():void
     {
         stop();
-		super.dispose();
+        super.dispose();
         _container = null;
     }
 
@@ -89,6 +105,16 @@ public class URLStreamAdapter extends AbstractLoaderAdapter implements ILoaderAd
         {
             //do nothing
         }
+    }
+    //==========================================================================
+    //  Event Handlers
+    //==========================================================================
+    override protected function container_progressHandler(
+        event:ProgressEvent):void
+    {
+        super.container_progressHandler(event);
+        _bytesLoaded = event.bytesLoaded;
+        _bytesTotal = event.bytesTotal;
     }
 }
 }

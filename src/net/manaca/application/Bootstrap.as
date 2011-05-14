@@ -8,6 +8,7 @@ import flash.utils.Dictionary;
 
 import net.manaca.application.config.ServerVO;
 import net.manaca.core.manaca_internal;
+import net.manaca.loaderqueue.ILoaderAdapter;
 import net.manaca.loaderqueue.LoaderQueue;
 import net.manaca.utils.URLUtils;
 
@@ -55,17 +56,28 @@ public class Bootstrap
     //==========================================================================
     //  Variables
     //==========================================================================
-    private var config:XML;
     private var preloadFiles:Dictionary;
     private const projectSettings:Dictionary = new Dictionary();
     //==========================================================================
     //  Properties -- Server Path
     //==========================================================================
-    /**
-     * 客户端版本
-     */    
-    public var clientVersion:int = 1;
+    //----------------------------------
+    //  clientVersion
+    //----------------------------------
     
+    private var _clientVersion:String = "";
+
+    /**
+     * 客户端版本，在config.AppSettings.version定义.
+     */
+    public function get clientVersion():String
+    {
+        return _clientVersion;
+    }
+
+    //----------------------------------
+    //  href
+    //----------------------------------
     /**
      * 返回当前浏览器地址.
      * @return 
@@ -81,6 +93,21 @@ public class Bootstrap
         }
         return result;
     }
+    
+    //----------------------------------
+    //  config
+    //----------------------------------
+    private var _config:XML;
+    /**
+     * 配置文件
+     * @return 
+     * 
+     */    
+    public function get config():XML
+    {
+        return _config;
+    }
+    
     //----------------------------------
     //  servers
     //----------------------------------
@@ -94,6 +121,7 @@ public class Bootstrap
     {
         return _servers;
     }
+    
     //----------------------------------
     //  currentServer
     //----------------------------------
@@ -206,7 +234,7 @@ public class Bootstrap
      * @return 
      * 
      */    
-    public function getPreloadFile(name:String):*
+    public function getPreloadFile(name:String):ILoaderAdapter
     {
         return preloadFiles[name];
     }
@@ -239,7 +267,10 @@ public class Bootstrap
      */    
     final manaca_internal function init(config:XML):void
     {
-        this.config = config;
+        this._config = config;
+        
+        //version
+        this._clientVersion = config.AppSettings.version;
         
         //init project settings
         for each(var settingNode:XML in config.ProjectSettings.Add)

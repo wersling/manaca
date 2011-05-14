@@ -2,7 +2,6 @@ package net.manaca.application
 {
 import flash.display.Sprite;
 import flash.events.Event;
-import flash.utils.Dictionary;
 
 import net.manaca.application.config.ApplicationInitHelper;
 import net.manaca.application.config.ConfigFileHelper;
@@ -13,7 +12,6 @@ import net.manaca.errors.FrameworkError;
 import net.manaca.errors.IllegalArgumentError;
 import net.manaca.errors.SingletonError;
 import net.manaca.loaderqueue.LoaderQueue;
-import net.manaca.loading.queue.LoadingEvent;
 import net.manaca.modules.ModuleManager;
 import net.manaca.modules.ModuleVO;
 
@@ -146,10 +144,10 @@ public class Application extends Sprite implements IApplication
         
         //start loading files
         filePreloading = 
-            new FilePreloadingHelper(configXML.Files.File, modules);
-        filePreloading.addEventListener(LoadingEvent.COMPLETE, 
+            new FilePreloadingHelper(configXML.PreloadFiles.File, modules);
+        filePreloading.addEventListener(Event.COMPLETE, 
             loadCompletedHandler);
-        filePreloading.addEventListener(LoadingEvent.PROGRESS, progressHandler);
+        filePreloading.addEventListener(Event.CHANGE, progressHandler);
         filePreloading.start();
     }
     
@@ -220,9 +218,9 @@ public class Application extends Sprite implements IApplication
      * @param event
      * 
      */    
-    private function progressHandler(event:LoadingEvent):void
+    private function progressHandler(event:Event):void
     {
-        updateProgress(event.percent);
+        updateProgress(filePreloading.percentage);
     }
     
     /**
@@ -230,16 +228,18 @@ public class Application extends Sprite implements IApplication
      * @param event
      * 
      */    
-    private function loadCompletedHandler(event:LoadingEvent):void
+    private function loadCompletedHandler(event:Event):void
     {
         Bootstrap.getInstance().
             manaca_internal::setPreloadFiles(filePreloading.preloadFiles);
         
-        filePreloading.addEventListener(LoadingEvent.COMPLETE, 
+        filePreloading.removeEventListener(Event.COMPLETE, 
             loadCompletedHandler);
-        filePreloading.addEventListener(LoadingEvent.PROGRESS, progressHandler);
+        filePreloading.removeEventListener(Event.CHANGE, progressHandler);
         filePreloading.dispose();
         filePreloading = null;
+        
+        updateProgress(100);
         
         startup();
     }

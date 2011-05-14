@@ -60,6 +60,18 @@ public class BackupLoaderAdapter extends AbstractLoaderAdapter
         return container.contentLoaderInfo.bytesTotal;
     }
     
+    public function get progress():Number
+    {
+        if(bytesLoaded && bytesTotal)
+        {
+            return bytesLoaded / bytesTotal;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
     private var _container:Loader;
     public function get container():Loader
     {
@@ -77,8 +89,8 @@ public class BackupLoaderAdapter extends AbstractLoaderAdapter
      */
     override public function dispose():void
     {
-		stop();
-		_container && _container.unloadAndStop();
+        stop();
+        _container && _container.unloadAndStop();
         super.dispose();
         _container = null;
     }

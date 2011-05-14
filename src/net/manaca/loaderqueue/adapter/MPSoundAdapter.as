@@ -52,6 +52,18 @@ public class MPSoundAdapter extends AbstractLoaderAdapter
         return container.bytesTotal;
     }
 
+    public function get progress():Number
+    {
+        if(bytesLoaded && bytesTotal)
+        {
+            return bytesLoaded / bytesTotal;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
     public function get container():Sound
     {
         return _container;
@@ -68,7 +80,7 @@ public class MPSoundAdapter extends AbstractLoaderAdapter
      */
     override public function dispose():void
     {
-		stop();
+        stop();
         super.dispose();
         _container = null;
     }

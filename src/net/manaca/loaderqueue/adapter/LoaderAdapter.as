@@ -3,13 +3,13 @@
  */
 package net.manaca.loaderqueue.adapter
 {
-import net.manaca.loaderqueue.ILoaderAdapter;
-import net.manaca.loaderqueue.LoaderQueueEvent;
-
 import flash.display.Loader;
 import flash.events.IOErrorEvent;
 import flash.net.URLRequest;
 import flash.system.LoaderContext;
+
+import net.manaca.loaderqueue.ILoaderAdapter;
+import net.manaca.loaderqueue.LoaderQueueEvent;
 
 /**
  * 将Loader类包装成可用于LoaderQueue的适配器
@@ -54,6 +54,18 @@ public class LoaderAdapter extends AbstractLoaderAdapter
     {
         return _container;
     }
+    
+    public function get progress():Number
+    {
+        if(bytesLoaded && bytesTotal)
+        {
+            return bytesLoaded / bytesTotal;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 
     //==========================================================================
     //  Methods
@@ -66,10 +78,10 @@ public class LoaderAdapter extends AbstractLoaderAdapter
      */
     override public function dispose():void
     {
-		stop();
-		_container && _container.unloadAndStop();
-		super.dispose();
-		_container = null;
+        stop();
+        _container && _container.unloadAndStop();
+        super.dispose();
+        _container = null;
     }
 
     public function start():void

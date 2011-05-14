@@ -113,12 +113,6 @@ public class AbstractLoaderAdapter extends EventDispatcher
         return _level;
     }
 
-    protected var _progressNum:Number = 0;
-    public function get progress():Number
-    {
-        return _progressNum;
-    }
-
     protected var _state:String;
     /**
      * 适配器的状态
