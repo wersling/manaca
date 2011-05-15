@@ -94,7 +94,7 @@ public class PreloaderBase extends MovieClip
     protected function initialize():void
     {
         nextFrame();
-
+        trace("SWF file loaded.");
         var app:Object = createApplication();
         addChild(app as Sprite);
 

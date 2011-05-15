@@ -1,10 +1,14 @@
 package
 {
 
+import flash.external.ExternalInterface;
 import flash.net.URLLoader;
+import flash.system.Capabilities;
 
 import net.manaca.application.Application;
+import net.manaca.application.Bootstrap;
 import net.manaca.logging.Tracer;
+
 //--------------------------------------
 //  Application Metadata
 //--------------------------------------
@@ -40,7 +44,7 @@ public class Main extends Application
     //==========================================================================
     //  Methods
     //==========================================================================
-    override protected function updateConfiguration(percent:uint):void
+    override protected function updateProgress(percent:uint):void
     {
     }
     /**
@@ -50,9 +54,19 @@ public class Main extends Application
     override protected function startup():void
     {
         Tracer.info("application startup, version : " + 
-            config.AppSettings.version);
+            Bootstrap.getInstance().clientVersion);
+        Tracer.info(
+            [
+                "FPVersion:" + Capabilities.version,
+                "isDebuger:" + Capabilities.isDebugger,
+                "playerType:" + Capabilities.playerType,
+                "ExternalInterface.available:" + ExternalInterface.available,
+                "href:" + Bootstrap.getInstance().href
+            ]
+        );
         ExternalVars.initialize(stage.loaderInfo);
         //TODO start coding
+        trace(1);
     }
 }
 }

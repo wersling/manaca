@@ -138,7 +138,7 @@ public class LoaderProgressCounter extends EventDispatcher
         }
         _totalProgress = tp / itemsLen;
         dispatchEvent(new Event(Event.CHANGE));
-        if(_totalProgress == 1)
+        if(_totalProgress == 1 || itemsLen == 0)
         {
             dispatchEvent(new Event(Event.COMPLETE));
             stop();

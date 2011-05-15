@@ -112,6 +112,8 @@ public class Application extends Sprite implements IApplication
     
     private function initApp():void
     {
+        trace("Application.initApp()");
+        
         Bootstrap.getInstance().manaca_internal::init(configXML);
         
         //init stage,logging
@@ -206,7 +208,8 @@ public class Application extends Sprite implements IApplication
         ConfigFileHelper(event.target).addEventListener(Event.COMPLETE,
             configFile_completeHandler);
         
-        configXML = ConfigFileHelper(event.target).config;
+        configXML = ConfigFileHelper(event.target).configXML;
+        trace("config file loaded");
         if(configXML)
         {
             initApp();

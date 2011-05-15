@@ -9,7 +9,6 @@ import flash.net.URLRequest;
 import mx.core.ByteArrayAsset;
 
 import net.manaca.errors.IllegalArgumentError;
-import net.manaca.logging.Tracer;
 public class ConfigFileHelper extends EventDispatcher
 {
     public function ConfigFileHelper()
@@ -17,7 +16,7 @@ public class ConfigFileHelper extends EventDispatcher
         super();
     }
     
-    public var config:XML;
+    public var configXML:XML;
     
     public function init(config:*):void
     {
@@ -25,11 +24,11 @@ public class ConfigFileHelper extends EventDispatcher
         {
             var clZ:Class = config as Class;
             var ba:ByteArrayAsset = ByteArrayAsset(new clZ()) ;
-            config = new XML(ba.readUTFBytes(ba.length));
+            configXML = new XML(ba.readUTFBytes(ba.length));
         }
         else if(config is XML)
         {
-            config = XML(config);
+            configXML = XML(config);
         }
         else if(config is String && String(config).length > 0)
         {
@@ -39,7 +38,7 @@ public class ConfigFileHelper extends EventDispatcher
             loader.addEventListener(IOErrorEvent.IO_ERROR, 
                 loaderConfig_errorHandler);
             loader.load(new URLRequest(String(config)));
-            Tracer.debug("start loading config file : " + config);
+            trace("start loading config file : " + config);
             return;
         }
         else
@@ -56,7 +55,7 @@ public class ConfigFileHelper extends EventDispatcher
     {
         try
         {
-            config = XML(event.target.data);
+            configXML = XML(event.target.data);
         }
         catch(error:Error)
         {

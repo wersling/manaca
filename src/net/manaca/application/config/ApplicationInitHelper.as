@@ -77,8 +77,8 @@ public class ApplicationInitHelper extends EventDispatcher
     {
         if(config.AppSettings.LoggingSettings.@enabled == "true")
         {
-            setPublishers();
             setLogLevel();
+            setPublishers();
         }
     }
     
@@ -101,6 +101,14 @@ public class ApplicationInitHelper extends EventDispatcher
     private function setPublishers():void
     {
         var info:XMLList = config.AppSettings.LoggingSettings;
+        
+        if(info.TracePublisher != null)
+        {
+            var tracePublisher:TracePublisher = new TracePublisher();
+            Tracer.logger.addPublisher(tracePublisher);
+            tracePublisher.level = getLogLevel(info.TracePublisher.@logLevel);
+        }
+        
         if(info.Output != null && !Output.instance)
         {
             var output:Output = new Output(info.Output.@outputHeight, 
@@ -108,18 +116,6 @@ public class ApplicationInitHelper extends EventDispatcher
             output.level = getLogLevel(info.Output.@logLevel);
             stage.addChild(output);
             stage.removeChild(output);
-            
-            Tracer.info("Added  Output. log level:" + output.level.name);
-        }
-        
-        if(info.TracePublisher != null)
-        {
-            var tracePublisher:TracePublisher = new TracePublisher();
-            Tracer.logger.addPublisher(tracePublisher);
-            tracePublisher.level = getLogLevel(info.TracePublisher.@logLevel);
-            
-            Tracer.info("Added  TracePublisher. log level:" + 
-                tracePublisher.level.name);
         }
     }
     
@@ -127,7 +123,7 @@ public class ApplicationInitHelper extends EventDispatcher
     {
         var info:XMLList = config.AppSettings.LoggingSettings;
         Tracer.logger.level = getLogLevel(info.@logLevel);
-        Tracer.info("Set Tracer log level:" + Tracer.logger.level.name);
+        trace("Set log level:" + Tracer.logger.level.name);
     }
     
     private function getLogLevel(level:String):LogLevel

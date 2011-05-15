@@ -1,27 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration xmlns="www.manaca.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+<Configuration>
+    <!-- 项目运行时配置 -->
     <AppSettings>
+        <!-- 当前版本 -->
         <version>1.0</version>
+        <!-- 安全设置 -->
         <SecuritySettings>
+            <!-- crossdomain文件列表配置 -->
             <CrossDomainPolicies>
                 <url/>
             </CrossDomainPolicies>
+            <!-- allowedDomain配置 -->
             <AllowedDomains>
-                <domain/>
+                <domain>*</domain>
             </AllowedDomains>
         </SecuritySettings>
         <!-- set debug level to debug|info|warn|error|fatal|off -->
-        <LoggingSettings enabled="true" LogLevel="debug">
-            <Output outputHeight="150" LogLevel="debug" strong="true"/>
-            <TracePublisher LogLevel="debug"/>
+        <LoggingSettings enabled="true" logLevel="debug">
+            <Output outputHeight="150" logLevel="debug" strong="true"/>
+            <TracePublisher logLevel="debug"/>
         </LoggingSettings>
     </AppSettings>
-    <!-- projectSettings and files that can be overridden -->
-    <ExtendFile></ExtendFile>
+    
+    <!-- 服务器配置表 -->
+    <Servers>
+        <!--服务器配置设置格式： 
+            id: 服务的唯一标识符 
+            domain: 主域名 
+            swfPath: swf文件路径，支持绝对和相对路径。如果为相对路径则为：domain + swf 
+            imagePath: 图片文件路径，支持绝对和相对路径。如果为相对路径则为：domain + imagePath 
+            httpServer: 场景资源路径，支持绝对和相对路径。如果为相对路径则为：domain + httpServer -->
+        
+        <!--flash开发用服务配置，在上线时可以删除 -->
+        <Server id="flashDev" 
+                domain=""
+                swfPath="" 
+                imagePath="" 
+                httpServer=""/>
+        <!--上线版本服务配置 -->
+        <Server id="release"
+                domain=""
+                swfPath="" 
+                imagePath="" 
+                httpServer=""/>
+    </Servers>
+    
+    <!-- 项目中需要用到的参数配置 -->
     <ProjectSettings>
-        <Add key="SITE_WIDTH" value="910"/>
+        <!-- 
+        <Add key="music" value="assets/media/music.mp3"/>
+         -->
     </ProjectSettings>
-    <Files>
-        <File url="settings.xml" name="settings" FileType="xml"/>
-    </Files>
+    
+    <!-- 预加载文件列表 -->
+    <PreloadFiles>
+        <!-- 参数说明：
+            url: 需要加载文件url.绝对路径
+            name: 资源名称
+            type: 文件类型，可选值xml|swf|image
+            clearCache: 是(true)否(false)每次加载都清除缓存 -->
+        <!-- 
+        <File url="assets/keyword.txt" name="keyword" type="xml" clearCache="false"/>
+         -->
+    </PreloadFiles>
+    
+    <!-- 模块设置，非开发人员勿动! -->
+    <Modules>
+        <!-- 
+        <Module name="Index"
+            clz="suntory.module.index::Index" encoded="false"
+            preloading="true" url="suntory/module/index/Index.swf" />
+             -->
+    </Modules>
+    
+    <!-- 页面设置 -->
+    <Sections>
+        <!-- 属性说明: 
+            name：栏目名称 
+            deep: 导航链接，点击菜单修改网页地址，如点击此菜单，则地址#后为：#/stroili_oro/brand/ 
+            module: 要加载的模块名称，开发人员配置，勿动！ 
+            File: 该页面需要加载的资源文件 -->
+        <!--
+        <Section name="首页" deep="" module="Index" />
+        -->
+    </Sections>
 </Configuration>
