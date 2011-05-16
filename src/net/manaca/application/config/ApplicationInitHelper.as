@@ -123,7 +123,6 @@ public class ApplicationInitHelper extends EventDispatcher
     {
         var info:XMLList = config.AppSettings.LoggingSettings;
         Tracer.logger.level = getLogLevel(info.@logLevel);
-        trace("Set log level:" + Tracer.logger.level.name);
     }
     
     private function getLogLevel(level:String):LogLevel

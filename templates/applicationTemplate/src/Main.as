@@ -66,7 +66,6 @@ public class Main extends Application
         );
         ExternalVars.initialize(stage.loaderInfo);
         //TODO start coding
-        trace(1);
     }
 }
 }

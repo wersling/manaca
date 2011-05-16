@@ -1,6 +1,5 @@
 package net.manaca.logging.publishers
 {
-import flash.display.InteractiveObject;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.GradientType;
@@ -59,7 +58,7 @@ public class Output extends Sprite implements ILogPublisher
     //the yes/no strong.
     static private var isStrong:Boolean = false;
 
-    static private var title:String = "Wersling Output v2.0";
+    static private var title:String = "Wersling Output v2.0.1";
     /**
      *  @private
      */
@@ -287,7 +286,7 @@ public class Output extends Sprite implements ILogPublisher
         outputTxt = new TextField();
         outputTxt.type = TextFieldType.INPUT;
         outputTxt.border = true;
-        outputTxt.borderColor = 0;
+        outputTxt.borderColor = 0xA7A7A7;
         outputTxt.background = true;
         outputTxt.backgroundColor = 0xFFFFFF;
         outputTxt.height = outputHeight;
@@ -311,7 +310,8 @@ public class Output extends Sprite implements ILogPublisher
         var gradientMatrix:Matrix = new Matrix();
         gradientMatrix.createGradientBox(20, 20, Math.PI / 2, 0, 0);
         barGraphics.graphics.lineStyle(0, 0xA7A7A7);
-        barGraphics.graphics.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios, gradientMatrix);
+        barGraphics.graphics.beginGradientFill(GradientType.LINEAR, colors, 
+            alphas, ratios, gradientMatrix);
         barGraphics.graphics.drawRect(0, 0, 20, 20);
 
         //title
@@ -514,15 +514,19 @@ public class Output extends Sprite implements ILogPublisher
     private function fitToStage(evt:Event = null):void
     {
         if (!stage) return;
-        outputTxt.width = stage.stageWidth;
-        outputTxt.y = stage.stageHeight - outputTxt.height;
-        titleBar.y = (outputTxt.visible) ? outputTxt.y - titleBar.height : stage.stageHeight - titleBar.height;
-        titleBar.getChildByName("bar").width = stage.stageWidth;
+        var w:int = stage.stageWidth - 1;
+        
+        outputTxt.width = w;
+        outputTxt.y = stage.stageHeight - outputTxt.height - 1;
+        titleBar.y = (outputTxt.visible) ? 
+            outputTxt.y - titleBar.height : 
+            stage.stageHeight - titleBar.height - 1;
+        titleBar.getChildByName("bar").width = w;
 
         if(isStrong)
         {
             var tools:DisplayObject = titleBar.getChildByName("tools");
-            tools.x = stage.stageWidth - tools.width - 4;
+            tools.x = w - tools.width - 4;
         }
     }
 

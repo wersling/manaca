@@ -5,8 +5,10 @@ import flash.display.Sprite;
 import flash.display.StageAlign;
 import flash.display.StageScaleMode;
 import flash.events.Event;
+import flash.external.ExternalInterface;
 import flash.system.Capabilities;
 import flash.utils.getDefinitionByName;
+import flash.utils.setTimeout;
 
 import net.manaca.application.IApplication;
 
@@ -86,7 +88,27 @@ public class PreloaderBase extends MovieClip
         var mainClass:Class = Class(getDefinitionByName(mainClassName));
         return mainClass ? new mainClass() : null;
     }
-
+    
+    /**
+     * @private
+     * check js is inited.
+     */    
+    private function checkJSInit():void
+    {
+        try
+        {
+            ExternalInterface.call(
+                "function getHref(){return document.location.href;}");
+        }
+        catch(error:Error)
+        {
+            trace(error);
+            setTimeout(checkJSInit, 100);
+            return;
+        }
+        initialize();
+    }
+    
     /**
      * @private
      * initialize the application.
@@ -94,7 +116,6 @@ public class PreloaderBase extends MovieClip
     protected function initialize():void
     {
         nextFrame();
-        trace("SWF file loaded.");
         var app:Object = createApplication();
         addChild(app as Sprite);
 
@@ -131,7 +152,16 @@ public class PreloaderBase extends MovieClip
                 (MovieClip(root).framesLoaded >= 2)))
         {
             removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
-            initialize();
+            
+            var playerType:String = Capabilities.playerType;
+            if ((playerType == "PlugIn" || playerType == "ActiveX"))
+            {
+                checkJSInit();
+            }
+            else
+            {
+                initialize();
+            }
         }
     }
 }

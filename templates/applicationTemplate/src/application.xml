@@ -68,8 +68,8 @@
     <Modules>
         <!-- 
         <Module name="Index"
-            clz="suntory.module.index::Index" encoded="false"
-            preloading="true" url="suntory/module/index/Index.swf" />
+            clz="site.module.index::Index" encoded="false"
+            preloading="true" url="site/module/index/Index.swf" />
              -->
     </Modules>
     
@@ -77,7 +77,7 @@
     <Sections>
         <!-- 属性说明: 
             name：栏目名称 
-            deep: 导航链接，点击菜单修改网页地址，如点击此菜单，则地址#后为：#/stroili_oro/brand/ 
+            deep: 导航链接，点击菜单修改网页地址，如点击此菜单，则地址#后为：#/video/ 
             module: 要加载的模块名称，开发人员配置，勿动！ 
             File: 该页面需要加载的资源文件 -->
         <!--
