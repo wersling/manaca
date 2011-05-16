@@ -1,0 +1,7 @@
+1. import the template to Flex Builder.
+2. Move the project to your work path.
+3. Rename the project.
+4. Modify build.properties file "application.name" value.
+5. Modify build.xml file project name.
+6. Rename the "site" package to your project name
+6. Delete the file.

@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
   <includeClasses>
+    <classEntry path="com.asual.swfaddress.SWFAddress"/>
+    <classEntry path="com.asual.swfaddress.SWFAddressEvent"/>
+    <classEntry path="com.pixelbreaker.ui.osx.MacMouseWheel"/>
+    <classEntry path="com.yahoo.astra.layout.ILayoutContainer"/>
+    <classEntry path="com.yahoo.astra.layout.LayoutContainer"/>
+    <classEntry path="com.yahoo.astra.layout.LayoutManager"/>
+    <classEntry path="com.yahoo.astra.layout.events.LayoutEvent"/>
+    <classEntry path="com.yahoo.astra.layout.modes.AdvancedBoxLayout"/>
+    <classEntry path="com.yahoo.astra.layout.modes.BaseLayoutMode"/>
+    <classEntry path="com.yahoo.astra.layout.modes.BorderConstraints"/>
+    <classEntry path="com.yahoo.astra.layout.modes.BorderLayout"/>
+    <classEntry path="com.yahoo.astra.layout.modes.BoxLayout"/>
+    <classEntry path="com.yahoo.astra.layout.modes.FlowLayout"/>
+    <classEntry path="com.yahoo.astra.layout.modes.HorizontalAlignment"/>
+    <classEntry path="com.yahoo.astra.layout.modes.IAdvancedLayoutMode"/>
+    <classEntry path="com.yahoo.astra.layout.modes.ILayoutMode"/>
+    <classEntry path="com.yahoo.astra.layout.modes.LayoutModeUtil"/>
+    <classEntry path="com.yahoo.astra.layout.modes.PercentageSizeUtil"/>
+    <classEntry path="com.yahoo.astra.layout.modes.TileLayout"/>
+    <classEntry path="com.yahoo.astra.layout.modes.VerticalAlignment"/>
+    <classEntry path="com.yahoo.astra.utils.DisplayObjectUtil"/>
+    <classEntry path="com.yahoo.astra.utils.NumberUtil"/>
     <classEntry path="net.manaca.application.Application"/>
     <classEntry path="net.manaca.application.BaseApplication"/>
+    <classEntry path="net.manaca.application.Bootstrap"/>
     <classEntry path="net.manaca.application.IApplication"/>
+    <classEntry path="net.manaca.application.config.ApplicationInitHelper"/>
+    <classEntry path="net.manaca.application.config.ConfigFileHelper"/>
+    <classEntry path="net.manaca.application.config.FilePreloadingHelper"/>
     <classEntry path="net.manaca.application.config.FileTypeInfo"/>
     <classEntry path="net.manaca.application.config.LogLevelInfo"/>
+    <classEntry path="net.manaca.application.config.ServerVO"/>
     <classEntry path="net.manaca.application.thread.AbstractBatch"/>
     <classEntry path="net.manaca.application.thread.AbstractProcess"/>
     <classEntry path="net.manaca.application.thread.BatchEvent"/>
@@ -45,6 +72,19 @@
     <classEntry path="net.manaca.events.TransitionEvent"/>
     <classEntry path="net.manaca.formatters.DateFormatter"/>
     <classEntry path="net.manaca.formatters.DateInfo"/>
+    <classEntry path="net.manaca.loaderqueue.ILoaderAdapter"/>
+    <classEntry path="net.manaca.loaderqueue.ILoaderQueue"/>
+    <classEntry path="net.manaca.loaderqueue.LoaderProgressCounter"/>
+    <classEntry path="net.manaca.loaderqueue.LoaderQueue"/>
+    <classEntry path="net.manaca.loaderqueue.LoaderQueueConst"/>
+    <classEntry path="net.manaca.loaderqueue.LoaderQueueEvent"/>
+    <classEntry path="net.manaca.loaderqueue.adapter.AbstractLoaderAdapter"/>
+    <classEntry path="net.manaca.loaderqueue.adapter.BackupLoaderAdapter"/>
+    <classEntry path="net.manaca.loaderqueue.adapter.BackupURLLoaderAdapter"/>
+    <classEntry path="net.manaca.loaderqueue.adapter.LoaderAdapter"/>
+    <classEntry path="net.manaca.loaderqueue.adapter.MPSoundAdapter"/>
+    <classEntry path="net.manaca.loaderqueue.adapter.URLLoaderAdapter"/>
+    <classEntry path="net.manaca.loaderqueue.adapter.URLStreamAdapter"/>
     <classEntry path="net.manaca.logging.ILogPublisher"/>
     <classEntry path="net.manaca.logging.LogLevel"/>
     <classEntry path="net.manaca.logging.LogRecord"/>
@@ -62,6 +102,18 @@
     <classEntry path="net.manaca.managers.ToolTipDisplay"/>
     <classEntry path="net.manaca.managers.ToolTipManager"/>
     <classEntry path="net.manaca.media.SoundPlayer"/>
+    <classEntry path="net.manaca.modules.AbstractModule"/>
+    <classEntry path="net.manaca.modules.IModuleContext"/>
+    <classEntry path="net.manaca.modules.IModuleDisplay"/>
+    <classEntry path="net.manaca.modules.IModuleFactory"/>
+    <classEntry path="net.manaca.modules.IModuleInfo"/>
+    <classEntry path="net.manaca.modules.ModuleEvent"/>
+    <classEntry path="net.manaca.modules.ModuleFactory"/>
+    <classEntry path="net.manaca.modules.ModuleInfo"/>
+    <classEntry path="net.manaca.modules.ModuleManager"/>
+    <classEntry path="net.manaca.modules.ModuleManagerImpl"/>
+    <classEntry path="net.manaca.modules.ModuleMediator"/>
+    <classEntry path="net.manaca.modules.ModuleVO"/>
     <classEntry path="net.manaca.preloaders.PreloaderBase"/>
     <classEntry path="net.manaca.preloaders.SimplePreloader"/>
     <classEntry path="net.manaca.tracking.Tracking"/>
@@ -71,6 +123,8 @@
     <classEntry path="net.manaca.utils.BitmapDataUtil"/>
     <classEntry path="net.manaca.utils.Cookie"/>
     <classEntry path="net.manaca.utils.DeepVO"/>
+    <classEntry path="net.manaca.utils.DepthUtil"/>
+    <classEntry path="net.manaca.utils.FunctionUtil"/>
     <classEntry path="net.manaca.utils.NumberUtil"/>
     <classEntry path="net.manaca.utils.Stretcher"/>
     <classEntry path="net.manaca.utils.StringUtil"/>
@@ -83,7 +137,6 @@
     <classEntry path="net.manaca.xml.types.SchemaSimpleNode"/>
     <classEntry path="net.manaca.xml.types.SchemaString"/>
     <classEntry path="net.manaca.xml.types.SchemaUint"/>
-    <classEntry path="net.manaca.loaderqueue.LoaderProgressCounter"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
