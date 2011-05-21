@@ -9,7 +9,7 @@ import flash.events.Event;
 import flash.events.MouseEvent;
 
 import net.manaca.controls.listClass.IListItemRenderer;
-import net.manaca.core.patterns.factory.ClassFactory;
+import net.manaca.core.ClassFactory;
 import net.manaca.utils.ArrayUtil;
 
 /**

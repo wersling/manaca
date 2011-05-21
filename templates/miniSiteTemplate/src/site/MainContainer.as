@@ -12,7 +12,7 @@ import flash.system.LoaderContext;
 import net.manaca.application.Bootstrap;
 import net.manaca.application.config.FileTypeInfo;
 import net.manaca.loaderqueue.ILoaderAdapter;
-import net.manaca.loaderqueue.LoaderProgressCounter;
+import net.manaca.loaderqueue.LoaderProgress;
 import net.manaca.loaderqueue.LoaderQueue;
 import net.manaca.loaderqueue.adapter.LoaderAdapter;
 import net.manaca.loaderqueue.adapter.URLLoaderAdapter;
@@ -54,7 +54,7 @@ public class MainContainer extends Sprite
     private var currentDeep:DeepVO;
     private var moduleLoader:LoaderAdapter;
     private var files:Object;
-    private var loaderProgressCounter:LoaderProgressCounter;
+    private var loaderProgress:LoaderProgress;
     
     private var menu:Menu;
     private var content:Content;
@@ -123,14 +123,14 @@ public class MainContainer extends Sprite
     
     private function removeCurrentLoading():void
     {
-        if(loaderProgressCounter)
+        if(loaderProgress)
         {
-            loaderProgressCounter.removeEventListener(Event.CHANGE,
+            loaderProgress.removeEventListener(Event.CHANGE,
                 loaderProgressCounter_changeHandler);
-            loaderProgressCounter.removeEventListener(Event.COMPLETE,
+            loaderProgress.removeEventListener(Event.COMPLETE,
                 loaderProgressCounter_completeHandler);
-            loaderProgressCounter.dispose();
-            loaderProgressCounter = null;
+            loaderProgress.dispose();
+            loaderProgress = null;
         }
         
         if(files)
@@ -158,7 +158,7 @@ public class MainContainer extends Sprite
             SectionModel.getInstance().getSectionByDeepVO(currentDeep);
         
         var loaderQueue:LoaderQueue = Bootstrap.getInstance().loaderQueue;
-        loaderProgressCounter =  new LoaderProgressCounter();
+        loaderProgress =  new LoaderProgress();
         
         //加载模块
         var moduleUrl:String =
@@ -183,7 +183,7 @@ public class MainContainer extends Sprite
             moduleLoader = 
                 new LoaderAdapter(1, new URLRequest(moduleUrl), context);
             loaderQueue.addItem(moduleLoader);
-            loaderProgressCounter.addItem(moduleLoader);
+            loaderProgress.addItem(moduleLoader);
             Tracer.debug("start loading module : " + moduleUrl);
         }
 
@@ -220,15 +220,15 @@ public class MainContainer extends Sprite
                 loader.data = vo;
                 files[vo.name] = loader;
                 loaderQueue.addItem(loader);
-                loaderProgressCounter.addItem(loader);
+                loaderProgress.addItem(loader);
                 Tracer.debug("loading files " + vo.url);
             }
         }
-        loaderProgressCounter.addEventListener(Event.CHANGE,
+        loaderProgress.addEventListener(Event.CHANGE,
             loaderProgressCounter_changeHandler);
-        loaderProgressCounter.addEventListener(Event.COMPLETE,
+        loaderProgress.addEventListener(Event.COMPLETE,
             loaderProgressCounter_completeHandler);
-        loaderProgressCounter.start();
+        loaderProgress.start();
     }
 
     /**
@@ -274,12 +274,12 @@ public class MainContainer extends Sprite
     //==========================================================================
     private function loaderProgressCounter_completeHandler(event:Event):void
     {
-        loaderProgressCounter.removeEventListener(Event.CHANGE,
+        loaderProgress.removeEventListener(Event.CHANGE,
             loaderProgressCounter_changeHandler);
-        loaderProgressCounter.removeEventListener(Event.COMPLETE,
+        loaderProgress.removeEventListener(Event.COMPLETE,
             loaderProgressCounter_completeHandler);
-        loaderProgressCounter.dispose();
-        loaderProgressCounter = null;
+        loaderProgress.dispose();
+        loaderProgress = null;
         displayNewContent();
     }
     

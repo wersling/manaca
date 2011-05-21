@@ -58,17 +58,17 @@ public class ToolTipDisplay extends Sprite implements IToolTipDisplay
         textField.selectable = false;
         textField.mouseEnabled = false;
         //textField.wordWrap = true;
-        this.addChild(textField);
+        addChild(textField);
 
         textFormat = new TextFormat();
         textFormat.font = "Verdana,Tahoma,_sans";
         textFormat.size = 12;
         textFormat.color = 0x575757;
 
-        this.mouseEnabled = false;
-        this.mouseChildren = false;
+        mouseEnabled = false;
+        mouseChildren = false;
 
-        this.addEventListener(Event.ADDED, addedHandler);
+        addEventListener(Event.ADDED, addedHandler);
     }
 
     /**
@@ -95,14 +95,16 @@ public class ToolTipDisplay extends Sprite implements IToolTipDisplay
         var h:uint = textField.height + 4;
         var t:uint = 2;
 
-        this.graphics.clear();
-        this.graphics.beginFill(0x767676);
-        this.graphics.drawRoundRectComplex(0, 0, w, h, t, t, t, t);
+        graphics.clear();
+        graphics.beginFill(0x767676);
+        graphics.drawRoundRectComplex(0, 0, w, h, t, t, t, t);
 
         var matrix:Matrix = new Matrix();
         matrix.createGradientBox(w, h, Math.PI / 2);
-        this.graphics.beginGradientFill(GradientType.LINEAR, [ 0xFFFFFF, 0xe4e5f0 ], [ 100, 100 ], [ 0x00, 0xFF ], matrix, SpreadMethod.PAD);
-        this.graphics.drawRoundRectComplex(1, 1, w - 2, h - 2, t, t, t, t);
+        graphics.beginGradientFill(GradientType.LINEAR, 
+            [ 0xFFFFFF, 0xe4e5f0 ], 
+            [ 100, 100 ], [ 0x00, 0xFF ], matrix, SpreadMethod.PAD);
+        graphics.drawRoundRectComplex(1, 1, w - 2, h - 2, t, t, t, t);
     }
 
     //==========================================================================

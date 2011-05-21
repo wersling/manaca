@@ -12,7 +12,8 @@ import flash.utils.Timer;
 import net.manaca.errors.SingletonError;
 
 /**
- * The ToolTipManager lets you set basic ToolTip functionality, such as display delay and the disabling of ToolTips.
+ * The ToolTipManager lets you set basic ToolTip functionality, 
+ * such as display delay and the disabling of ToolTips.
  * @author v-seanzo
  * 
  */    
@@ -163,9 +164,12 @@ public class ToolTipManager extends EventDispatcher
         {
             if(toolTipMap[target] == null)
             {
-                target.addEventListener(MouseEvent.MOUSE_OVER, mouseOverHanlder, false, 0, true);
-                target.addEventListener(MouseEvent.MOUSE_OUT, mouseOutHanlder, false, 0, true);
-                target.addEventListener(Event.REMOVED, mouseOutHanlder, false, 0, true);
+                target.addEventListener(MouseEvent.MOUSE_OVER, 
+                    mouseOverHanlder, false, 0, true);
+                target.addEventListener(MouseEvent.MOUSE_OUT, 
+                    mouseOutHanlder, false, 0, true);
+                target.addEventListener(Event.REMOVED, 
+                    mouseOutHanlder, false, 0, true);
             }
             
             if(target.hasOwnProperty("toolTip"))
@@ -224,7 +228,8 @@ public class ToolTipManager extends EventDispatcher
     {
         if(toolTipDisplay && DisplayObject(toolTipDisplay).stage)
         {
-            DisplayObject(toolTipDisplay).stage.removeChild(DisplayObject(toolTipDisplay));
+            DisplayObject(toolTipDisplay).stage.removeChild(
+                DisplayObject(toolTipDisplay));
         }
         
         triggTimer.stop();

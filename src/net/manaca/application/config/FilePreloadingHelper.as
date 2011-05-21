@@ -8,7 +8,7 @@ import flash.utils.Dictionary;
 import net.manaca.application.Bootstrap;
 import net.manaca.errors.IllegalArgumentError;
 import net.manaca.loaderqueue.ILoaderAdapter;
-import net.manaca.loaderqueue.LoaderProgressCounter;
+import net.manaca.loaderqueue.LoaderProgress;
 import net.manaca.loaderqueue.LoaderQueue;
 import net.manaca.loaderqueue.adapter.LoaderAdapter;
 import net.manaca.loaderqueue.adapter.URLLoaderAdapter;
@@ -65,7 +65,7 @@ public class FilePreloadingHelper extends EventDispatcher
     //==========================================================================
     private var filesXML:XMLList;
     private var modules:Vector.<ModuleVO>;
-    private var loaderProgressCounter:LoaderProgressCounter;
+    private var loaderProgressCounter:LoaderProgress;
     public var files:Dictionary;
     //==========================================================================
     //  Properties
@@ -108,7 +108,7 @@ public class FilePreloadingHelper extends EventDispatcher
         files = new Dictionary();
 
         var loadingQueue:LoaderQueue = Bootstrap.getInstance().loaderQueue;
-        loaderProgressCounter =  new LoaderProgressCounter();
+        loaderProgressCounter =  new LoaderProgress();
         addEventListeners();
         for each(var file:XML in filesXML)
         {

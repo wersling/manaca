@@ -22,16 +22,16 @@ import net.manaca.utils.ArrayUtil;
  * @author wersling
  * 
  */
-public class LoaderProgressCounter extends EventDispatcher
+public class LoaderProgress extends EventDispatcher
 {
     //==========================================================================
     //  Constructor
     //==========================================================================
     /**
-     * Constructs a new <code>LoadingProgressCounter</code> instance.
+     * Constructs a new <code>LoaderProgress</code> instance.
      * 
      */
-    public function LoaderProgressCounter()
+    public function LoaderProgress()
     {
     }
     //==========================================================================

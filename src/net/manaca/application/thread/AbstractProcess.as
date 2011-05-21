@@ -3,8 +3,9 @@ package net.manaca.application.thread
 import flash.utils.getTimer;
 
 import net.manaca.core.AbstractHandler;
-import net.manaca.core.patterns.command.ICommand;
 import net.manaca.data.Map;
+
+import org.robotlegs.mvcs.Command;
 
 // Getting localizable text from "process"
 
@@ -355,7 +356,7 @@ public class AbstractProcess extends TimeProcessor implements IProcess
      * @param process the subprocess to start
      * @param callback the callback to execute if the subprocess finishes
      */
-    public function startSubProcess(process:IProcess, callback:ICommand):void 
+    public function startSubProcess(process:IProcess, callback:Command):void 
     {
         // Don"t do anything if the the process is already 
         // registered as sub-process.
@@ -402,7 +403,7 @@ public class AbstractProcess extends TimeProcessor implements IProcess
             process.removeEventListener(ProcessEvent.PROCESS_FINISH, 
                                                         onProcessFinish);
             // Remove the process and executes the registered callback.
-            ICommand(subProcesses.remove(process)).execute();
+            Command(subProcesses.remove(process)).execute();
             // Resume exeuction
             resume();
         }

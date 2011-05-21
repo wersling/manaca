@@ -1,4 +1,4 @@
-package net.manaca.core.patterns.factory
+package net.manaca.core
 {
 
 /**
