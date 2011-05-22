@@ -1,23 +1,20 @@
-h2. Manaca2: 一的Flash和Flex项目开发框架及基本代码库。
+h2. Manaca2: Flash和Flex项目开发框架及基础代码库。
 
-Manaca2是一个轻量级的AS3开源库。包含一个应用程序运行时配置库；
-支持"robotlegs":https://github.com/robotlegs/robotlegs-framework的模块管理；
-支持优先级的下载队列；基于Yahoo Layout框架的组件; 
-集成swfaddress,swfobject,swfmacmousewheel2等工具，还有一些工具类。
+Manaca2是一个轻量级的AS3开源库。
 
 Manaca2可以为您的开发带来如下帮助:
 
-* 采用xml配置几乎每个项目都要编写的必要代码，简单而清晰，节约创建项目的时间;
-* 内置的Logging为您调试项目带来巨大方便；
+* 采用xml配置几乎每个项目都要编写的代码，简单而清晰，节约创建项目的时间;
+* 内置的Logging为您调试项目带来方便；
 * 内置preloader解决方案，使预加载不再麻烦；
 * 内置的Loaderqueue使您再也不用为文件加载顺序和优先级而烦恼;
-* 集成"robotlegs":https://github.com/robotlegs/robotlegs-framework和模块功能，确保你的项目在MVC框架下不再混乱，并从此从内存泄露的恶梦中解脱；（当然，如果你不打算用MVC，也可以使用其他的一些功能）
+* 集成 "Robotlegs":https://github.com/robotlegs/robotlegs-framework 和模块功能，确保你的项目在MVC框架下不再混乱，并从此从内存泄露的恶梦中解脱；（当然，如果你不打算用MVC，也可以使用其他的一些功能）
 * ITransitionObject为您解决多数mini site中进出场动画控制烦恼；
-* 集成Yahoo Layout框架使界面布局更简单；
-* 集成swfaddress,swfobject,swfmacmousewheel2和html template，使项目部署更简单；
+* 集成 "Yahoo Layout":http://developer.yahoo.com/flash/astra-flash/layout-containers/ 框架使界面布局更简单；
+* 集成 "swfaddress":http://www.asual.com/swfaddress/ , "swfobject":http://code.google.com/p/swfobject/ ,  "swfmacmousewheel2":http://blog.pixelbreaker.com/flash/as30-mousewheel-on-mac-os-x 和html template，使项目部署更简单；
 * FontManager为字体嵌入提供简单易用的方法；
 * ToolTipManager使得处理提示信息更方便；
-* XMLNote和"asSchema":http://code.google.com/p/asschema/结合，使读写xml不再是麻烦。
+* XMLNote和 "asSchema":http://code.google.com/p/asschema 结合，使读写xml不再是麻烦。
 
 h3. 如何开始
 
