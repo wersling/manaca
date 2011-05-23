@@ -16,28 +16,27 @@ public class ArrayUtil
      */
     static public function toArray(obj:Object):Array
     {
+        var result:Array = [];
         if (!obj)
         {
-            return [];
         }
         else if (obj is Array)
         {
-            return obj as Array;
+            result = obj as Array;
         }
         else if (obj is XMLList)
         {
-            var result:Array = new Array();
             var len:uint = XMLList(obj).length();
             for (var i:uint = 0; i < len; i++)
             {
                 result.push(XMLList(obj)[i]);
             }
-            return result;
         }
         else
         {
-            return [obj];
+            result = [obj];
         }
+        return result;
     }
 
     /**

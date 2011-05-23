@@ -1,8 +1,8 @@
-h2. Manaca2: Flash和Flex项目开发框架及基础代码库。
+h2. Manaca: Flash和Flex项目开发框架及基础代码库。
 
-Manaca2是一个轻量级的AS3开源库。
+Manaca是一个轻量级的AS3开源库。
 
-h3. Manaca2可以为您的开发带来如下帮助:
+h3. Manaca可以为您的开发带来如下帮助:
 
 * 采用xml配置几乎每个项目都要编写的代码，简单而清晰，节约创建项目的时间;
 * 内置的Logging为您调试项目带来方便；
