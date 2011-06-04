@@ -35,7 +35,7 @@ public class GraCoBd extends Sprite
      * http://livedocs.adobe.com/flex/3/html/help.html?content=fonts_07.html
      * C:\Program Files\Adobe\Flex Builder 3\sdks\3.0.0\frameworks\flash-unicode-table.xml
      */
-    [Embed(    source = './GraCoBd.ttf',
+    [Embed( source = './GraCoBd.ttf',
             fontName = 'GraCoBd',
             fontStyle = 'narmal',    //italic | oblique | normal
             fontWeight = 'normal',    //bold | heavy | normal
