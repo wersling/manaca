@@ -1,0 +1,36 @@
+/*
+ * <%= @copyright %>
+ */
+package <%= @vars.package %>.view
+{
+import org.robotlegs.mvcs.Mediator;
+import org.robotlegs.core.IContext;
+import org.robotlegs.core.IContextProvider;
+//TODO 需要添加asdoc
+public class <%= @vars.module_name %>ModuleMediator extends Mediator
+{
+    //==========================================================================
+    //  Constructor
+    //==========================================================================
+    /**
+     * 构造一个新的<code><%= @vars.module_name %>ModuleMediator</code>实例.
+     * 
+     */
+    public function <%= @vars.module_name %>ModuleMediator()
+    {
+        super();
+    }
+    //==========================================================================
+    //  Properties
+    //==========================================================================
+    [Inject]
+    public var module:IContextProvider;
+    //==========================================================================
+    //  Methods
+    //==========================================================================
+    override protected function get subContext():IContext
+    {
+        return module.getContext();
+    }
+}
+}

@@ -1,0 +1,126 @@
+/*
+ * <%= @copyright %>
+ */
+package common.service
+{
+import common.b_orm;
+import <%= @vars.package %>.<%= @vars.par %>Service;
+import <%= @vars.package %>.<%= @vars.par %>Param;
+import <%= @vars.package %>.events.<%= @vars.par %>DataEvent;
+import <%= @vars.package %>.helper.<%= @vars.par %>Parser;
+
+import flash.events.Event;
+import flash.events.IOErrorEvent;
+import flash.events.SecurityErrorEvent;
+import flash.net.URLLoader;
+import flash.net.URLLoaderDataFormat;
+import flash.net.URLRequest;
+
+import net.manaca.utils.StringUtil;
+
+import org.robotlegs.mvcs.Actor;
+/**
+ * <%= @vars.par %>数据加载服务具体实现.
+ * @author wersling
+ * 
+ */
+public class <%= @vars.par %>ServiceIns extends Actor implements <%= @vars.par %>Service
+{
+    //==========================================================================
+    //  Constructor
+    //==========================================================================
+    /**
+     * Constructs a new <code><%= @vars.par %>ServiceIns</code> instance.
+     * 
+     */
+    public function <%= @vars.par %>ServiceIns()
+    {
+        super();
+    }
+    //==========================================================================
+    //  Variables
+    //==========================================================================
+    private var loader:URLLoader;
+    //==========================================================================
+    //  Properties
+    //==========================================================================
+    private var _parser:<%= @vars.par %>Parser;
+    
+    [Inject]
+    /**
+     * @inheritDoc
+     */ 
+    public function set parser(value:<%= @vars.par %>Parser):void
+    {
+        _parser = value;
+    }
+    //==========================================================================
+    //  Methods
+    //==========================================================================
+    /**
+     * @inheritDoc
+     */
+    public function load(url:String, param:<%= @vars.par %>Param):void
+    {
+    	//TODO 修改发送的参数
+        var feed:String =
+            StringUtil.substitute(url, param.search_id2);
+        if (loader)
+        {
+            removeLoaderEventHandlers();
+        }
+        var request:URLRequest = new URLRequest(feed);
+        loader = new URLLoader();
+        loader.dataFormat = URLLoaderDataFormat.VARIABLES;
+        addLoaderEventHandlers();
+        loader.load(request);
+    }
+    
+    private function addLoaderEventHandlers():void
+    {
+        loader.addEventListener(Event.COMPLETE, completeHandler);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, loader_errorHandler);
+        loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR,
+            loader_errorHandler);
+    }
+    
+    private function removeLoaderEventHandlers():void
+    {
+        loader.removeEventListener(Event.COMPLETE, completeHandler);
+        loader.removeEventListener(IOErrorEvent.IO_ERROR, loader_errorHandler);
+        loader.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,
+            loader_errorHandler);
+    }
+    //==========================================================================
+    //  Event Handlers
+    //==========================================================================
+    /**
+     * 数据加载完成处理.
+     * @param event
+     * 
+     */
+    private function completeHandler(event:Event):void
+    {
+        removeLoaderEventHandlers();
+        if (loader.data)
+        {
+            var soapEvent:<%= @vars.par %>DataEvent =
+                new <%= @vars.par %>DataEvent(<%= @vars.par %>DataEvent.<%= @vars.par.upcase %>_DATA_LOADED);
+            soapEvent.b_orm::data = _parser.parseData(loader.data);
+            dispatch(soapEvent);
+        }
+    }
+    
+    /**
+     * 数据加载错误处理
+     * @param event
+     * 
+     */    
+    private function loader_errorHandler(event:Event):void
+    {
+        removeLoaderEventHandlers();
+        dispatch(new <%= @vars.par %>DataEvent(
+            <%= @vars.par %>DataEvent.<%= @vars.par.upcase %>_DATA_LOAD_ERR));
+    }
+}
+}

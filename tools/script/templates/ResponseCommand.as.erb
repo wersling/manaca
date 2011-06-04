@@ -1,0 +1,44 @@
+/*
+ * <%= @copyright %>
+ */
+package <%= @vars.package %>.controller
+{
+import com.nali.api.services.events.ServiceResponseEvent;
+
+import org.robotlegs.mvcs.Command;
+//TODO 需要添加asdoc
+public class <%= @vars.par %>ResponseCommand extends Command
+{
+    //==========================================================================
+    //  Constructor
+    //==========================================================================
+    /**
+     * 构造一个新的<code><%= @vars.par %>ResponseCommand</code>实例.
+     * 
+     */
+    public function <%= @vars.par %>ResponseCommand()
+    {
+        super();
+    }
+    //==========================================================================
+    //  Properties
+    //==========================================================================
+    [Inject]
+    /**
+     * 注入的<code><%= @vars.par %>Event</code>对象.
+     */
+    public var event:ServiceResponseEvent;
+    
+    //==========================================================================
+    //  Methods
+    //==========================================================================
+    /**
+     * @inheritDoc
+     */
+    override public function execute() : void
+    {
+         var response:* = event.data;
+         //TODO add code
+    }
+}
+}

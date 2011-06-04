@@ -1,0 +1,22 @@
+/*
+ * <%= @copyright %>
+ */
+package <%= @vars.package %>.helper
+{
+import <%= @vars.package %>.vo.<%= @vars.par %>Data;
+/**
+ * <%= @vars.par %>数据解析器接口
+ * @author wersling
+ * 
+ */
+public interface <%= @vars.par %>Parser
+{
+    /**
+     * 解析数据.
+     * @param data 需要解析的数据对象.
+     * @return 解析好的数据对象.
+     * 
+     */    
+    function parseData(data:String):<%= @vars.par %>Data;
+}
+}

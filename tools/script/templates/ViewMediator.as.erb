@@ -1,0 +1,54 @@
+/*
+ * <%= @copyright %>
+ */
+package <%= @vars.package %>.view
+{
+import org.robotlegs.mvcs.Mediator;
+//TODO 需要添加asdoc
+public class <%= @vars.par %>ViewMediator extends Mediator
+{
+    //==========================================================================
+    //  Constructor
+    //==========================================================================
+    /**
+     * 构造一个新的<code><%= @vars.par %>ViewMediator</code>实例.
+     *
+     */
+    public function <%= @vars.par %>ViewMediator()
+    {
+        super();
+    }
+
+    //==========================================================================
+    //  Properties
+    //==========================================================================
+    /**
+     * @private
+     * 返回注入的<%= @vars.par %>View对象.
+     */
+    private function get view():<%= @vars.par %>View
+    {
+        return viewComponent as <%= @vars.par %>View;
+    }
+
+    //==========================================================================
+    //  Methods
+    //==========================================================================
+    /**
+     * @inheritDoc
+     */
+    override public function onRegister() : void
+    {
+        //TODO 该方法需要实现，或删除该方法
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    override public function onRemove() : void
+    {
+        super.onRemove();
+        view.dispose();
+    }
+}
+}

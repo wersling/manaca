@@ -1,0 +1,75 @@
+/*
+ * <%= @copyright %>
+ */
+package <%= @vars.package %>.events
+{
+import common.b_orm;
+import <%= @vars.package %>.vo.<%= @vars.par %>Data;
+
+import flash.events.Event;
+/**
+ * <%= @vars.par %>数据加载事件.
+ * @author wersling
+ * 
+ */
+public class <%= @vars.par %>DataEvent extends Event
+{
+    //==========================================================================
+    //  Class variables
+    //==========================================================================
+    /**
+     * <%= @vars.par %>数据加载完成事件类型
+     */
+    public static const <%= @vars.par.upcase %>_DATA_LOADED:String = "<%= @vars.path_name %>DataLoaded";
+    /**
+     * <%= @vars.par %>数据加载错误事件类型
+     */    
+    public static const <%= @vars.par.upcase %>_DATA_LOAD_ERR:String = "<%= @vars.path_name %>DataLoadErr";
+    //==========================================================================
+    //  Constructor
+    //==========================================================================
+    /**
+     * Constructs a new <code><%= @vars.par %>DataEvent</code> instance.
+     * 
+     */
+    public function <%= @vars.par %>DataEvent(type:String, bubbles:Boolean = false,
+                                      cancelable:Boolean = false)
+    {
+        super(type, bubbles, cancelable);
+    }
+    //==========================================================================
+    //  Properties
+    //==========================================================================
+    
+    protected var _data:<%= @vars.par %>Data;
+    /**
+     * 获取的数据对象.
+     * @return 
+     * 
+     */
+    public function get data():<%= @vars.par %>Data
+    {
+        return _data;
+    }
+
+    b_orm function set data(value:<%= @vars.par %>Data):void
+    {
+        _data = value;
+    }
+    
+    /**
+     * 克隆一个<code><%= @vars.par %>DataEvent</code>实例.
+     * @return 返回一个新的<code><%= @vars.par %>DataEventEvent</code>实例.
+     */
+    override public function clone():Event
+    {
+        var event:<%= @vars.par %>DataEvent =
+            new <%= @vars.par %>DataEvent(this.type, this.bubbles, this.cancelable);
+        if (this.data)
+        {
+            event.b_orm::data = this.data;
+        }
+        return event;
+    }
+}
+}
