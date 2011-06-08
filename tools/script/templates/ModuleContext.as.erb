@@ -1,0 +1,42 @@
+/*
+ * <%= @copyright %>
+ */
+package <%= @vars.package %>
+{
+import <%= @vars.package %>.controller.<%= @vars.module_name %>StartupCommand;
+import <%= @vars.package %>.controller.<%= @vars.module_name %>ShutdownCommand;
+
+import flash.display.DisplayObjectContainer;
+
+import org.robotlegs.base.ContextEvent;
+import org.robotlegs.mvcs.Context;
+//TODO 需要添加asdoc
+public class <%= @vars.module_name %>Context extends Context
+{
+    //==========================================================================
+    //  Constructor
+    //==========================================================================
+    /**
+     * 构造一个新的<code><%= @vars.module_name %>Context</code>实例.
+     * 
+     */
+    public function <%= @vars.module_name %>Context(contextView:DisplayObjectContainer=null, 
+                                       autoStartup:Boolean=true)
+    {
+        super(contextView, autoStartup);
+    }
+    //==========================================================================
+    //  Methods
+    //==========================================================================
+    /**
+     * @inheritDoc
+     */
+    override public function startup() : void
+    {
+        commandMap.mapEvent(ContextEvent.STARTUP, <%= @vars.module_name %>StartupCommand);
+        commandMap.mapEvent(ContextEvent.SHUTDOWN, <%= @vars.module_name %>ShutdownCommand);
+        dispatchEvent(new ContextEvent(ContextEvent.STARTUP));
+        super.startup();
+    }
+}
+}

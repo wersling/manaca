@@ -1,0 +1,34 @@
+/*
+ * <%= @copyright %>
+ */
+package <%= @vars.package %>.helper
+{
+import <%= @vars.package %>.vo.<%= @vars.par %>Data;
+/**
+ * <%= @vars.par %>数据解析具体实现.
+ * @author wersling
+ * 
+ */
+public class <%= @vars.par %>ParseIns implements <%= @vars.par %>Parser
+{
+    //==========================================================================
+    //  Constructor
+    //==========================================================================
+    /**
+     * Constructs a new <code><%= @vars.par %>ParseIns</code> instance.
+     * 
+     */
+    public function <%= @vars.par %>ParseIns()
+    {
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    public function parseData(data:String):<%= @vars.par %>Data
+    {
+    	//TODO 实现数据解析
+        return null;
+    }
+}
+}

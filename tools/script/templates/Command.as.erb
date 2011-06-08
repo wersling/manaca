@@ -1,0 +1,43 @@
+/*
+ * <%= @copyright %>
+ */
+package <%= @vars.package %>.controller
+{
+import <%= @vars.package %>.controller.events.<%= @vars.par %>Event;
+
+import org.robotlegs.mvcs.Command;
+//TODO 需要添加asdoc
+public class <%= @vars.par %>Command extends Command
+{
+    //==========================================================================
+    //  Constructor
+    //==========================================================================
+    /**
+     * 构造一个新的<code><%= @vars.par %>Command</code>实例.
+     * 
+     */
+    public function <%= @vars.par %>Command()
+    {
+        super();
+    }
+    //==========================================================================
+    //  Properties
+    //==========================================================================
+    [Inject]
+    /**
+     * @private
+     */
+    public var event:<%= @vars.par %>Event;
+    
+    //==========================================================================
+    //  Methods
+    //==========================================================================
+    /**
+     * @inheritDoc
+     */
+    override public function execute() : void
+    {
+        //TODO 该方法需要实现
+    }
+}
+}

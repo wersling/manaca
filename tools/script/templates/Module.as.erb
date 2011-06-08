@@ -1,0 +1,23 @@
+/*
+ * <%= @copyright %>
+ */
+package <%= @vars.package %>
+{
+import net.manaca.modules.AbstractModule;
+//TODO 需要添加asdoc
+public class <%= @vars.module_name %>Module extends AbstractModule implements I<%= @vars.module_name %>Module
+{
+    //==========================================================================
+    //  Constructor
+    //==========================================================================
+    /**
+     * 构造一个新的<code><%= @vars.module_name %>Module</code>实例.
+     * 
+     */
+    public function <%= @vars.module_name %>Module()
+    {
+        super();
+        context = new <%= @vars.module_name %>Context(this);
+    }
+}
+}

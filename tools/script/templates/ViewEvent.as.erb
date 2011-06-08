@@ -1,0 +1,42 @@
+/*
+ * <%= @copyright %>
+ */
+package <%= @vars.package %>.view.events
+{
+import flash.events.Event;
+//TODO 需要添加asdoc
+public class <%= @vars.par %>ViewEvent extends Event
+{
+    //==========================================================================
+    //  Class variables
+    //==========================================================================
+    //TODO 您需要添加至少一个常量到这里，否则就删除该类
+    
+    //==========================================================================
+    //  Constructor
+    //==========================================================================
+    /**
+     * 构造一个新的<code><%= @vars.par %>ViewEvent</code>实例.
+     * 
+     */
+    public function <%= @vars.par %>ViewEvent(type:String, 
+        bubbles:Boolean = false, cancelable:Boolean = false)
+    {
+        super(type, bubbles, cancelable);
+    }
+    
+    //==========================================================================
+    //  Methods
+    //==========================================================================
+    /**
+     * 克隆一个<code><%= @vars.par %>Event</code>实例.
+     * @return 返回一个新的<code><%= @vars.par %>Event</code>实例.
+     */
+    override public function clone() : Event
+    {
+        var cloneEvent:<%= @vars.par %>ViewEvent = 
+            new <%= @vars.par %>ViewEvent(type, bubbles, cancelable);
+        return cloneEvent;
+    }
+}
+}

@@ -1,0 +1,36 @@
+/*
+ * <%= @copyright %>
+ */
+package <%= @vars.package %>
+{
+import <%= @vars.package %>.helper.<%= @vars.par %>Parser;
+
+/**
+ * <%= @vars.par %>数据接口.
+ * @author wersling
+ * 
+ */
+public interface <%= @vars.par %>Service
+{
+    //==========================================================================
+    //  Properties
+    //==========================================================================
+    /**
+     * 设置数据解析对象.
+     * @param value
+     * 
+     */    
+    function set parser(value:<%= @vars.par %>Parser):void;
+    //==========================================================================
+    //  Methods
+    //==========================================================================
+    /**
+     * 开始加载数据
+     * @param url 加载路径
+     * @param param 参数
+     * 
+     */    
+    function load(url:String, param:<%= @vars.par %>Param):void;
+    
+}
+}

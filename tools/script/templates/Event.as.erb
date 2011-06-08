@@ -1,0 +1,45 @@
+/*
+ * <%= @copyright %>
+ */
+package <%= @vars.package %>.controller.events
+{
+import flash.events.Event;
+//TODO 需要添加asdoc
+public class <%= @vars.par %>Event extends Event
+{
+    //==========================================================================
+    //  Class variables
+    //==========================================================================
+    //TODO 您需要添加至少一个常量到这里
+    
+    //==========================================================================
+    //  Constructor
+    //==========================================================================
+    /**
+     * 构造一个新的<code><%= @vars.par %>Event</code>实例.
+     * 
+     */
+    public function <%= @vars.par %>Event(type:String, 
+        bubbles:Boolean = false, cancelable:Boolean = false)
+    {
+        super(type, bubbles, cancelable);
+    }
+    //==========================================================================
+    //  Properties
+    //==========================================================================
+    
+    //==========================================================================
+    //  Methods
+    //==========================================================================
+    /**
+     * 克隆一个<code><%= @vars.par %>Event</code>实例.
+     * @return 返回一个新的<code><%= @vars.par %>Event</code>实例.
+     */
+    override public function clone() : Event
+    {
+        var cloneEvent:<%= @vars.par %>Event = 
+            new <%= @vars.par %>Event(type, bubbles, cancelable);
+        return cloneEvent;
+    }
+}
+}
