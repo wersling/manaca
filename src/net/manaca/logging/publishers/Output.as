@@ -16,6 +16,7 @@ import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
 import flash.utils.getQualifiedClassName;
+import flash.utils.setTimeout;
 
 import net.manaca.errors.SingletonError;
 import net.manaca.logging.ILogPublisher;
@@ -47,61 +48,73 @@ public class Output extends Sprite implements ILogPublisher
     /**
      * max text show length number.
      */
-    static public var MAX_TXT_LENGTH:int = 1000;
+    public static var MAX_TXT_LENGTH:int = 1000;
+    
     /**
      * max text show line number.
      */
-    static public var MAX_LINE:int = 50;
-
+    public static var MAX_LINE:int = 50;
+    
     //is outo expand.
-    static private var autoExpand:Boolean = true;
+    private static var autoExpand:Boolean = true;
+    
     //the yes/no strong.
-    static private var isStrong:Boolean = false;
-
-    static private var title:String = "Wersling Output v2.0.1";
+    private static var isStrong:Boolean = false;
+    
+    private static var title:String = "Wersling Output v2.1";
+    
     /**
      *  @private
      */
-    static public var instance:Output;
-
+    public static var instance:Output;
+    
     //==========================================================================
     //  Variables
     //==========================================================================
     //log history list.
     private var history:Array = new Array();
+    
     //default text format
-    private const defaultTextFormat:TextFormat = new TextFormat("Verdana,Tahoma,_sans");
+    private const defaultTextFormat:TextFormat = 
+        new TextFormat("Verdana,Tahoma,_sans");
+    
     //search text field
     private var searchLabel:TextField;
+    
     private var searchLabelBg:TextField;
+    
     //content text field
     private var outputTxt:TextField;
+    
     //title bar
     private var titleBar:Sprite;
+    
     //the out put parent.
     private var _parent:DisplayObjectContainer;
-
+    
+    private var invalidateTimeOut:int = 0;
     //------------------------
     //  private const
     //------------------------
     [Embed("images/delete.gif")]
     private var deleteIcon:Class;
-
+    
     [Embed("images/pin.gif")]
     private var pinIcon:Class;
-
+    
     [Embed("images/unpin.gif")]
     private var unpinIcon:Class;
-
+    
     [Embed("images/close.gif")]
     private var closeIcon:Class;
-
-    private const textClolors:Array = [ "#666666","#0066FF","#FFCC00","#FF0000","#CC0000","#000000" ];
-
+    
+    private const textClolors:Array = 
+        [ "#666666", "#0066FF", "#FFCC00", "#FF0000", "#CC0000", "#000000" ];
+    
     //==========================================================================
     //  Constructor
     //==========================================================================
-
+    
     /**
      * Output Constructor.
      * Create a new <code>Output</code> instance.
@@ -114,28 +127,29 @@ public class Output extends Sprite implements ILogPublisher
         {
             throw new SingletonError(this);
         }
-
+        
         instance = this;
         isStrong = strong;
-
+        
         this.level = LogLevel.ALL;
         // init ui
         addChild(newOutputField(outputHeight));
         addChild(newTitleBar());
-
+        
         // add listener
         addEventListener(Event.ADDED, addedHandler);
         addEventListener(Event.REMOVED, removedHandler);
-
+        
         Tracer.logger.addPublisher(this);
-
-        Tracer.info("FlashPlayer version:" + Capabilities.version + "; isDebugger: " + Capabilities.isDebugger);
+        
+        Tracer.info("FlashPlayer version:" + 
+            Capabilities.version + "; isDebugger: " + Capabilities.isDebugger);
     }
-
+    
     //==========================================================================
     //  Properties
     //==========================================================================
-
+    
     //----------------------------------
     //  level
     //----------------------------------
@@ -144,7 +158,7 @@ public class Output extends Sprite implements ILogPublisher
      * Storage for the level property.
      */
     private var _level:LogLevel;
-
+    
     /**
      * @inheritDoc
      */
@@ -152,16 +166,16 @@ public class Output extends Sprite implements ILogPublisher
     {
         return _level;
     }
-
+    
     public function set level(value:LogLevel):void
     {
         _level = value;
     }
-
+    
     //==========================================================================
     //  Methods
     //==========================================================================
-
+    
     /**
      * @inheritDoc
      */
@@ -172,7 +186,7 @@ public class Output extends Sprite implements ILogPublisher
             addMsg(this.format(logRecord), logRecord.getLevel().value);
         }
     }
-
+    
     /**
      * Format the provide logRecord to string.
      *
@@ -185,29 +199,31 @@ public class Output extends Sprite implements ILogPublisher
     private function format(logRecord:LogRecord):String
     {
         var formatted:String;
-        formatted = "[" + logRecord.getLevel().name + "]  " + logRecord.getDate().toTimeString().slice(0, 8) + "  " + StringUtil.htmlEncode(logRecord.getMessage());
+        formatted = "[" + logRecord.getLevel().name + "]  " + 
+            logRecord.getDate().toTimeString().slice(0, 8) + "  " + 
+            StringUtil.htmlEncode(logRecord.getMessage());
         return formatted;
     }
-
+    
     /**
      * @inheritDoc
      */
     public function isLoggable(logRecord:LogRecord):Boolean
     {
-        if( this.level > logRecord.getLevel() )
+        if (this.level > logRecord.getLevel())
         {
-
+            
             return false;
         }
-
+        
         return true;
     }
-
-
+    
+    
     //-------------------------------------------------------------------
     // private Methods
     //-------------------------------------------------------------------
-
+    
     /**
      * add a massage to output.
      * @param str
@@ -216,14 +232,23 @@ public class Output extends Sprite implements ILogPublisher
      */
     private function addMsg(str:*, level:uint):void
     {
-        if (!instance) return;
-
-        if(isStrong)
+        if (!instance)
         {
-            history.push({msg:str, level:getColorTextByLevel(str, level)});
-
-            if(history.length > MAX_LINE) history.shift();
-            if(_parent && _parent.contains(this)) updateHtmlText();
+            return;
+        }
+        
+        if (isStrong)
+        {
+            history.push({ msg:str, level:getColorTextByLevel(str, level)});
+            
+            if (history.length > MAX_LINE)
+            {
+                history.shift();
+            }
+            if (_parent && _parent.contains(this))
+            {
+                invalidateHtmlText();
+            }
         }
         else
         {
@@ -235,28 +260,41 @@ public class Output extends Sprite implements ILogPublisher
             outputTxt.scrollV = outputTxt.maxScrollV;
             outputTxt.setTextFormat(defaultTextFormat);
         }
-
-        if (autoExpand && !outputTxt.visible) toggleCollapse();
+        
+        if (autoExpand && !outputTxt.visible)
+        {
+            toggleCollapse();
+        }
     }
-
+    
+    private function invalidateHtmlText(...arg):void
+    {
+        if(!invalidateTimeOut)
+        {
+            invalidateTimeOut = setTimeout(updateHtmlText, 500);
+        }
+    }
     /**
      * update the heml text.
      */
-    private function updateHtmlText(e:Event = null):void
+    private function updateHtmlText():void
     {
-
-        if(!outputTxt.visible || !isStrong) return ;
+        invalidateTimeOut = 0;
+        if (!outputTxt.visible || !isStrong)
+        {
+            return;
+        }
         var str:String = "";
         var len:uint = instance.history.length;
-
+        
         var i:uint;
-        if(searchLabel.text.length > 0)
+        if (searchLabel.text.length > 0)
         {
             var serach_str:String = searchLabel.text;
-            for( i = 0 ;i < len; i++ )
+            for (i = 0; i < len; i++)
             {
                 var s:String = instance.history[i].msg;
-                if(s.indexOf(serach_str) != -1)
+                if (s.indexOf(serach_str) != -1)
                 {
                     str = str + instance.history[i].level + "<br>";
                 }
@@ -264,7 +302,7 @@ public class Output extends Sprite implements ILogPublisher
         }
         else
         {
-            for( i = 0 ;i < len; i++ )
+            for (i = 0; i < len; i++)
             {
                 str = str + instance.history[i].level + "<br>";
             }
@@ -274,7 +312,7 @@ public class Output extends Sprite implements ILogPublisher
         instance.outputTxt.setTextFormat(defaultTextFormat);
         outputTxt.scrollV = outputTxt.maxScrollV;
     }
-
+    
     /**
      * get a text field.
      * @param outputHeight
@@ -286,14 +324,14 @@ public class Output extends Sprite implements ILogPublisher
         outputTxt = new TextField();
         outputTxt.type = TextFieldType.INPUT;
         outputTxt.border = true;
-        outputTxt.borderColor = 0xA7A7A7;
+        outputTxt.borderColor = 0;
         outputTxt.background = true;
         outputTxt.backgroundColor = 0xFFFFFF;
         outputTxt.height = outputHeight;
         outputTxt.multiline = true;
         return outputTxt;
     }
-
+    
     /**
      * get a title bar.
      * @return
@@ -310,10 +348,10 @@ public class Output extends Sprite implements ILogPublisher
         var gradientMatrix:Matrix = new Matrix();
         gradientMatrix.createGradientBox(20, 20, Math.PI / 2, 0, 0);
         barGraphics.graphics.lineStyle(0, 0xA7A7A7);
-        barGraphics.graphics.beginGradientFill(GradientType.LINEAR, colors, 
-            alphas, ratios, gradientMatrix);
+        barGraphics.graphics.beginGradientFill(
+            GradientType.LINEAR, colors, alphas, ratios, gradientMatrix);
         barGraphics.graphics.drawRect(0, 0, 20, 20);
-
+        
         //title
         var barLabel:TextField = new TextField();
         barLabel.mouseEnabled = false;
@@ -323,30 +361,32 @@ public class Output extends Sprite implements ILogPublisher
         barLabel.setTextFormat(defaultTextFormat);
         barLabel.x = 2;
         barLabel.y = 1;
-
-        if(isStrong)
+        
+        if (isStrong)
         {
             //tools
             var tools:Sprite = new Sprite();
             tools.name = "tools";
-
+            
             //search bg
             var searchBg:Shape = new Shape();
             searchBg.graphics.beginFill(0x94959D);
             searchBg.graphics.drawRect(0, 0, 120, 17);
             searchBg.graphics.beginFill(0xFFFFFF);
             searchBg.graphics.drawRect(1, 1, 118, 15);
-
+            
             //search text
             searchLabel = new TextField();
             searchLabel.type = TextFieldType.INPUT;
             searchLabel.width = 120;
             searchLabel.height = 18;
             searchLabel.defaultTextFormat = defaultTextFormat;
-            searchLabel.addEventListener(Event.CHANGE, updateHtmlText);
-            searchLabel.addEventListener(FocusEvent.FOCUS_IN, searchTextFocusEventHandler);
-            searchLabel.addEventListener(FocusEvent.FOCUS_OUT, searchTextFocusEventHandler);
-
+            searchLabel.addEventListener(Event.CHANGE, invalidateHtmlText);
+            searchLabel.addEventListener(FocusEvent.FOCUS_IN, 
+                searchTextFocusEventHandler);
+            searchLabel.addEventListener(FocusEvent.FOCUS_OUT, 
+                searchTextFocusEventHandler);
+            
             searchLabelBg = new TextField();
             searchLabelBg.width = 120;
             searchLabelBg.height = 18;
@@ -361,9 +401,9 @@ public class Output extends Sprite implements ILogPublisher
             var clearButUp:DisplayObject = new deleteIcon() as DisplayObject;
             clearBut.addChild(clearButUp);
             clearBut.addEventListener(MouseEvent.CLICK, clear);
-
+            
             clearBut.x = searchBg.x + searchBg.width + 4;
-
+            
             //pin butten
             var pinBut:Sprite = new Sprite();
             pinBut.buttonMode = true;
@@ -371,14 +411,14 @@ public class Output extends Sprite implements ILogPublisher
             pin.name = "pin";
             var unpin:DisplayObject = new unpinIcon() as DisplayObject;
             unpin.name = "unpin";
-
+            
             pinBut.addChild(pin);
             pinBut.addChild(unpin);
             unpin.visible = false;
             pinBut.x = clearBut.x + clearBut.width + 4;
             pinBut.y = 3;
             pinBut.addEventListener(MouseEvent.CLICK, pinCollapse);
-
+            
             //close butten
             var closeBut:Sprite = new Sprite();
             closeBut.buttonMode = true;
@@ -386,7 +426,7 @@ public class Output extends Sprite implements ILogPublisher
             closeBut.addChild(closeUp);
             closeBut.x = pinBut.x + pinBut.width + 5;
             closeBut.addEventListener(MouseEvent.CLICK, closeButtonHandler);
-
+            
             tools.addChild(searchBg);
             tools.addChild(searchLabelBg);
             tools.addChild(searchLabel);
@@ -395,15 +435,18 @@ public class Output extends Sprite implements ILogPublisher
             tools.addChild(closeBut);
             tools.y = 2;
         }
-
+        
         titleBar = new Sprite();
         titleBar.addChild(barGraphics);
-        if(isStrong) titleBar.addChild(tools);
+        if (isStrong)
+        {
+            titleBar.addChild(tools);
+        }
         titleBar.addChild(barLabel);
         return titleBar;
     }
-
-
+    
+    
     /**
      * get color text.
      * @param msg
@@ -417,31 +460,43 @@ public class Output extends Sprite implements ILogPublisher
         switch (level)
         {
             case LogLevel.DEBUG.value:
+            {
                 colr = textClolors[0];
                 break;
+            }
             case LogLevel.INFO.value:
+            {
                 colr = textClolors[1];
                 space = "   ";
                 break;
+            }
             case LogLevel.WARN.value:
+            {
                 colr = textClolors[2];
                 space = " ";
                 break;
+            }
             case LogLevel.ERROR.value:
+            {
                 colr = textClolors[3];
                 break;
+            }
             case LogLevel.FATAL.value:
+            {
                 colr = textClolors[4];
                 space = " ";
                 break;
-            default :
+            }
+            default:
+            {
                 colr = textClolors[5];
                 break;
+            }
         }
-
+        
         return "<font color=\"" + colr + "\">" + space + msg + "</font>";
     }
-
+    
     //==========================================================================
     //  Event handlers
     //==========================================================================
@@ -454,17 +509,17 @@ public class Output extends Sprite implements ILogPublisher
         _parent = this.parent;
         stage.addEventListener(Event.RESIZE, fitToStage);
         stage.addEventListener(KeyboardEvent.KEY_UP, shortcutKey);
-
+        
         titleBar.getChildByName("bar").addEventListener(MouseEvent.CLICK, toggleCollapse);
-
+        
         fitToStage();
-
-        if(isStrong && history.length > 0)
+        
+        if (isStrong && history.length > 0)
         {
-            updateHtmlText();
+            invalidateHtmlText();
         }
     }
-
+    
     /**
      * The Output removed event handler.
      *
@@ -472,10 +527,10 @@ public class Output extends Sprite implements ILogPublisher
     private function removedHandler(evt:Event):void
     {
         stage.removeEventListener(Event.RESIZE, fitToStage);
-
+        
         titleBar.removeEventListener(MouseEvent.CLICK, toggleCollapse);
     }
-
+    
     /**
      * toggle event handler.
      * @param evt
@@ -483,13 +538,14 @@ public class Output extends Sprite implements ILogPublisher
      */
     private function toggleCollapse(evt:Event = null):void
     {
-        if (!instance) return;
+        if (!instance)
+            return;
         outputTxt.visible = !outputTxt.visible;
-        updateHtmlText();
+        invalidateHtmlText();
         fitToStage(evt);
     }
-
-
+    
+    
     /**
      * pin or unpin the output.
      * @param e
@@ -499,13 +555,13 @@ public class Output extends Sprite implements ILogPublisher
     {
         var pin:DisplayObject = Sprite(e.target).getChildByName("pin");
         var unpin:DisplayObject = Sprite(e.target).getChildByName("unpin");
-
+        
         pin.visible = !pin.visible;
         unpin.visible = !unpin.visible;
-
+        
         autoExpand = pin.visible;
     }
-
+    
     /**
      * change the output size.
      * @param evt
@@ -513,23 +569,21 @@ public class Output extends Sprite implements ILogPublisher
      */
     private function fitToStage(evt:Event = null):void
     {
-        if (!stage) return;
-        var w:int = stage.stageWidth - 1;
-        
-        outputTxt.width = w;
-        outputTxt.y = stage.stageHeight - outputTxt.height - 1;
+        if (!stage)
+            return;
+        outputTxt.width = stage.stageWidth;
+        outputTxt.y = stage.stageHeight - outputTxt.height;
         titleBar.y = (outputTxt.visible) ? 
-            outputTxt.y - titleBar.height : 
-            stage.stageHeight - titleBar.height - 1;
-        titleBar.getChildByName("bar").width = w;
-
-        if(isStrong)
+            outputTxt.y - titleBar.height : stage.stageHeight - titleBar.height;
+        titleBar.getChildByName("bar").width = stage.stageWidth;
+        
+        if (isStrong)
         {
             var tools:DisplayObject = titleBar.getChildByName("tools");
-            tools.x = w - tools.width - 4;
+            tools.x = stage.stageWidth - tools.width - 4;
         }
     }
-
+    
     /**
      * remove the output.
      * @param e
@@ -537,12 +591,12 @@ public class Output extends Sprite implements ILogPublisher
      */
     private function closeButtonHandler(e:MouseEvent = null):void
     {
-        if(parent && parent.contains(this))
+        if (parent && parent.contains(this))
         {
             parent.removeChild(this);
         }
     }
-
+    
     /**
      * shortcutKey handler.
      * @param e
@@ -550,23 +604,23 @@ public class Output extends Sprite implements ILogPublisher
     private function shortcutKey(e:KeyboardEvent):void
     {
         var effective:Boolean = false;
-        if(e.shiftKey && e.altKey && e.ctrlKey && e.keyCode == 79)
+        if (e.shiftKey && e.altKey && e.ctrlKey && e.keyCode == 79)
         {
             effective = true;
         }
-
-        if(Capabilities.os.toLowerCase().indexOf("mac") != -1)
+        
+        if (Capabilities.os.toLowerCase().indexOf("mac") != -1)
         {
-            if(e.shiftKey && e.ctrlKey && e.keyCode == 15)
+            if (e.shiftKey && e.ctrlKey && e.keyCode == 15)
             {
                 effective = true;
             }
         }
-        if(effective)
+        if (effective)
         {
-            if(instance && _parent != null)
+            if (instance && _parent != null)
             {
-                if(parent && parent.contains(this))
+                if (parent && parent.contains(this))
                 {
                     parent.removeChild(this);
                 }
@@ -578,7 +632,7 @@ public class Output extends Sprite implements ILogPublisher
             }
         }
     }
-
+    
     /**
      * show/hide search tooltip.
      * @param e
@@ -586,26 +640,27 @@ public class Output extends Sprite implements ILogPublisher
      */
     private function searchTextFocusEventHandler(e:Event):void
     {
-        if(e.type == FocusEvent.FOCUS_IN)
+        if (e.type == FocusEvent.FOCUS_IN)
         {
             searchLabelBg.text = "";
         }
-        else if(e.type == FocusEvent.FOCUS_OUT && searchLabel.text.length == 0)
+        else if (e.type == FocusEvent.FOCUS_OUT && searchLabel.text.length == 0)
         {
             searchLabelBg.text = "Search";
         }
     }
-
+    
     /**
      * clear all massage.
      */
     private function clear(e:MouseEvent):void
     {
         outputTxt.text = "";
-        if(searchLabel) searchLabel.text = "";
+        if (searchLabel)
+            searchLabel.text = "";
         history = new Array();
     }
-
+    
     /**
      *
      * @return
@@ -615,7 +670,7 @@ public class Output extends Sprite implements ILogPublisher
     {
         return "[object " + getQualifiedClassName(this) + "]";
     }
-
+    
     public function dispose():void
     {
         clear(null);
