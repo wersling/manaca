@@ -201,15 +201,47 @@ public class StringUtil
     /**
      * validate Email address
      */
-    static public function validateEmail(input:String):Boolean
+    static public function validateEmail(email:String):Boolean
     {
-        var pattern:RegExp = /(\w|[_.\-])+@((\w|-)+\.)+\w{2,4}+/;
-        var result:Object = pattern.exec(input);
-        if(result == null) 
+        var pattern:RegExp = /^[A-Z0-9._%+-]+@(?:[A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+        return email.match(pattern) != null;
+    }
+    
+    /**
+     * Determines if credit card is valid using the Luhn formula.
+     * @param cardNumber: The credit card number.
+     * @return Returns <code>true</code> if String is a valid credit card number;
+     *  otherwise <code>false</code>.
+     */
+    public static function validateCreditCard(cardNumber:String):Boolean
+    {
+        if (cardNumber.length < 7 || cardNumber.length > 19 ||
+            Number(cardNumber) < 1000000)
         {
             return false;
         }
-        return true;
+        
+        var pre:Number;
+        var sum:Number = 0;
+        var alt:Boolean = true;
+        
+        var i:Number = cardNumber.length;
+        while (--i > -1)
+        {
+            if (alt)
+            {
+                sum += Number(cardNumber.substr(i, 1));
+            }
+            else
+            {
+                pre = Number(cardNumber.substr(i, 1)) * 2;
+                sum += (pre > 8) ? pre -= 9 : pre;
+            }
+            
+            alt = !alt;
+        }
+        
+        return sum % 10 == 0;
     }
 
     /**
@@ -221,7 +253,7 @@ public class StringUtil
         var byte:ByteArray = new ByteArray();
         byte.writeMultiByte(input, "gb2312");
         byte.position = 0;
-        return byte.readMultiByte(byte.bytesAvailable, "utf-8"); 
+        return byte.readMultiByte(byte.bytesAvailable, "utf-8");
     }
 
     static public function UTF8toGB2312(input:*):String
@@ -229,7 +261,7 @@ public class StringUtil
         var byte:ByteArray = new ByteArray();
         byte.writeMultiByte(input, "utf-8");
         byte.position = 0;
-        return byte.readMultiByte(byte.bytesAvailable, "gb2312"); 
+        return byte.readMultiByte(byte.bytesAvailable, "gb2312");
     }
 
     /**
@@ -252,42 +284,42 @@ public class StringUtil
     /**
      * Make %uef124 to string.
      * @param str
-     * @return 
-     * 
+     * @return
+     *
      */
     static public function toUNString(str:String):String
     {
         var myPattern:RegExp = /%u(....)/g;
         var reslut:String = str.replace(myPattern, replStr);
-        
-        function replStr():String 
+
+        function replStr():String
         {
             var a:String = (arguments[1]);
             var n:Number = parseInt("0x" + a);
-            
+
             return String.fromCharCode(n);
         }
-        
+
         try
         {
             reslut = unescape(reslut);
         }
-        catch(e:Error)
+        catch (e:Error)
         {
         }
-        
+
         return reslut;
     }
-    
+
     /**
      * <p>Convert the specified string to the proper object type and returns.</p>
-     * 
+     *
      * @param str
      * <p>The string to convert.</p>
-     * @param priority <p>Whether it gives priority to expressing numerically 
+     * @param priority <p>Whether it gives priority to expressing numerically
      * or not?</p>
      * @return <p>The converted object.</p>
-     * 
+     *
      * @example <listing version="3.0" >
      * trace( StringUtil.toProperType( "true" ) == true ); // true
      * trace( StringUtil.toProperType( "false" ) == false ); // true
@@ -299,57 +331,57 @@ public class StringUtil
      * trace( StringUtil.toProperType( "10.0", false ) == "10.0" ); // true
      * </listing>
      */
-    static public function toProperType( str:String, priority:Boolean = true ):* 
+    static public function toProperType(str:String, priority:Boolean = true):* 
     {
         // Number type change
         var num:Number = parseFloat(str);
-        
+
         // if priority true
-        if(priority) 
+        if (priority)
         {
-            if(!isNaN( num )) 
-            { 
-                return num; 
+            if (!isNaN(num))
+            {
+                return num;
             }
         }
-        else 
+        else
         {
-            if(num.toString() == str) 
-            { 
-                return num; 
+            if (num.toString() == str)
+            {
+                return num;
             }
         }
-        
-        switch ( str ) 
+
+        switch (str)
         {
-            case "true"	: 
-            { 
-                return true; 
+            case "true":
+            {
+                return true;
             }
-            case "false" : 
-            { 
-                return false; 
+            case "false":
+            {
+                return false;
             }
-            case ""	:
-            case "null"	: 
-            { 
-                return null; 
+            case "":
+            case "null":
+            {
+                return null;
             }
-            case "undefined": 
-            { 
-                return undefined; 
+            case "undefined":
+            {
+                return undefined;
             }
-            case "Infinity"	: 
-            { 
-                return Infinity; 
+            case "Infinity":
+            {
+                return Infinity;
             }
-            case "-Infinity" : 
-            { 
-                return -Infinity; 
+            case "-Infinity":
+            {
+                return -Infinity;
             }
-            case "NaN" : 
-            { 
-                return NaN; 
+            case "NaN":
+            {
+                return NaN;
             }
         }
         
