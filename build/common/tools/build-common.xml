@@ -85,7 +85,6 @@
             <arg value="-library-path+=${exlib.loc}" />
 
             <!-- So true. -->
-            <arg value="-incremental=true" />
             <arg value="-verbose-stacktraces=true" />
             <arg value="-headless-server=true" />
         </java>
@@ -172,7 +171,6 @@
             <arg value="-library-path+=${testlib.loc}" />
             <arg value="-library-path+=${exlib.loc}" />
 
-            <arg value="-incremental=true" />
             <arg value="-debug=true" />
             <arg value="-verbose-stacktraces=true" />
             <arg value="-headless-server=true" />
@@ -210,7 +208,6 @@
             <arg value="-keep-as3-metadata+=Inject" />
 
             <!-- Boolean mosh pit! -->
-            <arg value="-incremental=true" />
             <arg value="-static-link-runtime-shared-libraries=true" />
             <arg value="-verbose-stacktraces=true" />
             <arg value="-headless-server=true" />
