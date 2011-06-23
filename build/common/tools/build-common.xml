@@ -216,10 +216,7 @@
         <echo>[compile] Release SWC ${project.name.versioned}.swc created successfully</echo>
     </target>
 
-    <target name="deploy" depends="compile-swc, asdoc">
+    <target name="deploy" depends="compile-swc">
         <copy file="${bin.loc}/${project.name.versioned}.swc" tofile="${deploy.loc}/${project.name.versioned}.swc" />
-        <sync todir="${deploy.loc}/doc">
-            <fileset dir="${doc.loc}" />
-        </sync>
     </target>
 </project>
