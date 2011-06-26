@@ -1,4 +1,4 @@
-<project name="Manaca" default="deploy" basedir="../">
+<project name="manaca" default="deploy" basedir="../">
     <property environment="env" />
     <property name="FLEX_HOME" value="${env.FLEX_HOME}"/>
     <property file="build/build.properties" />
