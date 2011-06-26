@@ -96,8 +96,6 @@
     <classEntry path="net.manaca.managers.ToolTipManager"/>
     <classEntry path="net.manaca.media.SoundPlayer"/>
     <classEntry path="net.manaca.modules.AbstractModule"/>
-    <classEntry path="net.manaca.modules.IModuleContext"/>
-    <classEntry path="net.manaca.modules.IModuleDisplay"/>
     <classEntry path="net.manaca.modules.IModuleFactory"/>
     <classEntry path="net.manaca.modules.IModuleInfo"/>
     <classEntry path="net.manaca.modules.ModuleEvent"/>
@@ -105,7 +103,6 @@
     <classEntry path="net.manaca.modules.ModuleInfo"/>
     <classEntry path="net.manaca.modules.ModuleManager"/>
     <classEntry path="net.manaca.modules.ModuleManagerImpl"/>
-    <classEntry path="net.manaca.modules.ModuleMediator"/>
     <classEntry path="net.manaca.modules.ModuleVO"/>
     <classEntry path="net.manaca.preloaders.PreloaderBase"/>
     <classEntry path="net.manaca.preloaders.SimplePreloader"/>
@@ -154,6 +151,16 @@
     <classEntry path="org.robotlegs.mvcs.Context"/>
     <classEntry path="org.robotlegs.mvcs.Mediator"/>
     <classEntry path="org.robotlegs.mvcs.SingletonActor"/>
+    <classEntry path="org.robotlegs.utilities.modular.base.ModuleCommandMap"/>
+    <classEntry path="org.robotlegs.utilities.modular.base.ModuleEventDispatcher"/>
+    <classEntry path="org.robotlegs.utilities.modular.core.IModule"/>
+    <classEntry path="org.robotlegs.utilities.modular.core.IModuleCommandMap"/>
+    <classEntry path="org.robotlegs.utilities.modular.core.IModuleContext"/>
+    <classEntry path="org.robotlegs.utilities.modular.core.IModuleEventDispatcher"/>
+    <classEntry path="org.robotlegs.utilities.modular.mvcs.ModuleActor"/>
+    <classEntry path="org.robotlegs.utilities.modular.mvcs.ModuleCommand"/>
+    <classEntry path="org.robotlegs.utilities.modular.mvcs.ModuleContext"/>
+    <classEntry path="org.robotlegs.utilities.modular.mvcs.ModuleMediator"/>
     <classEntry path="org.robotlegs.utilities.statemachine.FSMInjector"/>
     <classEntry path="org.robotlegs.utilities.statemachine.State"/>
     <classEntry path="org.robotlegs.utilities.statemachine.StateEvent"/>

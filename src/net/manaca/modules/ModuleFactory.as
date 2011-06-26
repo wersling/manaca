@@ -8,6 +8,8 @@ import flash.system.ApplicationDomain;
 import net.manaca.logging.Tracer;
 
 import org.robotlegs.core.IMediatorMap;
+import org.robotlegs.core.IViewMap;
+import org.robotlegs.utilities.modular.core.IModule;
 
 /**
  * @private
@@ -32,17 +34,9 @@ public class ModuleFactory implements IModuleFactory
     //  Methods
     //==========================================================================
     /**
-     * 实例化模块.
-     * @param mediatorMap IMediatorMap实例，如果为null，则不map任何Mediator.
-     * @param moduleMediator 自定义的Module Mediator类，如果为null，则map默认的Mediator.
-     * 你可以自定义一个Mediator并继承ModuleMediator.
-     * @return 模块实例.
-     * 
-     */    
-    public function create(mediatorMap:IMediatorMap = null, 
-                           moduleMediator:Class = null,
-                           autoCreate:Boolean = true, 
-                           autoRemove:Boolean = true):IModuleDisplay
+     * @inheritDoc 
+     */
+    public function create(viewMap:IViewMap = null):IModule
     {
         try
         {
@@ -55,28 +49,12 @@ public class ModuleFactory implements IModuleFactory
             Tracer.error(error);
         }
         
-        var module:IModuleDisplay = new moduleClz();
-
-        if (mediatorMap)
+        var module:IModule = new moduleClz();
+        if(viewMap)
         {
-            if (mediatorMap.hasMapping(module))
-            {
-                mediatorMap.unmapView(module);
-            }
-            moduleMediator = (moduleMediator == null) ? 
-                ModuleMediator : moduleMediator;
-            //Note:一个module只能map一个Mediator.
-            mediatorMap.mapView(module, moduleMediator, 
-                IModuleDisplay, autoCreate, autoRemove);
+            viewMap.mapType(moduleClz);
         }
-        
         return module;
-    }
-    
-    public function dispose():void
-    {
-        applicationDomain = null;
-        moduleVO = null;
     }
 }
 }

@@ -11,7 +11,8 @@ import flash.events.Event;
 import flash.system.Security;
 
 import org.robotlegs.base.ContextEvent;
-import org.robotlegs.core.IContext;
+import org.robotlegs.utilities.modular.core.IModuleContext;
+
 /**
  * 动态可加载模块的基类。
  * @author sean
@@ -52,65 +53,18 @@ public class AbstractModule extends LayoutContainer
     /**
      * Robotlegs Context
      */    
-    protected var context:IContext;
+    protected var context:IModuleContext;
     //==========================================================================
     //  Methods
     //==========================================================================
-    /**
-     * 添加该模块的Context事件。
-     * @param type 事件类型。
-     * @param listener 处理事件的侦听器函数。
-     * @param useCapture 确定侦听器是运行于捕获阶段、目标阶段还是冒泡阶段。
-     * @param priority 事件侦听器的优先级。
-     * @param useWeakReference 确定对侦听器的引用是强引用，还是弱引用。
-     * 
-     */    
-    public function addContextListener(type:String, 
-                                listener:Function, 
-                                useCapture:Boolean=false, 
-                                priority:int=0, 
-                                useWeakReference:Boolean=false) : void
-    {
-        context.eventDispatcher.addEventListener(type, listener, 
-            useCapture, priority, useWeakReference);
-    }
-    
-    /**
-     * 删除已经侦听的该模块的Context事件。
-     * @param type 事件的类型。
-     * @param listener 要删除的侦听器对象。
-     * @param useCapture 指出是否为捕获阶段或目标阶段和冒泡阶段注册了侦听器。
-     * 
-     */    
-    public function removeContextListener(type:String, 
-                                   listener:Function, 
-                                   useCapture:Boolean=false) : void
-    {
-        context.eventDispatcher.removeEventListener(type, listener, useCapture);
-    }
-    
-    /**
-     * 检查Context对象是否为特定事件类型注册了任何侦听器。
-     * @param type 事件的类型。
-     * @return 如果指定类型的侦听器已注册，则值为 true；否则，值为 false。
-     * 
-     */    
-    public function hasContextListener(type:String) : Boolean
-    {
-        return context.eventDispatcher.hasEventListener(type);
-    }
-    
-    /**
-     * 删除此模块 
-     * 
-     */    
-    public function shutdown():void
+    public function dispose():void
     {
         removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
         var contextEvent:ContextEvent = new ContextEvent(ContextEvent.SHUTDOWN);
         context.eventDispatcher.dispatchEvent(contextEvent);
+        context.dispose();
+        context = null;
     }
-    
     //==========================================================================
     //  Event Handlers
     //==========================================================================
@@ -121,7 +75,7 @@ public class AbstractModule extends LayoutContainer
      */    
     private function removedFromStageHandler(event:Event):void
     {
-        shutdown();
+        dispose();
     }
 }
 }

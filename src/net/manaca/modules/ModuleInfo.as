@@ -271,7 +271,6 @@ public class ModuleInfo extends EventDispatcher implements IModuleInfo
             dispatchEvent(new ModuleEvent(ModuleEvent.UNLOAD));
         }
 
-        ModuleFactory(_factoy).dispose();
         _applicationDomain = null;
         _factoy = null;
         _loaded = false;
