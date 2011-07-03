@@ -23,15 +23,15 @@ public class URLLoaderAdapter extends AbstractLoaderAdapter
     //==========================================================================
     /**
      * URLLoader适配器
-     * @param level 等级值,数值越小等级越高,越早被下载
+     * @param priority 等级值,数值越小等级越高,越早被下载
      * @param urlRequest 需下载项的url地址
      */
-    public function URLLoaderAdapter(level:uint,
+    public function URLLoaderAdapter(priority:uint,
                                      urlRequest:URLRequest)
     {
-        super(level, urlRequest, null);
-        _container = new URLLoader();
-        containerAgent = _container;
+        super(priority, urlRequest, null);
+        _adaptee = new URLLoader();
+        adapteeAgent = _adaptee;
     }
 
     //==========================================================================
@@ -39,32 +39,32 @@ public class URLLoaderAdapter extends AbstractLoaderAdapter
     //==========================================================================
     public function get bytesLoaded():Number
     {
-        return container.bytesLoaded;
+        return adaptee.bytesLoaded;
     }
 
     public function get bytesTotal():Number
     {
-        return container.bytesTotal;
+        return adaptee.bytesTotal;
     }
 
-    public function get progress():Number
+    private var _adaptee:URLLoader;
+    /**
+     * @private
+     */
+    public function get adaptee():URLLoader
     {
-        if(bytesLoaded && bytesTotal)
-        {
-            return bytesLoaded / bytesTotal;
-        }
-        else
-        {
-            return 0;
-        }
+        return _adaptee;
     }
     
-    private var _container:URLLoader;
-    public function get container():URLLoader
+    /**
+     * The data received from the load operation.
+     * @return 
+     * 
+     */    
+    public function get date():*
     {
-        return _container;
+        return adaptee.data;
     }
-
     //==========================================================================
     //  Methods
     //==========================================================================
@@ -78,7 +78,7 @@ public class URLLoaderAdapter extends AbstractLoaderAdapter
     {
         stop();
         super.dispose();
-        _container = null;
+        _adaptee = null;
     }
 
     public function start():void
@@ -86,12 +86,12 @@ public class URLLoaderAdapter extends AbstractLoaderAdapter
         preStartHandle();
         try
         {
-            container.load(urlRequest);
+            adaptee.load(urlRequest);
         }
         catch (error:Error)
         {
-            dispatchEvent(new LoaderQueueEvent(LoaderQueueEvent.TASK_ERROR,
-                                                                    this.data));
+            dispatchEvent(
+                new LoaderQueueEvent(LoaderQueueEvent.TASK_ERROR, customData));
         }
     }
 
@@ -100,7 +100,7 @@ public class URLLoaderAdapter extends AbstractLoaderAdapter
         preStopHandle();
         try
         {
-            container.close();
+            adaptee.close();
         }
         catch (error:Error)
         {

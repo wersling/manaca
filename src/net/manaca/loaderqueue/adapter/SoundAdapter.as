@@ -17,56 +17,44 @@ import flash.net.URLRequest;
  * @see net.manaca.loaderqueue#LoaderQueue
  * @author sean
  */
-public class MPSoundAdapter extends AbstractLoaderAdapter
+public class SoundAdapter extends AbstractLoaderAdapter
                             implements ILoaderAdapter
 {
     //==========================================================================
     //  Constructor
     //==========================================================================
     /**
-     * Constructs a new <code>Application</code> instance.
+     * Constructs a new <code>SoundAdapter</code> instance.
      *
      */
-    public function MPSoundAdapter(level:uint,
-                                   urlRequest:URLRequest,
-                                   loaderContext:SoundLoaderContext = null)
+    public function SoundAdapter(priority:uint,
+                                 urlRequest:URLRequest,
+                                 loaderContext:SoundLoaderContext = null)
     {
-        super(level, urlRequest, loaderContext);
-        _container = new Sound();
-        _container.addEventListener(Event.ID3, onID3Event);
-        containerAgent = _container;
+        super(priority, urlRequest, loaderContext);
+        _adaptee = new Sound();
+        _adaptee.addEventListener(Event.ID3, onID3Event);
+        adapteeAgent = _adaptee;
     }
 
     //==========================================================================
     //  Properties
     //==========================================================================
-    private var _container:Sound;
+    private var _adaptee:Sound;
 
     public function get bytesLoaded():Number
     {
-        return container.bytesLoaded;
+        return adaptee.bytesLoaded;
     }
 
     public function get bytesTotal():Number
     {
-        return container.bytesTotal;
-    }
-
-    public function get progress():Number
-    {
-        if(bytesLoaded && bytesTotal)
-        {
-            return bytesLoaded / bytesTotal;
-        }
-        else
-        {
-            return 0;
-        }
+        return adaptee.bytesTotal;
     }
     
-    public function get container():Sound
+    public function get adaptee():Sound
     {
-        return _container;
+        return _adaptee;
     }
 
     //==========================================================================
@@ -82,7 +70,7 @@ public class MPSoundAdapter extends AbstractLoaderAdapter
     {
         stop();
         super.dispose();
-        _container = null;
+        _adaptee = null;
     }
 
     public function start():void
@@ -90,12 +78,12 @@ public class MPSoundAdapter extends AbstractLoaderAdapter
         preStartHandle();
         try
         {
-            container.load(urlRequest, loaderContext);
+            adaptee.load(urlRequest, loaderContext);
         }
         catch (error:Error)
         {
-            dispatchEvent(new LoaderQueueEvent(LoaderQueueEvent.TASK_ERROR,
-                                                                    this.data));
+            dispatchEvent(
+                new LoaderQueueEvent(LoaderQueueEvent.TASK_ERROR,customData));
         }
     }
 
@@ -104,7 +92,7 @@ public class MPSoundAdapter extends AbstractLoaderAdapter
         preStopHandle();
         try
         {
-            container.close();
+            adaptee.close();
         }
         catch (error:Error)
         {

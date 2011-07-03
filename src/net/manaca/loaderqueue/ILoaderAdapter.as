@@ -12,18 +12,76 @@ import flash.events.IEventDispatcher;
  */
 public interface ILoaderAdapter extends IEventDispatcher
 {
-    function start():void
-    function stop():void
-    function dispose():void
-    function get isStarted():Boolean
-    function get level():uint
-    function get state():String
-    function set state(value:String):void
+    
+    /**
+     * A boolean indicating if the instace has started and has not finished loading.
+     * @return
+     *
+     */
+    function get isStarted():Boolean;
+    
+    /**
+     * The priority level of the loader queue.
+     * @return
+     *
+     */
+    function get priority():uint;
+    
+    /**
+     * loading state.
+     * @return 
+     * 
+     */   
+    function get state():String;
+    
+    function set state(value:String):void;
+    
+    /**
+     * Indicates the number of bytes that have been loaded 
+     * thus far during the load operation.
+     * @return 
+     * 
+     */    
     function get bytesLoaded():Number;
+    
+    /**
+     * Indicates the total number of bytes in the downloaded data.
+     * @return 
+     * 
+     */    
     function get bytesTotal():Number;
-    function get progress():Number;
-    function get data():*;
-    function set data(obj:*):void;
+    
+    /**
+     * Custom data.
+     * @return 
+     * 
+     */    
+    function get customData():*;
+    function set customData(obj:*):void;
+    
+    /**
+     * The URL to be requested.
+     * @return 
+     * 
+     */    
     function get url():String;
+    
+    /**
+     * start loading.
+     *
+     */
+    function start():void;
+
+    /**
+     * stop loading.
+     *
+     */
+    function stop():void;
+
+    /**
+     * Frees memory that is used to store the ILoaderAdapter object.
+     *
+     */
+    function dispose():void;
 }
 }

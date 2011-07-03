@@ -17,13 +17,13 @@ import net.manaca.loaderqueue.LoaderQueueEvent;
  */
 public class URLStreamAdapter extends AbstractLoaderAdapter implements ILoaderAdapter
 {
-    public function URLStreamAdapter(level:uint,
-                                  urlRequest:URLRequest)
+    public function URLStreamAdapter(priority:uint,
+                                     urlRequest:URLRequest)
     {
-        super(level, urlRequest);
+        super(priority, urlRequest);
 
-        _container = new URLStream();
-        containerAgent = _container;
+        _adaptee = new URLStream();
+        adapteeAgent = _adaptee;
     }
 
 
@@ -42,26 +42,14 @@ public class URLStreamAdapter extends AbstractLoaderAdapter implements ILoaderAd
         return _bytesTotal;
     }
     
-    public function get progress():Number
-    {
-        if(bytesLoaded && bytesTotal)
-        {
-            return bytesLoaded / bytesTotal;
-        }
-        else
-        {
-            return 0;
-        }
-    }
-
     //----------------------------------
     //  container
     //----------------------------------
-    private var _container:URLStream;
+    private var _adaptee:URLStream;
 
-    public function get container():URLStream
+    public function get adaptee():URLStream
     {
-        return _container;
+        return _adaptee;
     }
 
     //==========================================================================
@@ -77,7 +65,7 @@ public class URLStreamAdapter extends AbstractLoaderAdapter implements ILoaderAd
     {
         stop();
         super.dispose();
-        _container = null;
+        _adaptee = null;
     }
 
     public function start():void
@@ -85,12 +73,12 @@ public class URLStreamAdapter extends AbstractLoaderAdapter implements ILoaderAd
         preStartHandle();
         try
         {
-            container.load(urlRequest);
+            adaptee.load(urlRequest);
         }
         catch (error:Error)
         {
-            dispatchEvent(new LoaderQueueEvent(LoaderQueueEvent.TASK_ERROR,
-                                                                    this.data));
+            dispatchEvent(
+                new LoaderQueueEvent(LoaderQueueEvent.TASK_ERROR, customData));
         }
     }
 
@@ -99,7 +87,7 @@ public class URLStreamAdapter extends AbstractLoaderAdapter implements ILoaderAd
         preStopHandle();
         try
         {
-            container.close();
+            adaptee.close();
         }
         catch (error:Error)
         {

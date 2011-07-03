@@ -3,14 +3,15 @@
  */
 package net.manaca.loaderqueue.adapter
 {
-import net.manaca.loaderqueue.ILoaderAdapter;
-import net.manaca.loaderqueue.LoaderQueueEvent;
-
+import flash.display.DisplayObject;
 import flash.display.Loader;
 import flash.events.IOErrorEvent;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
 import flash.system.LoaderContext;
+
+import net.manaca.loaderqueue.ILoaderAdapter;
+import net.manaca.loaderqueue.LoaderQueueEvent;
 
 /**
  * BackupLoaderAdapter可以设置两个URL地址，如果一个地址加载错误，
@@ -27,18 +28,18 @@ public class BackupLoaderAdapter extends AbstractLoaderAdapter
     //==========================================================================
     /**
      * BackupLoaderAdapter
-     * @param level 等级值,数值越小等级越高,越早被下载
+     * @param priority 优先级,数值越小等级越高,越早被下载
      * @param urlRequest 需下载项的url地址
      * @param backupUrlRequest 备份的url地址
      */
-    public function BackupLoaderAdapter(level:uint,
-                                           urlRequest:URLRequest, 
-                                           backupUrlRequest:URLRequest,
-                                           loaderContext:LoaderContext = null)
+    public function BackupLoaderAdapter(priority:uint,
+                                        urlRequest:URLRequest, 
+                                        backupUrlRequest:URLRequest,
+                                        loaderContext:LoaderContext = null)
     {
-        super(level, urlRequest, loaderContext);
-        _container = new Loader();
-        containerAgent = _container.contentLoaderInfo;
+        super(priority, urlRequest, loaderContext);
+        _adaptee = new Loader();
+        adapteeAgent = _adaptee.contentLoaderInfo;
         
         this.backupUrlRequest = backupUrlRequest;
     }
@@ -50,32 +51,40 @@ public class BackupLoaderAdapter extends AbstractLoaderAdapter
     //==========================================================================
     //  Properties
     //==========================================================================
+    /**
+     * @inheritDoc 
+     */
     public function get bytesLoaded():Number
     {
-        return container.contentLoaderInfo.bytesLoaded;
+        return adaptee.contentLoaderInfo.bytesLoaded;
     }
     
+    /**
+     * @inheritDoc 
+     */
     public function get bytesTotal():Number
     {
-        return container.contentLoaderInfo.bytesTotal;
+        return adaptee.contentLoaderInfo.bytesTotal;
     }
     
-    public function get progress():Number
+    private var _adaptee:Loader;
+    /**
+     * @private
+     */    
+    public function get adaptee():Loader
     {
-        if(bytesLoaded && bytesTotal)
-        {
-            return bytesLoaded / bytesTotal;
-        }
-        else
-        {
-            return 0;
-        }
+        return _adaptee;
     }
     
-    private var _container:Loader;
-    public function get container():Loader
+    /**
+     * Contains the root display object of the SWF file or image 
+     * (JPG, PNG, or GIF) file that was loaded.
+     * @return 
+     * 
+     */    
+    public function get context():DisplayObject
     {
-        return _container;
+        return adaptee.content;
     }
     
     //==========================================================================
@@ -90,9 +99,9 @@ public class BackupLoaderAdapter extends AbstractLoaderAdapter
     override public function dispose():void
     {
         stop();
-        _container && _container.unloadAndStop();
+        _adaptee && _adaptee.unloadAndStop();
         super.dispose();
-        _container = null;
+        _adaptee = null;
     }
     
     public function start():void
@@ -102,17 +111,17 @@ public class BackupLoaderAdapter extends AbstractLoaderAdapter
         {
             if(!isUseBackup)
             {
-                container.load(urlRequest, loaderContext);
+                adaptee.load(urlRequest, loaderContext);
             }
             else
             {
-                container.load(backupUrlRequest, loaderContext);
+                adaptee.load(backupUrlRequest, loaderContext);
             }
         }
         catch (error:Error)
         {
             dispatchEvent(new LoaderQueueEvent(LoaderQueueEvent.TASK_ERROR,
-                this.data));
+                customData));
         }
     }
     
@@ -121,7 +130,7 @@ public class BackupLoaderAdapter extends AbstractLoaderAdapter
         preStopHandle();
         try
         {
-            container.close();
+            adaptee.close();
         }
         catch (error:Error)
         {
@@ -138,8 +147,8 @@ public class BackupLoaderAdapter extends AbstractLoaderAdapter
         {
             stop();
             isUseBackup = true;
-            _container = new Loader();
-            containerAgent = _container;
+            _adaptee = new Loader();
+            adapteeAgent = _adaptee;
             start();
         }
         else

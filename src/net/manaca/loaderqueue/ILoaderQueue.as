@@ -8,11 +8,44 @@ package net.manaca.loaderqueue
  */
 public interface ILoaderQueue
 {
-    function addItem(loaderAdapter:ILoaderAdapter):void
-    function removeAllItem():void
-    function removeItem(loaderAdapter:ILoaderAdapter):void
-    function removeItemByLevel(level:uint):void
-    function saveItemByLevel(level:uint):void
-    function dispose():void
+    /**
+     * Adds a new ILoaderAdapter to be loaded. 
+     * @param loaderAdapter
+     * 
+     */    
+    function addItem(loaderAdapter:ILoaderAdapter):void;
+    
+    /**
+     * Deletes all loading and loaded objects. 
+     * 
+     */    
+    function removeAllItem():void;
+    
+    /**
+     * This will delete this item from memory.
+     * @param loaderAdapter
+     * 
+     */    
+    function removeItem(loaderAdapter:ILoaderAdapter):void;
+    
+    /**
+     * This will delete this items by priority.
+     * @param priority
+     * 
+     */    
+    function removeItemByPriority(priority:uint):void;
+    
+    /**
+     * This will delete this items by unless priority.
+     * @param priority
+     * 
+     */    
+    function saveItemByPriority(priority:uint):void;
+    
+    /**
+     * Frees memory that is used to store the LoaderQueue object.
+     * 
+     */    
+    function dispose():void;
 }
 }

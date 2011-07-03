@@ -77,7 +77,7 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
     /**
      * 等级排序时是否使用倒序(如4,3,2,1)
      */
-    public var reverseLevel:Boolean = false;
+    public var reversePriority:Boolean = false;
 
     /**
      * 用于保存所有的下载项目
@@ -90,7 +90,7 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
      * 用于决定下载的等级的顺序
      * @private
      */
-    private var loaderLevelLib:Array /* of uint */ = [];
+    private var loaderPriorityLib:Array /* of uint */ = [];
 
     /**
      * 用于保存目前正在下载的对象
@@ -103,6 +103,9 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
     //==========================================================================
     //  Methods
     //==========================================================================
+    /**
+     * @inheritDoc 
+     */
     public function addItem(loaderAdapter:ILoaderAdapter):void
     {
         loaderAdapter.state = LoaderQueueConst.STATE_WAITING;
@@ -117,12 +120,12 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
             }
         }
         
-        if (loaderDict[loaderAdapter.level] == null)
+        if (loaderDict[loaderAdapter.priority] == null)
         {
-            loaderDict[loaderAdapter.level] = [];
-            loaderLevelLib.push(loaderAdapter.level);
+            loaderDict[loaderAdapter.priority] = [];
+            loaderPriorityLib.push(loaderAdapter.priority);
         }
-        loaderDict[loaderAdapter.level].push(loaderAdapter);
+        loaderDict[loaderAdapter.priority].push(loaderAdapter);
 
         loaderAdapter.addEventListener(LoaderQueueEvent.TASK_DISPOSE,
                                        loaderAdapter_disposeHandler);
@@ -141,7 +144,7 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
     {
         removeAllItem();
         loaderDict = null;
-        loaderLevelLib = null;
+        loaderPriorityLib = null;
         threadLib = null;
 
         addItemTimer.stop();
@@ -155,9 +158,9 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
      */
     public function removeAllItem():void
     {
-        for each (var i:uint in loaderLevelLib)
+        for each (var i:uint in loaderPriorityLib)
         {
-            removeItemByLevel(i);
+            removeItemByPriority(i);
         }
     }
 
@@ -173,11 +176,11 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
 
     /**
      * 停止并移除队列中所有相应等级的下载项
-     * @param level 需停止并移除的等级
+     * @param priority 需停止并移除的等级
      */
-    public function removeItemByLevel(level:uint):void
+    public function removeItemByPriority(priority:uint):void
     {
-        for each (var i:ILoaderAdapter in loaderDict[level])
+        for each (var i:ILoaderAdapter in loaderDict[priority])
         {
             removeItem(i);
         }
@@ -185,13 +188,13 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
 
     /**
      * 停止并移除队列中除指定等级以外的所有等级的下载项
-     * @param level 需保留的等级
+     * @param priority 需保留的等级
      */
-    public function saveItemByLevel(level:uint):void
+    public function saveItemByPriority(priority:uint):void
     {
-        for each (var i:ILoaderAdapter in loaderDict[level])
+        for each (var i:ILoaderAdapter in loaderDict[priority])
         {
-            if (i.level != level)
+            if (i.priority != priority)
             {
                 removeItem(i);
             }
@@ -213,9 +216,9 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
      */
     private function checkQueueHandle():Boolean
     {
-        for each (var level:uint in loaderLevelLib)
+        for each (var priority:uint in loaderPriorityLib)
         {
-            if (loaderDict[level].length > 0)
+            if (loaderDict[priority].length > 0)
             {
                 return true;
             }
@@ -278,9 +281,9 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
         {
             threadLib.splice(num, 1);
         }
-        num = loaderDict[loaderAdapter.level].indexOf(loaderAdapter);
+        num = loaderDict[loaderAdapter.priority].indexOf(loaderAdapter);
 
-        loaderDict[loaderAdapter.level].splice(num, 1);
+        loaderDict[loaderAdapter.priority].splice(num, 1);
     }
 
     /**
@@ -289,9 +292,9 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
      */
     private function getNextIdleItem():ILoaderAdapter
     {
-        for each (var level:uint in loaderLevelLib)
+        for each (var priority:uint in loaderPriorityLib)
         {
-            for each (var loaderAdapter:ILoaderAdapter in loaderDict[level])
+            for each (var loaderAdapter:ILoaderAdapter in loaderDict[priority])
             {
                 if (!loaderAdapter.isStarted)
                 {
@@ -346,9 +349,10 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
     {
         for (var i:uint = 0; i < threadLib.length; i++)
         {
-            var reverseLevelResult:Boolean =
-                    checkReverseLevel(threadLib[i].level, loaderAdapter.level);
-            if (reverseLevelResult)
+            var reversePriorityResult:Boolean =
+                    checkReversePriority(ILoaderAdapter(threadLib[i]).priority, 
+                        loaderAdapter.priority);
+            if (reversePriorityResult)
             {
                 stopItem(threadLib[i]);
                 threadLib[i] = loaderAdapter;
@@ -369,35 +373,36 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
             //所以已无重新排序必要
             return;
         }
-        var oldLevel:int = itemLoader.level;
+        var oldPriority:int = itemLoader.priority;
         var idleLoaderAdapter:ILoaderAdapter;
         var runningLoaderAdapter:ILoaderAdapter;
         for (var i:uint = 0; i < threadLib.length; i++)
         {
             runningLoaderAdapter = threadLib[i];
-            var reverseLevelResult:Boolean =
-                checkReverseLevel(runningLoaderAdapter.level, oldLevel);
-            if (reverseLevelResult)
+            var reversePriorityResult:Boolean =
+                checkReversePriority(
+                    runningLoaderAdapter.priority, oldPriority);
+            if (reversePriorityResult)
             {
                 idleLoaderAdapter = getNextIdleItem();
-                reverseLevelResult =
-                                checkReverseLevel(runningLoaderAdapter.level,
-                                                    idleLoaderAdapter.level);
-                if (reverseLevelResult)
+                reversePriorityResult = 
+                    checkReversePriority(runningLoaderAdapter.priority,
+                                                    idleLoaderAdapter.priority);
+                if (reversePriorityResult)
                 {
                     stopItem(runningLoaderAdapter);
                     threadLib[i] = idleLoaderAdapter;
                     startItem(idleLoaderAdapter);
-                    oldLevel = idleLoaderAdapter.level;
+                    oldPriority = idleLoaderAdapter.priority;
                 }
                 else
                 {
-                    oldLevel = runningLoaderAdapter.level;
+                    oldPriority = runningLoaderAdapter.priority;
                 }
             }
             else
             {
-                oldLevel = runningLoaderAdapter.level;
+                oldPriority = runningLoaderAdapter.priority;
             }
         }
     }
@@ -468,14 +473,14 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
     {
         addItemTimer.reset();
 
-        if (!reverseLevel)
+        if (!reversePriority)
         {
-            loaderLevelLib.sort(Array.NUMERIC);
+            loaderPriorityLib.sort(Array.NUMERIC);
         }
         else
         {
-            loaderLevelLib.sort(Array.NUMERIC);
-            loaderLevelLib.reverse();
+            loaderPriorityLib.sort(Array.NUMERIC);
+            loaderPriorityLib.reverse();
         }
 
         if (threadLib.length > 0)
@@ -487,18 +492,18 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
 
     /**
      * 根据是否倒序,来得出两个等级之间优先级的结果
-     * @param level1
-     * @param level2
+     * @param priority1
+     * @param priority2
      * @return
      * @private
      */
-    private function checkReverseLevel(level1:uint, level2:uint):Boolean
+    private function checkReversePriority(priority1:uint, priority2:uint):Boolean
     {
-        if (!this.reverseLevel)
+        if (!this.reversePriority)
         {
-            return level1 > level2;
+            return priority1 > priority2;
         }
-        return level2 > level1;
+        return priority2 > priority1;
     }
 }
 }

@@ -3,6 +3,7 @@
  */
 package net.manaca.loaderqueue.adapter
 {
+import flash.display.DisplayObject;
 import flash.display.Loader;
 import flash.events.IOErrorEvent;
 import flash.net.URLRequest;
@@ -27,46 +28,47 @@ public class LoaderAdapter extends AbstractLoaderAdapter
      * Constructs a new <code>Application</code> instance.
      *
      */
-    public function LoaderAdapter(level:uint,
+    public function LoaderAdapter(priority:uint,
                                   urlRequest:URLRequest,
                                   loaderContext:LoaderContext = null)
     {
-        super(level, urlRequest, loaderContext);
-        _container = new Loader();
-        containerAgent = _container.contentLoaderInfo;
+        super(priority, urlRequest, loaderContext);
+        _adaptee = new Loader();
+        adapteeAgent = _adaptee.contentLoaderInfo;
     }
-    private var _container:Loader;
+    private var _adaptee:Loader;
 
     //==========================================================================
     //  Properties
     //==========================================================================
     public function get bytesLoaded():Number
     {
-        return container.contentLoaderInfo.bytesLoaded;
+        return adaptee.contentLoaderInfo.bytesLoaded;
     }
 
     public function get bytesTotal():Number
     {
-        return container.contentLoaderInfo.bytesTotal;
+        return adaptee.contentLoaderInfo.bytesTotal;
     }
 
-    public function get container():Loader
+    /**
+     * @private
+     */
+    public function get adaptee():Loader
     {
-        return _container;
+        return _adaptee;
     }
     
-    public function get progress():Number
+    /**
+     * Contains the root display object of the SWF file or image 
+     * (JPG, PNG, or GIF) file that was loaded.
+     * @return 
+     * 
+     */    
+    public function get context():DisplayObject
     {
-        if(bytesLoaded && bytesTotal)
-        {
-            return bytesLoaded / bytesTotal;
-        }
-        else
-        {
-            return 0;
-        }
+        return adaptee.content;
     }
-
     //==========================================================================
     //  Methods
     //==========================================================================
@@ -79,9 +81,9 @@ public class LoaderAdapter extends AbstractLoaderAdapter
     override public function dispose():void
     {
         stop();
-        _container && _container.unloadAndStop();
+        _adaptee && _adaptee.unloadAndStop();
         super.dispose();
-        _container = null;
+        _adaptee = null;
     }
 
     public function start():void
@@ -89,12 +91,12 @@ public class LoaderAdapter extends AbstractLoaderAdapter
         preStartHandle();
         try
         {
-            container.load(urlRequest, loaderContext);
+            adaptee.load(urlRequest, loaderContext);
         }
         catch (error:Error)
         {
-            dispatchEvent(new LoaderQueueEvent(LoaderQueueEvent.TASK_ERROR,
-                                                                    this.data));
+            dispatchEvent(
+                new LoaderQueueEvent(LoaderQueueEvent.TASK_ERROR, customData));
         }
     }
 
@@ -103,7 +105,7 @@ public class LoaderAdapter extends AbstractLoaderAdapter
         preStopHandle();
         try
         {
-            container.close();
+            adaptee.close();
         }
         catch (error:Error)
         {

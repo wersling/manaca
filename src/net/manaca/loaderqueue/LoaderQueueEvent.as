@@ -35,9 +35,9 @@ public class LoaderQueueEvent extends Event
      * Constructs a new <code>Application</code> instance.
      *
      */
-    public function LoaderQueueEvent(type:String, data:* = null)
+    public function LoaderQueueEvent(type:String, customData:* = null)
     {
-        this.data = data;
+        this.customData = customData;
         super(type);
     }
 
@@ -47,7 +47,7 @@ public class LoaderQueueEvent extends Event
     /**
      * 提供给开发者使用，其内容可以为任何对象或值
      */
-    public var data:*;
+    public var customData:*;
 
     public var bytesLoaded:Number;
 
@@ -64,7 +64,7 @@ public class LoaderQueueEvent extends Event
     override public function clone():Event
     {
         var event:LoaderQueueEvent = new LoaderQueueEvent(type);
-        event.data = data;
+        event.customData = customData;
         event.bytesLoaded = bytesLoaded;
         event.bytesTotal = bytesTotal;
         event.errorMsg = errorMsg;

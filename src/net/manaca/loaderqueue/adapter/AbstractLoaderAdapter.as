@@ -3,14 +3,15 @@
  */
 package net.manaca.loaderqueue.adapter
 {
-import net.manaca.loaderqueue.LoaderQueueConst;
-import net.manaca.loaderqueue.LoaderQueueEvent;
-
 import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.events.IEventDispatcher;
 import flash.events.IOErrorEvent;
 import flash.events.ProgressEvent;
 import flash.net.URLRequest;
+
+import net.manaca.loaderqueue.LoaderQueueConst;
+import net.manaca.loaderqueue.LoaderQueueEvent;
 
 /**
  * 任务完成后派发
@@ -63,11 +64,10 @@ public class AbstractLoaderAdapter extends EventDispatcher
      * Constructs a new <code>Application</code> instance.
      *
      */
-    public function AbstractLoaderAdapter(level:uint,
-                                          urlRequest:URLRequest,
+    public function AbstractLoaderAdapter(priority:uint, urlRequest:URLRequest,
                                           loaderContext:* = null)
     {
-        _level = level;
+        _priority = priority;
         this.urlRequest = urlRequest;
         this.loaderContext = loaderContext;
         this._url = urlRequest.url;
@@ -83,37 +83,56 @@ public class AbstractLoaderAdapter extends EventDispatcher
     //==========================================================================
     //  Properties
     //==========================================================================
-    private var _data:*;
+    private var _customData:*;
+
     /**
      * 提供给开发者用于数据或参数传递
      * LoaderQueue或是任何Adapter自身并不对此变量附值
      */
-    public function get data():*
+    public function get customData():*
     {
-        return _data;
-    }
-    public function set data(obj:*):void
-    {
-        _data = obj;
+        return _customData;
     }
 
+    public function set customData(value:*):void
+    {
+        _customData = value;
+    }
+
+    /**
+     * A boolean indicating if the instace has started and has not finished loading.
+     * @return
+     *
+     */
     public function get isStarted():Boolean
     {
         return state == LoaderQueueConst.STATE_STARTED;
     }
 
+    /**
+     * A boolean indicating if the instace has finished.
+     * @return
+     *
+     */
     public function get isCompleted():Boolean
     {
         return state == LoaderQueueConst.STATE_COMPLETED;
     }
 
-    protected var _level:uint;
-    public function get level():uint
+    protected var _priority:uint;
+
+    /**
+     * The priority level of the loader queue.
+     * @return
+     *
+     */
+    public function get priority():uint
     {
-        return _level;
+        return _priority;
     }
 
     protected var _state:String;
+
     /**
      * 适配器的状态
      * @return 可能的值为LoaderQueueConst中的常量
@@ -123,29 +142,38 @@ public class AbstractLoaderAdapter extends EventDispatcher
     {
         return _state;
     }
+
     public function set state(value:String):void
     {
         _state = value;
     }
-
-    private var _containerAgent:*;
-    /**
-     * 将子类的 container传给本类的containerAgent,用于在此处理一些事件侦听
-     */
-    protected function set containerAgent(loader:*):void
-    {
-        _containerAgent = loader;
-    }
-    protected function get containerAgent():EventDispatcher
-    {
-        return _containerAgent;
-    }
     
+    private var _adapteeAgent:IEventDispatcher;
+
+    /**
+     * 将子类的adaptee传给本类的adapteeAgent,用于在此处理一些事件侦听.
+     */
+    protected function set adapteeAgent(loader:IEventDispatcher):void
+    {
+        _adapteeAgent = loader;
+    }
+
+    protected function get adapteeAgent():IEventDispatcher
+    {
+        return _adapteeAgent;
+    }
+
     private var _url:String;
+    /**
+     * The URL to be requested.
+     * @return 
+     * 
+     */
     public function get url():String
     {
         return _url;
     }
+
     //==========================================================================
     //  Methods
     //==========================================================================
@@ -157,33 +185,32 @@ public class AbstractLoaderAdapter extends EventDispatcher
     public function dispose():void
     {
         dispatchEvent(new LoaderQueueEvent(LoaderQueueEvent.TASK_DISPOSE,
-                                                                    this.data));
+                                           customData));
         removeAllListener();
         loaderContext = null;
         urlRequest = null;
     }
+
     /**
      * 此方法应包含在子类start()函数中调用
      */
     protected function preStartHandle():void
     {
-        with (containerAgent)
+        with (adapteeAgent)
         {
             //containerAgent的事件
             addEventListener(Event.COMPLETE, container_completeHandler);
             addEventListener(ProgressEvent.PROGRESS, container_progressHandler);
             addEventListener(IOErrorEvent.DISK_ERROR, container_errorHandler);
             addEventListener(IOErrorEvent.IO_ERROR, container_errorHandler);
-            addEventListener(IOErrorEvent.NETWORK_ERROR,
-                             container_errorHandler);
+            addEventListener(IOErrorEvent.NETWORK_ERROR, container_errorHandler);
         }
         //adapter自身的事件
         addEventListener(IOErrorEvent.DISK_ERROR, container_errorHandler);
         addEventListener(IOErrorEvent.IO_ERROR, container_errorHandler);
-        addEventListener(IOErrorEvent.NETWORK_ERROR,
-                            container_errorHandler);
+        addEventListener(IOErrorEvent.NETWORK_ERROR, container_errorHandler);
         dispatchEvent(new LoaderQueueEvent(LoaderQueueEvent.TASK_START,
-                                                                    this.data));
+                                           customData));
     }
 
     /**
@@ -193,27 +220,24 @@ public class AbstractLoaderAdapter extends EventDispatcher
     {
         removeAllListener();
         dispatchEvent(new LoaderQueueEvent(LoaderQueueEvent.TASK_STOP,
-                                                                    this.data));
+                                           customData));
     }
 
     private function removeAllListener():void
     {
-        with (containerAgent)
+        with (adapteeAgent)
         {
             removeEventListener(Event.COMPLETE, container_completeHandler);
             removeEventListener(ProgressEvent.PROGRESS,
                                 container_progressHandler);
-            removeEventListener(IOErrorEvent.DISK_ERROR,
-                                container_errorHandler);
+            removeEventListener(IOErrorEvent.DISK_ERROR, container_errorHandler);
             removeEventListener(IOErrorEvent.IO_ERROR, container_errorHandler);
             removeEventListener(IOErrorEvent.NETWORK_ERROR,
                                 container_errorHandler);
         }
-        removeEventListener(IOErrorEvent.DISK_ERROR,
-            container_errorHandler);
+        removeEventListener(IOErrorEvent.DISK_ERROR, container_errorHandler);
         removeEventListener(IOErrorEvent.IO_ERROR, container_errorHandler);
-        removeEventListener(IOErrorEvent.NETWORK_ERROR,
-            container_errorHandler);
+        removeEventListener(IOErrorEvent.NETWORK_ERROR, container_errorHandler);
     }
 
     //==========================================================================
@@ -227,14 +251,14 @@ public class AbstractLoaderAdapter extends EventDispatcher
     {
         state = LoaderQueueConst.STATE_COMPLETED;
         dispatchEvent(new LoaderQueueEvent(LoaderQueueEvent.TASK_COMPLETED,
-                                                                    this.data));
+                                           customData));
     }
 
     protected function container_errorHandler(event:IOErrorEvent):void
     {
         state = LoaderQueueConst.STATE_ERROR;
         var errorEvent:LoaderQueueEvent =
-            new LoaderQueueEvent(LoaderQueueEvent.TASK_ERROR, this.data);
+            new LoaderQueueEvent(LoaderQueueEvent.TASK_ERROR, customData);
         errorEvent.errorMsg = event.text;
         dispatchEvent(errorEvent);
     }
@@ -246,7 +270,7 @@ public class AbstractLoaderAdapter extends EventDispatcher
     protected function container_progressHandler(event:ProgressEvent):void
     {
         var progressEvent:LoaderQueueEvent =
-            new LoaderQueueEvent(LoaderQueueEvent.TASK_PROGRESS, this.data);
+            new LoaderQueueEvent(LoaderQueueEvent.TASK_PROGRESS, customData);
         progressEvent.bytesLoaded = event.bytesLoaded;
         progressEvent.bytesTotal = event.bytesTotal;
         dispatchEvent(progressEvent);

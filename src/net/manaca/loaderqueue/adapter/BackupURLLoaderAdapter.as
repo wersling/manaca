@@ -25,17 +25,17 @@ public class BackupURLLoaderAdapter extends AbstractLoaderAdapter
     //==========================================================================
     /**
      * BackupURLLoaderAdapter
-     * @param level 等级值,数值越小等级越高,越早被下载
+     * @param priority 等级值,数值越小等级越高,越早被下载
      * @param urlRequest 需下载项的url地址
      * @param backupUrlRequest 备份的url地址
      */
-    public function BackupURLLoaderAdapter(level:uint,
+    public function BackupURLLoaderAdapter(priority:uint,
                                            urlRequest:URLRequest, 
                                            backupUrlRequest:URLRequest)
     {
-        super(level, urlRequest, null);
-        _container = new URLLoader();
-        containerAgent = _container;
+        super(priority, urlRequest, null);
+        _adaptee = new URLLoader();
+        adapteeAgent = _adaptee;
         
         this.backupUrlRequest = backupUrlRequest;
     }
@@ -49,32 +49,32 @@ public class BackupURLLoaderAdapter extends AbstractLoaderAdapter
     //==========================================================================
     public function get bytesLoaded():Number
     {
-        return container.bytesLoaded;
+        return adaptee.bytesLoaded;
     }
     
     public function get bytesTotal():Number
     {
-        return container.bytesTotal;
+        return adaptee.bytesTotal;
     }
     
-    public function get progress():Number
+    private var _adaptee:URLLoader;
+    /**
+     * @private
+     */
+    public function get adaptee():URLLoader
     {
-        if(bytesLoaded && bytesTotal)
-        {
-            return bytesLoaded / bytesTotal;
-        }
-        else
-        {
-            return 0;
-        }
+        return _adaptee;
     }
     
-    private var _container:URLLoader;
-    public function get container():URLLoader
+    /**
+     * The data received from the load operation.
+     * @return 
+     * 
+     */    
+    public function get date():*
     {
-        return _container;
+        return adaptee.data;
     }
-    
     //==========================================================================
     //  Methods
     //==========================================================================
@@ -88,9 +88,12 @@ public class BackupURLLoaderAdapter extends AbstractLoaderAdapter
     {
         stop();
         super.dispose();
-        _container = null;
+        _adaptee = null;
     }
     
+    /**
+     * @inheritDoc 
+     */
     public function start():void
     {
         preStartHandle();
@@ -98,17 +101,17 @@ public class BackupURLLoaderAdapter extends AbstractLoaderAdapter
         {
             if(!isUseBackup)
             {
-                container.load(urlRequest);
+                adaptee.load(urlRequest);
             }
             else
             {
-                container.load(backupUrlRequest);
+                adaptee.load(backupUrlRequest);
             }
         }
         catch (error:Error)
         {
-            dispatchEvent(new LoaderQueueEvent(LoaderQueueEvent.TASK_ERROR,
-                this.data));
+            dispatchEvent(
+                new LoaderQueueEvent(LoaderQueueEvent.TASK_ERROR, customData));
         }
     }
     
@@ -117,7 +120,7 @@ public class BackupURLLoaderAdapter extends AbstractLoaderAdapter
         preStopHandle();
         try
         {
-            container.close();
+            adaptee.close();
         }
         catch (error:Error)
         {
@@ -134,8 +137,8 @@ public class BackupURLLoaderAdapter extends AbstractLoaderAdapter
         {
             stop();
             isUseBackup = true;
-            _container = new URLLoader();
-            containerAgent = _container;
+            _adaptee = new URLLoader();
+            adapteeAgent = _adaptee;
             start();
         }
         else

@@ -117,7 +117,7 @@ public class ModuleInfo extends EventDispatcher implements IModuleInfo
     //----------------------------------
     private var _data:Object;
     /**
-     * @private
+     * @inheritDoc 
      */
     public function get data():Object
     {
@@ -133,7 +133,7 @@ public class ModuleInfo extends EventDispatcher implements IModuleInfo
     //----------------------------------
     private var _error:Boolean = false;
     /**
-     * @private
+     * @inheritDoc
      */
     public function get error():Boolean
     {
@@ -144,7 +144,7 @@ public class ModuleInfo extends EventDispatcher implements IModuleInfo
     //----------------------------------
     private var _factoy:IModuleFactory;
     /**
-     * @private
+     * @inheritDoc
      */
     public function get factory():IModuleFactory
     {
@@ -155,7 +155,7 @@ public class ModuleInfo extends EventDispatcher implements IModuleInfo
     //----------------------------------
     private var _loaded:Boolean = false;
     /**
-     * @private
+     * @inheritDoc
      */
     public function get loaded():Boolean
     {
@@ -167,7 +167,7 @@ public class ModuleInfo extends EventDispatcher implements IModuleInfo
     //----------------------------------
     private var _ready:Boolean = false;
     /**
-     * @private
+     * @inheritDoc
      */
     public function get ready():Boolean
     {
@@ -179,7 +179,7 @@ public class ModuleInfo extends EventDispatcher implements IModuleInfo
     //----------------------------------
     private var _moduleName:String;
     /**
-     * @private
+     * @inheritDoc
      */
     public function get moduleName():String
     {
@@ -201,7 +201,7 @@ public class ModuleInfo extends EventDispatcher implements IModuleInfo
     //  Methods
     //==========================================================================
     /**
-     * @private
+     * @inheritDoc
      */
     public function load(applicationDomain:ApplicationDomain=null,
                          securityDomain:SecurityDomain=null,
@@ -256,7 +256,7 @@ public class ModuleInfo extends EventDispatcher implements IModuleInfo
     }
 
     /**
-     * @private
+     * @inheritDoc
      */
     public function unload():void
     {
@@ -301,7 +301,7 @@ public class ModuleInfo extends EventDispatcher implements IModuleInfo
     private function loader_initHandler(event:LoaderQueueEvent):void
     {
         _applicationDomain = 
-            loader.container.contentLoaderInfo.applicationDomain;
+            loader.adaptee.contentLoaderInfo.applicationDomain;
         _factoy = new ModuleFactory(applicationDomain, moduleVO);
 
         clearLoader();
@@ -316,8 +316,8 @@ public class ModuleInfo extends EventDispatcher implements IModuleInfo
             new ModuleEvent(ModuleEvent.PROGRESS,
                 event.bubbles, event.cancelable);
         moduleEvent.bytesLoaded = 
-            loader.container.contentLoaderInfo.bytesLoaded;
-        moduleEvent.bytesTotal = loader.container.contentLoaderInfo.bytesTotal;
+            loader.adaptee.contentLoaderInfo.bytesLoaded;
+        moduleEvent.bytesTotal = loader.adaptee.contentLoaderInfo.bytesTotal;
         dispatchEvent(moduleEvent);
         loader_initHandler(null);
     }
