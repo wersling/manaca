@@ -36,24 +36,12 @@ public class ModuleFactory implements IModuleFactory
     /**
      * @inheritDoc 
      */
-    public function create(viewMap:IViewMap = null):IModule
+    public function create():IModule
     {
-        try
-        {
-            var moduleClz:Class = 
-                applicationDomain.getDefinition(moduleVO.clz) as Class;
-        }
-        catch(error:Error)
-        {
-            Tracer.error("Can't find class : " + moduleVO.clz);
-            Tracer.error(error);
-        }
+        var moduleClz:Class = 
+            applicationDomain.getDefinition(moduleVO.clz) as Class;
         
         var module:IModule = new moduleClz();
-        if(viewMap)
-        {
-            viewMap.mapType(moduleClz);
-        }
         return module;
     }
 }
