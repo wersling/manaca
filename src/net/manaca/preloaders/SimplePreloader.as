@@ -49,7 +49,7 @@ public class SimplePreloader extends PreloaderBase
     override protected function initialize():void
     {
         stage.removeEventListener(Event.RESIZE, resizeHandler);
-        this.removeChild(loadingBar);
+        removeChild(loadingBar);
         loadingBar = null;
         
         super.initialize();

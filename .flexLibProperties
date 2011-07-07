@@ -75,7 +75,7 @@
     <classEntry path="net.manaca.loaderqueue.adapter.BackupLoaderAdapter"/>
     <classEntry path="net.manaca.loaderqueue.adapter.BackupURLLoaderAdapter"/>
     <classEntry path="net.manaca.loaderqueue.adapter.LoaderAdapter"/>
-    <classEntry path="net.manaca.loaderqueue.adapter.MPSoundAdapter"/>
+    <classEntry path="net.manaca.loaderqueue.adapter.SoundAdapter"/>
     <classEntry path="net.manaca.loaderqueue.adapter.URLLoaderAdapter"/>
     <classEntry path="net.manaca.loaderqueue.adapter.URLStreamAdapter"/>
     <classEntry path="net.manaca.logging.ILogPublisher"/>
@@ -182,6 +182,8 @@
     <classEntry path="org.swiftsuspenders.injectionresults.InjectSingletonResult"/>
     <classEntry path="org.swiftsuspenders.injectionresults.InjectValueResult"/>
     <classEntry path="org.swiftsuspenders.injectionresults.InjectionResult"/>
+    <classEntry path="net.manaca.application.config.ApplicationSetup"/>
+    <classEntry path="net.manaca.application.IApplicationSetup"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

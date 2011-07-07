@@ -5,12 +5,15 @@ import flash.display.Sprite;
 import flash.display.StageAlign;
 import flash.display.StageScaleMode;
 import flash.events.Event;
+import flash.events.IEventDispatcher;
+import flash.events.ProgressEvent;
 import flash.external.ExternalInterface;
 import flash.system.Capabilities;
 import flash.utils.getDefinitionByName;
 import flash.utils.setTimeout;
 
 import net.manaca.application.IApplication;
+import net.manaca.application.IApplicationSetup;
 
 /**
  * The Preloader class is used by the application to monitor
@@ -65,28 +68,35 @@ public class PreloaderBase extends MovieClip
      * @return
      *
      */
-    protected function createApplication():Object
+    protected function getApplicationClass():Class
     {
         var mainClassName:String;
 
-        if (mainClassName == null)
+        var url:String = loaderInfo.loaderURL;
+
+        var dot:int = url.lastIndexOf(".");
+        var slash:int = url.lastIndexOf("/");
+        mainClassName = url.substring(slash + 1, dot);
+
+        /* modify at flex 2 debuging error. */
+        if(Capabilities.isDebugger && mainClassName.indexOf("_debug") != -1)
         {
-            var url:String = loaderInfo.loaderURL;
-
-            var dot:int = url.lastIndexOf(".");
-            var slash:int = url.lastIndexOf("/");
-            mainClassName = url.substring(slash + 1, dot);
-
-            /* modify at flex 2 debuging error. */
-            if(Capabilities.isDebugger && mainClassName.indexOf("_debug") != -1)
-            {
-                mainClassName = mainClassName.slice(0, -6);
-            }
-            
-            mainClassName = decodeURIComponent(mainClassName);
+            mainClassName = mainClassName.slice(0, -6);
         }
+        
+        mainClassName = decodeURIComponent(mainClassName);
+        
         var mainClass:Class = Class(getDefinitionByName(mainClassName));
-        return mainClass ? new mainClass() : null;
+        return mainClass;
+    }
+    
+    private function getSWFPath():String
+    {
+        var result:String = loaderInfo.loaderURL;
+        result = result.split("\\").join("/");
+        var lastIndex:int = result.lastIndexOf("/");
+        result = result.slice(0, lastIndex + 1);
+        return result;
     }
     
     /**
@@ -106,17 +116,51 @@ public class PreloaderBase extends MovieClip
             setTimeout(checkJSInit, 100);
             return;
         }
-        initialize();
+        
+        preInit();
     }
     
+    private function preInit():void
+    {
+        nextFrame();
+        
+        var appClz:Class = getApplicationClass();
+        
+        var configPath:String = appClz.APP_CONFIG;
+        if(configPath.indexOf("http") == -1)
+        {
+            configPath = getSWFPath() + configPath;
+        }
+        
+        var setupClz:Class = Class(getDefinitionByName(
+            "net.manaca.application.config.ApplicationSetup"));
+        var setup:IApplicationSetup = new setupClz(stage, configPath);
+        setup.addEventListener(ProgressEvent.PROGRESS,
+            preInit_progressHandler);
+        setup.addEventListener(Event.INIT,
+            preInit_initHandler);
+        setup.start();
+    }
+    
+    private function preInit_initHandler(event:Event):void
+    {
+        initialize();
+        
+    }
+    
+    private function preInit_progressHandler(event:ProgressEvent):void
+    {
+        // TODO Auto Generated method stub
+        
+    }
     /**
      * @private
      * initialize the application.
      */
     protected function initialize():void
     {
-        nextFrame();
-        var app:Object = createApplication();
+        var appClz:Class = getApplicationClass();
+        var app:Object = new appClz();
         addChild(app as Sprite);
 
         if(app is IApplication)
@@ -160,7 +204,7 @@ public class PreloaderBase extends MovieClip
             }
             else
             {
-                initialize();
+                preInit();
             }
         }
     }

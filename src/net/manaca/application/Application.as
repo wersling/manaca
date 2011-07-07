@@ -1,19 +1,10 @@
 package net.manaca.application
 {
 import flash.display.Sprite;
-import flash.events.Event;
 
-import net.manaca.application.config.ApplicationInitHelper;
-import net.manaca.application.config.ConfigFileHelper;
-import net.manaca.application.config.FilePreloadingHelper;
+import net.manaca.application.config.ApplicationSetup;
 import net.manaca.core.AbstractHandler;
-import net.manaca.core.manaca_internal;
-import net.manaca.errors.FrameworkError;
-import net.manaca.errors.IllegalArgumentError;
 import net.manaca.errors.SingletonError;
-import net.manaca.loaderqueue.LoaderQueue;
-import net.manaca.modules.ModuleManager;
-import net.manaca.modules.ModuleVO;
 
 /**
  * <code>Application</code> is the default access point for flash applications.
@@ -54,13 +45,6 @@ public class Application extends Sprite implements IApplication
      */    
     static private var instance:Application;
     //==========================================================================
-    //  Variables
-    //==========================================================================
-    private var config:*;
-    private var configXML:XML;
-    private var filePreloading:FilePreloadingHelper;
-    private const loaderQueueIns:LoaderQueue = new LoaderQueue(8, 100);
-    //==========================================================================
     //  Constructor
     //==========================================================================
     /**
@@ -72,19 +56,10 @@ public class Application extends Sprite implements IApplication
      * private var configClz:Class;
      * </listing>
      */
-    public function Application(config:*)
+    public function Application()
     {
         AbstractHandler.handlerClass(this, Application);
-
-        if(config != null)
-        {
-            this.config = config;
-        }
-        else
-        {
-            throw new IllegalArgumentError(
-                                    "invalid config argument:" + config);
-        }
+        ApplicationSetup;
 
         if(instance != null)
         {
@@ -94,61 +69,14 @@ public class Application extends Sprite implements IApplication
         {
             instance = this;
         }
-    }
+    }   
 
     //==========================================================================
     //  Methods
     //==========================================================================
-    /**
-     * @inheritDoc
-     */
-    final public function initialize():void
+    public function initialize():void
     {
-        var configFile:ConfigFileHelper = new ConfigFileHelper();
-        configFile.addEventListener(Event.COMPLETE,
-            configFile_completeHandler);
-        configFile.init(config);
-    }
-    
-    private function initApp():void
-    {
-        Bootstrap.getInstance().manaca_internal::init(configXML);
-        
-        //init stage,logging
-        new ApplicationInitHelper().init(stage, configXML);
-        
-        //set server name
-        var href:String = Bootstrap.getInstance().href;
-        if (!href || href.indexOf("http") == -1 || 
-            href.indexOf("localhost") != -1)
-        {
-            Bootstrap.getInstance().
-                manaca_internal::setServerByName("flashDev");
-        }
-        else
-        {
-            Bootstrap.getInstance().
-                manaca_internal::setServerByName("release");
-        }
-        
-        //init modules
-        var modules:Vector.<ModuleVO> = new Vector.<ModuleVO>();
-        for each(var moduleNode:XML in configXML.Modules.Module)
-        {
-            var moduleVO:ModuleVO = new ModuleVO(moduleNode);
-            moduleVO.url = Bootstrap.getInstance().getSwfPath(moduleVO.url);
-            modules.push(moduleVO);
-        }
-        
-        ModuleManager.init(modules, Bootstrap.getInstance().loaderQueue);
-        
-        //start loading files
-        filePreloading = 
-            new FilePreloadingHelper(configXML.PreloadFiles.File, modules);
-        filePreloading.addEventListener(Event.COMPLETE, 
-            loadCompletedHandler);
-        filePreloading.addEventListener(Event.CHANGE, progressHandler);
-        filePreloading.start();
+        startup();
     }
     
     /**
@@ -169,79 +97,6 @@ public class Application extends Sprite implements IApplication
     protected function startup():void
     {
         AbstractHandler.handlerFunction("Application.startup");
-    }
-
-    /**
-     * The updateConfiguration function will call by configuration update.
-     * You can override the function.
-     * @param percent
-     *
-     */
-    protected function updateProgress(percent:uint):void
-    {
-    }
-
-    /**
-     * The updateConfiguration function will call by 
-     * configuration catched a error.
-     * You can override the function.
-     * @param error the catched error.
-     *
-     */
-    protected function errorHandler(error:Error):void
-    {
-        throw new FrameworkError(error.toString());
-    }
-
-    //==========================================================================
-    //  Event handlers
-    //==========================================================================
-    /**
-     * Handler then the config file loaded.
-     * @param event
-     * 
-     */    
-    private function configFile_completeHandler(event:Event):void
-    {
-        ConfigFileHelper(event.target).addEventListener(Event.COMPLETE,
-            configFile_completeHandler);
-        
-        configXML = ConfigFileHelper(event.target).configXML;
-        if(configXML)
-        {
-            initApp();
-        }
-    }
-    
-    /**
-     * Handler the external files loading progressHanlder
-     * @param event
-     * 
-     */    
-    private function progressHandler(event:Event):void
-    {
-        updateProgress(filePreloading.percentage);
-    }
-    
-    /**
-     * Handler then the external files.
-     * @param event
-     * 
-     */    
-    private function loadCompletedHandler(event:Event):void
-    {
-        Bootstrap.getInstance().
-            manaca_internal::setPreloadFiles(filePreloading.preloadFiles);
-        
-        filePreloading.removeEventListener(Event.COMPLETE, 
-            loadCompletedHandler);
-        filePreloading.removeEventListener(Event.CHANGE, progressHandler);
-        filePreloading.dispose();
-        filePreloading = null;
-        
-        updateProgress(100);
-        
-        startup();
     }
 }
 }
