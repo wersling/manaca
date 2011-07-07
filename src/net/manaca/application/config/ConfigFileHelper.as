@@ -9,15 +9,31 @@ import flash.net.URLRequest;
 import mx.core.ByteArrayAsset;
 
 import net.manaca.errors.IllegalArgumentError;
+/**
+ * 
+ * @author sean
+ * 
+ */
 public class ConfigFileHelper extends EventDispatcher
 {
+    //==========================================================================
+    //  Constructor
+    //==========================================================================
+    /**
+     * 构造一个<code>ConfigFileHelper</code>实例.
+     * 
+     */
     public function ConfigFileHelper()
     {
         super();
     }
-    
+    //==========================================================================
+    //  Properties
+    //==========================================================================
     public var configXML:XML;
-    
+    //==========================================================================
+    //  Methods
+    //==========================================================================
     public function init(config:*):void
     {
         if(config is Class)
