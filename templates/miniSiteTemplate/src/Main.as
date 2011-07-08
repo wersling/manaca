@@ -16,7 +16,7 @@ import site.MainContainer;
 //  Application Metadata
 //--------------------------------------
 /* Define the application preloader class. */
-[Frame(factoryClass="net.manaca.preloaders.SimplePreloader")]
+[Frame(factoryClass="SimplePreloader")]
 /* Define the application size , background color and frame rate. */
 [SWF(width="800", height="600", frameRate="30", backgroundColor="#FFFFFF")]
 /**
@@ -29,10 +29,10 @@ public class Main extends Application
     //==========================================================================
     //  Class variables
     //==========================================================================
-    /* Embed config file. */
-    [Embed(source="./application.xml", mimeType="application/octet-stream")]
-    private var configClz:Class;
-    
+    /**
+     * Define the config file path.
+     */    
+    static public const APP_CONFIG:String = "application.xml";
     //==========================================================================
     //  Constructor
     //==========================================================================
@@ -41,15 +41,12 @@ public class Main extends Application
      */
     public function Main()
     {
-        super(configClz);
+        super();
     }
     
     //==========================================================================
     //  Methods
     //==========================================================================
-    override protected function updateProgress(percent:uint):void
-    {
-    }
     /**
      * overrided. start the application.
      * 

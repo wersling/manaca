@@ -27,7 +27,9 @@
     <classEntry path="net.manaca.application.BaseApplication"/>
     <classEntry path="net.manaca.application.Bootstrap"/>
     <classEntry path="net.manaca.application.IApplication"/>
+    <classEntry path="net.manaca.application.IApplicationSetup"/>
     <classEntry path="net.manaca.application.config.ApplicationInitHelper"/>
+    <classEntry path="net.manaca.application.config.ApplicationSetup"/>
     <classEntry path="net.manaca.application.config.ConfigFileHelper"/>
     <classEntry path="net.manaca.application.config.FilePreloadingHelper"/>
     <classEntry path="net.manaca.application.config.FileTypeInfo"/>
@@ -104,8 +106,8 @@
     <classEntry path="net.manaca.modules.ModuleManager"/>
     <classEntry path="net.manaca.modules.ModuleManagerImpl"/>
     <classEntry path="net.manaca.modules.ModuleVO"/>
+    <classEntry path="net.manaca.preloaders.IPreloaderDisplay"/>
     <classEntry path="net.manaca.preloaders.PreloaderBase"/>
-    <classEntry path="net.manaca.preloaders.SimplePreloader"/>
     <classEntry path="net.manaca.tracking.Tracking"/>
     <classEntry path="net.manaca.tracking.sender.DefaultSender"/>
     <classEntry path="net.manaca.tracking.sender.ITrackingSender"/>
@@ -182,8 +184,7 @@
     <classEntry path="org.swiftsuspenders.injectionresults.InjectSingletonResult"/>
     <classEntry path="org.swiftsuspenders.injectionresults.InjectValueResult"/>
     <classEntry path="org.swiftsuspenders.injectionresults.InjectionResult"/>
-    <classEntry path="net.manaca.application.config.ApplicationSetup"/>
-    <classEntry path="net.manaca.application.IApplicationSetup"/>
+    <classEntry path="net.manaca.preloaders.DownloadProgressBar"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

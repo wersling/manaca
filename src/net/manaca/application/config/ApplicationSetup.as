@@ -15,7 +15,6 @@ import net.manaca.modules.ModuleVO;
 
 public class ApplicationSetup extends EventDispatcher implements IApplicationSetup
 {
-    static public var AA:String = "11";
     //==========================================================================
     //  Constructor
     //==========================================================================
@@ -110,25 +109,13 @@ public class ApplicationSetup extends EventDispatcher implements IApplicationSet
     //  Event handlers
     //==========================================================================
     /**
-     * The updateConfiguration function will call by 
-     * configuration catched a error.
-     * You can override the function.
-     * @param error the catched error.
-     *
-     */
-    protected function errorHandler(error:Error):void
-    {
-        throw new FrameworkError(error.toString());
-    }
-    
-    /**
      * Handler then the config file loaded.
      * @param event
      * 
      */    
     private function configFile_completeHandler(event:Event):void
     {
-        ConfigFileHelper(event.target).addEventListener(Event.COMPLETE,
+        ConfigFileHelper(event.target).removeEventListener(Event.COMPLETE,
             configFile_completeHandler);
         
         configXML = ConfigFileHelper(event.target).configXML;

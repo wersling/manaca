@@ -17,6 +17,11 @@ public class ExternalVars
     static private var _params:Object;
     
     static public var isSignin:Boolean = false;
+    
+    /**
+     * The mian swf path.
+     */    
+    static public var swfPath:String;
     //==========================================================================
     //                            Public Method
     //==========================================================================
@@ -31,6 +36,11 @@ public class ExternalVars
                 isSignin =  params["isSignin"] == "true";
             }
         }
+        
+        var swfUrl:String = info.url;
+        swfUrl = swfUrl.split("\\").join("/");
+        var lastIndex:int = swfUrl.lastIndexOf("/");
+        swfPath = swfUrl.slice(0, lastIndex);
     }
     
     static public function get defaultTextFormat():TextFormat

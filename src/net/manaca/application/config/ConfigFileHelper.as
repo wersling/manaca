@@ -61,6 +61,7 @@ public class ConfigFileHelper extends EventDispatcher
         {
             throw new IllegalArgumentError("invalid config argument:" + config);
         }
+        
         dispatchEvent(new Event(Event.COMPLETE));
     }
     
@@ -69,14 +70,14 @@ public class ConfigFileHelper extends EventDispatcher
     //==========================================================================
     private function loaderConfig_completeHandler(event:Event):void
     {
-        try
-        {
-            configXML = XML(event.target.data);
-        }
-        catch(error:Error)
-        {
-            trace("Config file error : " + error.toString());
-        }
+        var loader:URLLoader = URLLoader(event.currentTarget);
+        loader.removeEventListener(Event.COMPLETE, 
+            loaderConfig_completeHandler);
+        loader.removeEventListener(IOErrorEvent.IO_ERROR, 
+            loaderConfig_errorHandler);
+        
+        configXML = XML(event.target.data);
+        
         dispatchEvent(new Event(Event.COMPLETE));
     }
     

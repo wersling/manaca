@@ -25,16 +25,14 @@ import net.manaca.application.IApplicationSetup;
 public class PreloaderBase extends MovieClip
 {
     //==========================================================================
-    //  Variables
-    //==========================================================================
-
-    //==========================================================================
     //  Constructor
     //==========================================================================
     /**
-     * Application Constructor.
-     */
-    public function PreloaderBase()
+     * PreloaderBase Constructor.
+     * @param progressBar The display progress bar.
+     * 
+     */    
+    public function PreloaderBase(progressBar:IPreloaderDisplay = null)
     {
         //stop at the first frame
         stop();
@@ -46,22 +44,22 @@ public class PreloaderBase extends MovieClip
         {
             root.loaderInfo.addEventListener(Event.INIT, initHanlder);
         }
+        
+        this.progressBar = progressBar;
     }
-
+    
+    //==========================================================================
+    //  Properties
+    //==========================================================================
+    protected var progressBar:IPreloaderDisplay;
+    
+    /**
+     * The main swf size ratio.
+     */    
+    protected var swfRatio:int = 50;
     //==========================================================================
     //  Methods
     //==========================================================================
-
-    /**
-     * Create a PreloaderDisplay.
-     * the default create a DownloadProgressBar.
-     * @return
-     *
-     */
-    protected function initDisplay():void
-    {
-    }
-
     /**
      * Create a application.
      * @param params
@@ -90,7 +88,7 @@ public class PreloaderBase extends MovieClip
         return mainClass;
     }
     
-    private function getSWFPath():String
+    protected function getSWFPath():String
     {
         var result:String = loaderInfo.loaderURL;
         result = result.split("\\").join("/");
@@ -137,28 +135,21 @@ public class PreloaderBase extends MovieClip
         var setup:IApplicationSetup = new setupClz(stage, configPath);
         setup.addEventListener(ProgressEvent.PROGRESS,
             preInit_progressHandler);
-        setup.addEventListener(Event.INIT,
-            preInit_initHandler);
+        setup.addEventListener(Event.INIT, preInit_initHandler);
         setup.start();
     }
     
-    private function preInit_initHandler(event:Event):void
-    {
-        initialize();
-        
-    }
-    
-    private function preInit_progressHandler(event:ProgressEvent):void
-    {
-        // TODO Auto Generated method stub
-        
-    }
     /**
      * @private
      * initialize the application.
      */
     protected function initialize():void
     {
+        if(progressBar)
+        {
+            stage.removeChild(progressBar as Sprite);
+        }
+        
         var appClz:Class = getApplicationClass();
         var app:Object = new appClz();
         addChild(app as Sprite);
@@ -166,6 +157,14 @@ public class PreloaderBase extends MovieClip
         if(app is IApplication)
         {
             IApplication(app).initialize();
+        }
+    }
+    
+    protected function updateProgress(percent:uint):void
+    {
+        if(progressBar)
+        {
+            progressBar.updateProgress(percent);
         }
     }
 
@@ -179,8 +178,10 @@ public class PreloaderBase extends MovieClip
      */
     protected function initHanlder(event:Event):void
     {
-        initDisplay();
-
+        if(progressBar)
+        {
+            stage.addChild(progressBar as Sprite);
+        }
         addEventListener(Event.ENTER_FRAME, enterFrameHandler);
     }
 
@@ -191,6 +192,9 @@ public class PreloaderBase extends MovieClip
     {
         var loaded:uint = loaderInfo.bytesLoaded;
         var total:uint = loaderInfo.bytesTotal;
+        
+        updateProgress(loaded / total * swfRatio);
+        
         if((loaded >= total && total > 0) || (total == 0 && loaded > 0) 
             || (root is MovieClip && (MovieClip(root).totalFrames > 2) && 
                 (MovieClip(root).framesLoaded >= 2)))
@@ -207,6 +211,23 @@ public class PreloaderBase extends MovieClip
                 preInit();
             }
         }
+    }
+    
+    private function preInit_initHandler(event:Event):void
+    {
+        var setup:IApplicationSetup = event.currentTarget as IApplicationSetup;
+        setup.removeEventListener(ProgressEvent.PROGRESS,
+            preInit_progressHandler);
+        setup.removeEventListener(Event.INIT, preInit_initHandler);
+        
+        updateProgress(100);
+        setTimeout(initialize, 25);
+    }
+    
+    private function preInit_progressHandler(event:ProgressEvent):void
+    {
+        updateProgress(
+            event.bytesLoaded / event.bytesLoaded * (100 - swfRatio) + swfRatio);
     }
 }
 }
