@@ -167,9 +167,12 @@
 
             <arg value="-output=${bin.loc}/swfs/${project.name.versioned}.swf" />
             <arg value="-static-link-runtime-shared-libraries=true" />
+                
             <!-- Include classes from SWCs in this folder, but only the ones we use. -->
+            <!--
             <arg value="-library-path+=${testlib.loc}" />
             <arg value="-library-path+=${exlib.loc}" />
+            -->
 
             <arg value="-debug=true" />
             <arg value="-verbose-stacktraces=true" />
@@ -201,9 +204,10 @@
             <arg value="-include-classes=${include.classes}" />
 
             <!-- Include classes from SWCs in this folder, but only the ones we use. -->
+            <!--
             <arg value="-library-path+=${testlib.loc}" />
             <arg value="-library-path+=${exlib.loc}" />
-
+            -->
             <!-- Keep the magic alive. -->
             <arg value="-keep-as3-metadata+=Inject" />
 
