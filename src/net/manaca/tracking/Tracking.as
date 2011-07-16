@@ -1,7 +1,7 @@
 package net.manaca.tracking
 {
-import net.manaca.data.Set;
 import net.manaca.tracking.sender.ITrackingSender;
+import net.manaca.utils.ArrayUtil;
 
 /**
  *
@@ -13,7 +13,7 @@ public class Tracking
     //==========================================================================
     //  Class variables
     //==========================================================================
-    static private const senderList:Set = new Set();
+    static private const senderList:Array = [];
 
     //==========================================================================
     //  Class methods
@@ -27,8 +27,7 @@ public class Tracking
      */
     static public function action(action:String, ... rest):void
     {
-        var list:Array = senderList.toArray();
-        for each (var sender:ITrackingSender in list)
+        for each (var sender:ITrackingSender in senderList)
         {
             sender.externalTrack(action, rest);
         }
@@ -41,7 +40,7 @@ public class Tracking
      */
     static public function addSender(sender:ITrackingSender):void
     {
-        senderList.add(sender);
+        senderList.push(sender);
     }
 
     /**
@@ -51,7 +50,7 @@ public class Tracking
      */
     static public function removeSender(sender:ITrackingSender):void
     {
-        senderList.remove(sender);
+        ArrayUtil.removeValueFromArray(senderList, sender);
     }
 }
 }
