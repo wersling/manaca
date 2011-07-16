@@ -1,2 +1,6 @@
 /bin
 /src/ManacaClasses.as
+/.settings
+/.project
+/.actionScriptProperties
+/.flexLibProperties
