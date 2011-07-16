@@ -30,7 +30,8 @@ public class MouseEventConverter
      * Constructs a new <code>MusicListPage</code> instance.
      *
      */
-    public function MouseEventConverter(target:InteractiveObject, autoRemove:Boolean = false)
+    public function MouseEventConverter(target:InteractiveObject, 
+                                        autoRemove:Boolean = false)
     {
         if(target == null)
         {
@@ -116,7 +117,8 @@ public class MouseEventConverter
     private function catateTimers():void
     {
         triggerTimer = new Timer(triggerTime, 1);
-        triggerTimer.addEventListener(TimerEvent.TIMER_COMPLETE, triggerHanlder);
+        triggerTimer.addEventListener(TimerEvent.TIMER_COMPLETE, 
+            triggerHanlder);
 
         intervalTimer = new Timer(interval);
         intervalTimer.addEventListener(TimerEvent.TIMER, intervalHandler);
@@ -131,8 +133,10 @@ public class MouseEventConverter
             target.removeEventListener(Event.REMOVED_FROM_STAGE, removeHandler);
             if(target.stage)
             {
-                target.stage.removeEventListener(MouseEvent.MOUSE_UP, stageMouseUpHandler);
-                target.stage.removeEventListener(Event.MOUSE_LEAVE, stageMouseUpHandler);
+                target.stage.removeEventListener(MouseEvent.MOUSE_UP, 
+                    stageMouseUpHandler);
+                target.stage.removeEventListener(Event.MOUSE_LEAVE, 
+                    stageMouseUpHandler);
             }
             _target = null;
         }
@@ -140,14 +144,16 @@ public class MouseEventConverter
         if(triggerTimer)
         {
             triggerTimer.stop();
-            triggerTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, triggerHanlder);
+            triggerTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, 
+                triggerHanlder);
             triggerTimer = null;
         }
 
         if(intervalTimer)
         {
             intervalTimer.stop();
-            intervalTimer.removeEventListener(TimerEvent.TIMER, intervalHandler);
+            intervalTimer.removeEventListener(TimerEvent.TIMER, 
+                intervalHandler);
             intervalTimer = null;
         }
     }
@@ -163,7 +169,8 @@ public class MouseEventConverter
 
     private function intervalHandler(event:TimerEvent):void
     {
-        this.target.dispatchEvent(new MouseEvent(MouseEvent.CLICK, true, false, target.mouseX, target.mouseY));
+        target.dispatchEvent(new MouseEvent(
+            MouseEvent.CLICK, true, false, target.mouseX, target.mouseY));
     }
 
     private function mouseDownHandler(event:MouseEvent):void
@@ -177,8 +184,10 @@ public class MouseEventConverter
 
         if(target.stage)
         {
-            target.stage.addEventListener(MouseEvent.MOUSE_UP, stageMouseUpHandler);
-            target.stage.addEventListener(Event.MOUSE_LEAVE, stageMouseUpHandler);
+            target.stage.addEventListener(MouseEvent.MOUSE_UP, 
+                stageMouseUpHandler);
+            target.stage.addEventListener(Event.MOUSE_LEAVE, 
+                stageMouseUpHandler);
         }
     }
 
@@ -190,12 +199,15 @@ public class MouseEventConverter
             triggerTimer.stop();
         }
 
-        if(target.stage)
+        if (target.stage)
         {
-            target.stage.removeEventListener(MouseEvent.MOUSE_UP, stageMouseUpHandler);
-            target.stage.removeEventListener(Event.MOUSE_LEAVE, stageMouseUpHandler);
+            target.stage.removeEventListener(MouseEvent.MOUSE_UP,
+                                             stageMouseUpHandler);
+            target.stage.removeEventListener(Event.MOUSE_LEAVE,
+                                             stageMouseUpHandler);
         }
-        this.target.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_UP, true, false, target.mouseX, target.mouseY));
+        target.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_UP, true, false,
+                                            target.mouseX, target.mouseY));
     }
 
     private function removeHandler(event:Event):void

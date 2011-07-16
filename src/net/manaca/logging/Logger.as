@@ -148,9 +148,9 @@ public class Logger
      */
     internal function getEffectiveLevel():LogLevel
     {
-        if (this.level != null)
+        if (level != null)
         {
-            return this.level;
+            return level;
         }
 
         return LogLevel.ALL;
@@ -196,7 +196,7 @@ public class Logger
      */
     public function getPublishers():Array
     {
-        return this.publishers.toArray();
+        return publishers.toArray();
     }
 
     /**
@@ -259,8 +259,9 @@ public class Logger
         {
             //format massage.
             message = formatMassage(message.toString(), rest);
-            var logRecord:LogRecord = new LogRecord(new Date(), this.name, level, message);
-            var aps:Array = this.getPublishers();
+            var logRecord:LogRecord = 
+                new LogRecord(new Date(), name, level, message);
+            var aps:Array = getPublishers();
             var len:uint = aps.length;
             if(len > 0)
             {

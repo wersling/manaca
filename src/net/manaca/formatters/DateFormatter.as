@@ -2,7 +2,8 @@ package net.manaca.formatters
 {
 
 /**
- * The DateFormatter class uses a format String to return a formatted date and time String from an input String or a Date object.
+ * The DateFormatter class uses a format String to return a formatted date and 
+ * time String from an input String or a Date object.
  * You can create many variations easily, including international formats.
  * <p>The following table describes the valid pattern letters：</p>
  *  <p>You compose a pattern String using specific uppercase letters,
@@ -141,6 +142,37 @@ package net.manaca.formatters
 public class DateFormatter
 {
     //==========================================================================
+    //  Class variables
+    //==========================================================================
+    /**
+     * all support char.
+     */
+    static private const VALID_PATTERN_CHARS:String = "Y,M,d,E,t,H,h,K,k,m,s,S";
+    /** */
+    static private const YEAR:String = "Y"; //年  Year  1996; 96
+    /** */
+    static private const MONTH:String = "M"; //年中的月份  Month  July; Jul; 07
+    /** */
+    static private const DATE_IN_MONTH:String = "d"; //月份中的天数  Number  10
+    /** */
+    static private const DATE_OF_WEEK:String = "E"; //星期中的天数  Text  Tuesday; Tue
+    /** */
+    static private const TIME_OF_DAY:String = "t"; //Am/pm 标记  Text  PM
+    /** */
+    static private const HOUR_OF_DAY0:String = "K"; //一天中的小时数（0-23）  Number  0
+    /** */
+    static private const HOUR_OF_DAY1:String = "H"; //一天中的小时数（1-24）  Number  24
+    /** */
+    static private const HOUR0:String = "k"; //am/pm 中的小时数（0-11）  Number  0
+    /** */
+    static private const HOUR1:String = "h"; //am/pm 中的小时数（1-12）  Number  12
+    /** */
+    static private const MINUTE:String = "m"; //小时中的分钟数  Number  30
+    /** */
+    static private const SECOND:String = "s"; //分钟中的秒数  Number  55
+    /** */
+    static private const MILLISECOND:String = "S"; //毫秒数  Number  978
+    //==========================================================================
     //  Constructor
     //==========================================================================
     /**
@@ -150,11 +182,12 @@ public class DateFormatter
      * @return
      *
      */
-    public function DateFormatter(template:String = "MM/DD/YYYY",dateInfo:DateInfo = null)
+    public function DateFormatter(template:String = "MM/DD/YYYY",
+                                  dateInfo:DateInfo = null)
     {
         this.template = template;
-        if(dateInfo != null) this.dateInfo = dateInfo;
-        else this.dateInfo = new DateInfo();
+
+        this.dateInfo = dateInfo != null ? dateInfo : new DateInfo();
     }
 
     //==========================================================================
@@ -181,69 +214,104 @@ public class DateFormatter
      * @param template The mask pattern.
      * @param date Date to format. This can be a Date object.
      * @param dateInfo date info.
-     * @return Formatted String. Empty if an error occurs. A description of the error condition is written to the error property
+     * @return Formatted String. Empty if an error occurs. A description of the 
+     * error condition is written to the error property
      *
      */
-    static public function formatSingle(template:String,date:Date = null,dateInfo:DateInfo = null):String
+    static public function formatSingle(template:String, date:Date = null,
+                                        dateInfo:DateInfo = null):String
     {
-        if(date == null) date = new Date();
+        if (date == null)
+        {
+            date = new Date();
+        }
         return new DateFormatter(template, dateInfo).format(date);
     }
 
     /**
-     * Generates a time-formatted String from either a date-formatted String or a Date object.
+     * Generates a time-formatted String from either a date-formatted String or 
+     * a Date object.
      * @param date Date to format. This can be a Date object.
      * @param dateInfo
      * @return Formatted String.
      *
      */
-    static public function getTime(date:Date = null,dateInfo:DateInfo = null):String
+    static public function getTime(date:Date = null, dateInfo:DateInfo =
+        null):String
     {
-        if(date == null) date = new Date();
-        if(dateInfo == null) dateInfo = new DateInfo();
+        if (date == null)
+        {
+            date = new Date();
+        }
+
+        if (dateInfo == null)
+        {
+            dateInfo = new DateInfo();
+        }
         var df:DateFormatter = new DateFormatter(dateInfo.time, dateInfo);
         return df.format(date);
     }
 
     /**
-     * Generates a short date-formatted String from either a date-formatted String or a Date object.
+     * Generates a short date-formatted String from either 
+     * a date-formatted String or a Date object.
      * @param date Date to format. This can be a Date object.
      * @param dateInfo
      * @return Formatted String.
      *
      */
-    static public function getDateShort(date:Date = null,dateInfo:DateInfo = null):String
+    static public function getDateShort(date:Date = null, dateInfo:DateInfo =
+        null):String
     {
-        if(date == null) date = new Date();
-        if(dateInfo == null) dateInfo = new DateInfo();
+        if (date == null)
+        {
+            date = new Date();
+        }
+
+        if (dateInfo == null)
+        {
+            dateInfo = new DateInfo();
+        }
         var df:DateFormatter = new DateFormatter(dateInfo.dateShort, dateInfo);
         return df.format(date);
     }
 
     /**
-     * Generates a long date-formatted String from either a date-formatted String or a Date object.
+     * Generates a long date-formatted String from either 
+     * a date-formatted String or a Date object.
      * @param date Date to format. This can be a Date object.
      * @param dateInfo
      * @return Formatted String.
      *
      */
-    static public function getDateLong(date:Date = null,dateInfo:DateInfo = null):String
+    static public function getDateLong(date:Date = null, dateInfo:DateInfo =
+        null):String
     {
-        if(date == null) date = new Date();
-        if(dateInfo == null) dateInfo = new DateInfo();
+        if (date == null)
+        {
+            date = new Date();
+        }
+
+        if (dateInfo == null)
+        {
+            dateInfo = new DateInfo();
+        }
         var df:DateFormatter = new DateFormatter(dateInfo.dateLong, dateInfo);
         return df.format(date);
     }
 
     /**
-     * Generates a date-formatted String from either a date-formatted String or a Date object.
+     * Generates a date-formatted String from either 
+     * a date-formatted String or a Date object.
      * @param date Date to format. This can be a Date object.
-     * @return Formatted String. Empty if an error occurs. A description of the error condition is written to the error property
+     * @return Formatted String. Empty if an error occurs. 
+     * A description of the error condition is written to the error property
      *
      */
     public function format(date:Date = null):String
     {
-        if(date == null) date = new Date();
+        if (date == null)
+            date = new Date();
         //所有字符
         var tmp:String = template;
         //字符长度
@@ -257,16 +325,23 @@ public class DateFormatter
         var result:String = "";
 
         //查看所有的模板字符
-        while(tmp_index > 0)
+        while (tmp_index > 0)
         {
-            tmp_index-- ;
+            tmp_index--;
             letter = tmp.charAt(tmp_index);
             code = letter.charCodeAt(0);
+
             if (VALID_PATTERN_CHARS.indexOf(letter) != -1 && letter != ",")
             {
                 var tempIndex:int = tmp_index;
-                while(tmp.charCodeAt(--tmp_index) == code){};
-                result = extractTokenDate(date, letter, tempIndex - tmp_index++) + result;
+
+                while (tmp.charCodeAt(--tmp_index) == code)
+                {
+                }
+                ;
+                result =
+                    extractTokenDate(date, letter,
+                                     tempIndex - tmp_index++) + result;
             }
             else
             {
@@ -285,21 +360,23 @@ public class DateFormatter
      * @return
      *
      */
-    private function extractTokenDate(date:Date,token:String,key:uint):String
+    private function extractTokenDate(date:Date, token:String, key:uint):String
     {
         var result:String = "";
         var day:int;
         var hours:int;
+
         switch (token)
         {
             case YEAR:
             {
                 var year:String = date.getFullYear().toString();
+
                 if (key < 3)
                 {
                     return year.substr(2);
                 }
-	        		else if (key > 4)
+                else if (key > 4)
                 {
                     return setValue(Number(year), key);
                 }
@@ -307,11 +384,12 @@ public class DateFormatter
                 {
                     return year;
                 }
-           }
+            }
             case MONTH:
-			{
+            {
                 // month in year
                 var month:int = int(date.getMonth());
+
                 if (key < 3)
                 {
                     month++; // zero based
@@ -331,7 +409,8 @@ public class DateFormatter
             {
                 // day in month
                 day = int(date.getDate());
-                if(key < 3)
+
+                if (key < 3)
                 {
                     return setValue(day, key);
                 }
@@ -346,6 +425,7 @@ public class DateFormatter
             {
                 // day in the week
                 day = int(date.getDay());
+
                 if (key < 3)
                 {
                     result += setValue(day, key);
@@ -362,71 +442,74 @@ public class DateFormatter
             }
             case TIME_OF_DAY:
             {
-	            // am/pm marker
-	            hours = int(date.getHours());
-	            if (hours < 12)
-	            {
-	                return dateInfo.timeOfDay[0];
-	            }
-	            else
-	            {
-	                return dateInfo.timeOfDay[1];
-	            }
+                // am/pm marker
+                hours = int(date.getHours());
+
+                if (hours < 12)
+                {
+                    return dateInfo.timeOfDay[0];
+                }
+                else
+                {
+                    return dateInfo.timeOfDay[1];
+                }
             }
             case HOUR_OF_DAY1:
             {
-	            // hour in day (1-24)
-	            hours = int(date.getHours()) + 1;
-	            result += setValue(hours, key);
-	            return result;
+                // hour in day (1-24)
+                hours = int(date.getHours()) + 1;
+                result += setValue(hours, key);
+                return result;
             }
             case HOUR_OF_DAY0:
             {
-	            // hour in day (0-23)
-	            hours = int(date.getHours());
-	            result += setValue(hours, key);
-	            return result;
+                // hour in day (0-23)
+                hours = int(date.getHours());
+                result += setValue(hours, key);
+                return result;
             }
             case HOUR0:
             {
-	            // hour in am/pm (0-11)
-	            hours = int(date.getHours());
-	            if (hours >= 12)
-	                hours = hours - 12;
-	            result += setValue(hours, key);
-	            return result;
+                // hour in am/pm (0-11)
+                hours = int(date.getHours());
+
+                if (hours >= 12)
+                    hours = hours - 12;
+                result += setValue(hours, key);
+                return result;
             }
             case HOUR1:
             {
-	            // hour in am/pm (1-12)
-	            hours = int(date.getHours());
-	            if (hours == 0)
-	                hours = 12;
-	            else if (hours > 12)
-	                hours = hours - 12;
-	            result += setValue(hours, key);
-	            return result;
+                // hour in am/pm (1-12)
+                hours = int(date.getHours());
+
+                if (hours == 0)
+                    hours = 12;
+                else if (hours > 12)
+                    hours = hours - 12;
+                result += setValue(hours, key);
+                return result;
             }
             case MINUTE:
             {
-	            // minutes in hour
-	            var mins:int = int(date.getMinutes());
-	            result += setValue(mins, key);
-	            return result;
+                // minutes in hour
+                var mins:int = int(date.getMinutes());
+                result += setValue(mins, key);
+                return result;
             }
             case SECOND:
             {
-	            // seconds in minute
-	            var sec:int = int(date.getSeconds());
-	            result += setValue(sec, key);
-	            return result;
+                // seconds in minute
+                var sec:int = int(date.getSeconds());
+                result += setValue(sec, key);
+                return result;
             }
             case MILLISECOND:
             {
-	            // seconds in minute
-	            var mil:int = int(date.getMilliseconds());
-	            result += setValue(mil, key);
-	            return result;
+                // seconds in minute
+                var mil:int = int(date.getMilliseconds());
+                result += setValue(mil, key);
+                return result;
             }
         }
         return result;
@@ -443,10 +526,12 @@ public class DateFormatter
     {
         var result:String = "";
         var vLen:int = value.toString().length;
+
         if (vLen < key)
         {
             var n:int = key - vLen;
-            for (var i:int = 0;i < n; i++)
+
+            for (var i:int = 0; i < n; i++)
             {
                 result += "0";
             }
@@ -454,34 +539,5 @@ public class DateFormatter
         result += value.toString();
         return result;
     }
-
-    /**
-     * all support char.
-     */
-    static private const VALID_PATTERN_CHARS:String = "Y,M,d,E,t,H,h,K,k,m,s,S";
-    /** */
-    static private const YEAR:String = "Y";  //年  Year  1996; 96
-    /** */
-    static private const MONTH:String = "M";  //年中的月份  Month  July; Jul; 07
-    /** */
-    static private const DATE_IN_MONTH:String = "d";  //月份中的天数  Number  10
-    /** */
-    static private const DATE_OF_WEEK:String = "E";  //星期中的天数  Text  Tuesday; Tue
-    /** */
-    static private const TIME_OF_DAY:String = "t";  //Am/pm 标记  Text  PM
-    /** */
-    static private const HOUR_OF_DAY0:String = "K";  //一天中的小时数（0-23）  Number  0
-    /** */
-    static private const HOUR_OF_DAY1:String = "H";  //一天中的小时数（1-24）  Number  24
-    /** */
-    static private const HOUR0:String = "k";  //am/pm 中的小时数（0-11）  Number  0
-    /** */
-    static private const HOUR1:String = "h";  //am/pm 中的小时数（1-12）  Number  12
-    /** */
-    static private const MINUTE:String = "m";  //小时中的分钟数  Number  30
-    /** */
-    static private const SECOND:String = "s";  //分钟中的秒数  Number  55
-    /** */
-    static private const MILLISECOND:String = "S";  //毫秒数  Number  978
 }
 }

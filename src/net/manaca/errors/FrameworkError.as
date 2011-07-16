@@ -33,7 +33,8 @@ public class FrameworkError extends Error
      * @example
      * The following example creates a new Error object err and then,
      * using the Error() constructor, assigns the string "New Error Message" to err.
-     * Finally, the message property is set to "Another New Error Message", which overwrites "New Error Message".
+     * Finally, the message property is set to "Another New Error Message", 
+     * which overwrites "New Error Message".
      * <listing version = "3.0" >
      * var err:FrameworkError = new FrameworkError();
      * trace(err.toString());    // FrameworkError

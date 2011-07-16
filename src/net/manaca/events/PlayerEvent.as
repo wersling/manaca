@@ -23,7 +23,9 @@ public class PlayerEvent extends Event
      * @param cancelable
      * 
      */
-    public function PlayerEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false)
+    public function PlayerEvent(type:String, 
+                                bubbles:Boolean = false, 
+                                cancelable:Boolean = false)
     {
         super(type, bubbles, cancelable);
     }
