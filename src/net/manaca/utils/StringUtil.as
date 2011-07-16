@@ -13,11 +13,11 @@ public class StringUtil
     //==========================================================================
     
     /**
-     *    Removes whitespace from the front and the end of the specified
-     *    string.
-     *    @param input The String whose beginning and ending whitespace will
-     *    will be removed.
-     *    @returns A String with whitespace removed from the begining and end    
+     * Removes whitespace from the front and the end of the specified
+     * string.
+     * @param input The String whose beginning and ending whitespace will
+     * will be removed.
+     * @returns A String with whitespace removed from the begining and end    
      */            
     static public function trim(input:String):String
     {
@@ -25,9 +25,9 @@ public class StringUtil
     }
 
     /**
-     *    Removes whitespace from the front of the specified string.
-     *    @param input The String whose beginning whitespace will will be removed.
-     *    @returns A String with whitespace removed from the begining    
+     * Removes whitespace from the front of the specified string.
+     * @param input The String whose beginning whitespace will will be removed.
+     * @returns A String with whitespace removed from the begining    
      */    
     static public function ltrim(input:String):String
     {
@@ -43,9 +43,9 @@ public class StringUtil
     }
 
     /**
-     *    Removes whitespace from the end of the specified string.
-     *    @param input The String whose ending whitespace will will be removed.
-     *    @returns A String with whitespace removed from the end    
+     * Removes whitespace from the end of the specified string.
+     * @param input The String whose ending whitespace will will be removed.
+     * @returns A String with whitespace removed from the end    
      */    
     static public function rtrim(input:String):String
     {
@@ -79,10 +79,10 @@ public class StringUtil
      *  This allows reuse of this routine in other methods that want to
      *  use the ... rest signature.
      *  For example <pre>
-     *     public function myTracer(str:String, ... rest):void
-     *     { 
-     *         label.text += StringUtil.substitute(str, rest) + "\n";
-     *     } </pre>
+     *  public function myTracer(str:String, ... rest):void
+     *  { 
+     *      label.text += StringUtil.substitute(str, rest) + "\n";
+     *  } </pre>
      *
      *  @return New string with all of the <code>{n}</code> tokens
      *  replaced with the respective arguments specified.
@@ -132,16 +132,16 @@ public class StringUtil
     }
 
     /**
-     *    Replaces all instances of the replace string in the input string
-     *    with the replaceWith string.
-     *    @param input The string that instances of replace string will be 
-     *    replaces with removeWith string.
-     *    @param replace The string that will be replaced by instances of 
-     *    the replaceWith string.
-     *    @param replaceWith The string that will replace instances of replace
-     *    string.
-     *    @returns A new String with the replace string replaced with the 
-     *    replaceWith string.
+     * Replaces all instances of the replace string in the input string
+     * with the replaceWith string.
+     * @param input The string that instances of replace string will be 
+     * replaces with removeWith string.
+     * @param replace The string that will be replaced by instances of 
+     * the replaceWith string.
+     * @param replaceWith The string that will replace instances of replace
+     * string.
+     * @returns A new String with the replace string replaced with the 
+     * replaceWith string.
      */
     static public function replace(input:String, replace:String, replaceWith:String):String
     {
