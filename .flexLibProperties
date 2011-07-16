@@ -96,7 +96,6 @@
     <classEntry path="net.manaca.managers.StageManager"/>
     <classEntry path="net.manaca.managers.ToolTipDisplay"/>
     <classEntry path="net.manaca.managers.ToolTipManager"/>
-    <classEntry path="net.manaca.media.SoundPlayer"/>
     <classEntry path="net.manaca.modules.AbstractModule"/>
     <classEntry path="net.manaca.modules.IModuleFactory"/>
     <classEntry path="net.manaca.modules.IModuleInfo"/>
