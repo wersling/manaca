@@ -12,7 +12,7 @@ h3. Manaca可以为您的开发带来如下帮助:
 * ITransitionObject为您解决多数mini site中进出场动画控制烦恼；
 * 集成 "Yahoo Layout":http://developer.yahoo.com/flash/astra-flash/layout-containers/ 框架使界面布局更简单；
 * 集成 "swfaddress":http://www.asual.com/swfaddress/ , "swfobject":http://code.google.com/p/swfobject/ ,  "swfmacmousewheel2":http://blog.pixelbreaker.com/flash/as30-mousewheel-on-mac-os-x 和html template，使项目部署更简单；
-* FontManager为字体嵌入提供简单易用的方法；
+* FontManager为字体嵌入提供简单易用的方法 "[Demo]":http://wersling.github.com/manaca/embed-font/EmbedFontInFlexExample.swf "[Source Code]":http://wersling.github.com/manaca/embed-font/srcview/；
 * ToolTipManager使得处理提示信息更方便；
 * XMLNote和 "asSchema":http://code.google.com/p/asschema 结合，使读写xml不再是麻烦。
 
