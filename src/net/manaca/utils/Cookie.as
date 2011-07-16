@@ -26,19 +26,17 @@ dynamic public class Cookie extends Proxy
         this._name = name;
         this._timeOut = timeOut;
 
-        _so = SharedObject.getLocal(name);
+        so = SharedObject.getLocal(name);
     }
     //==========================================================================
     //  Variables
     //==========================================================================
-    private var _name:String;
-    
-    private var _timeOut:Number;
-    
-    private var _so:SharedObject;
+    private var so:SharedObject;
     //==========================================================================
     //  Properties
     //==========================================================================
+    private var _name:String;
+    
     /**
      * The SharedObject name.
      * @return
@@ -49,6 +47,8 @@ dynamic public class Cookie extends Proxy
         return _name;
     }
 
+    private var _timeOut:Number;
+    
     /**
      * Get time out value.
      * @return
@@ -66,7 +66,7 @@ dynamic public class Cookie extends Proxy
      */
     public function getSize():uint
     {
-        return _so.size;
+        return so.size;
     }
 
     //==========================================================================
@@ -78,9 +78,11 @@ dynamic public class Cookie extends Proxy
      */
     public function clearTimeOut():void
     {
-        var obj:* = _so.data.cookie;
+        var obj:* = so.data.cookie;
         if (obj == null)
+        {
             return;
+        }
         for (var key:String in obj)
         {
             if (isTimeOut(obj[key].time))
@@ -88,7 +90,7 @@ dynamic public class Cookie extends Proxy
                 remove(key);
             }
         }
-        _so.flush();
+        so.flush();
     }
 
     /**
@@ -97,8 +99,8 @@ dynamic public class Cookie extends Proxy
      */
     public function clear():void
     {
-        _so.clear();
-        _so.flush();
+        so.clear();
+        so.flush();
     }
 
     /**
@@ -121,7 +123,7 @@ dynamic public class Cookie extends Proxy
      */
     public function isExist(key:String):Boolean
     {
-        return _so.data.cookie != null && _so.data.cookie[key] != null;
+        return so.data.cookie != null && so.data.cookie[key] != null;
     }
 
     /**
@@ -133,8 +135,8 @@ dynamic public class Cookie extends Proxy
     {
         if (isExist(key))
         {
-            delete _so.data.cookie[key];
-            _so.flush();
+            delete so.data.cookie[key];
+            so.flush();
         }
     }
 
@@ -146,7 +148,7 @@ dynamic public class Cookie extends Proxy
      */
     override flash_proxy function getProperty(name:*):*
     {
-        return isExist(name) ? _so.data.cookie[name].value : null;
+        return isExist(name) ? so.data.cookie[name].value : null;
     }
 
     /**
@@ -160,7 +162,7 @@ dynamic public class Cookie extends Proxy
         var obj:Object;
         if (isExist(name))
         {
-            obj = _so.data.cookie[name];
+            obj = so.data.cookie[name];
         }
         else
         {
@@ -174,16 +176,16 @@ dynamic public class Cookie extends Proxy
 
         createCookie();
 
-        _so.data.cookie[name] = obj;
-        _so.flush();
+        so.data.cookie[name] = obj;
+        so.flush();
     }
 
     private function createCookie():void
     {
-        if (_so.data.cookie == null)
+        if (so.data.cookie == null)
         {
-            _so.data.cookie = new Object();
-            _so.flush();
+            so.data.cookie = new Object();
+            so.flush();
         }
     }
 }
