@@ -5,7 +5,7 @@ import flash.events.Event;
 /**
  * The TransitionEvent signals that the object transition change for ITransitionObject.
  * @see net.manaca.display.ITransitionObject;
- * @author SeanZou
+ * @author Sean ZouZou
  * 
  */    
 public class TransitionEvent extends Event

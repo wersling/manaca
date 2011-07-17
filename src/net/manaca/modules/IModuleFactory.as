@@ -8,7 +8,7 @@ import org.robotlegs.utilities.modular.core.IModule;
 
 /**
  * 
- * @author sean
+ * @author Sean Zou
  * 
  */
 public interface IModuleFactory

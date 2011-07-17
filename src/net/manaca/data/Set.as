@@ -4,7 +4,7 @@ import flash.utils.Dictionary;
 
 /**
  * Set is like an Array that contains no duplicate elements.
- */    
+ */
 public class Set
 {
     //==========================================================================
@@ -17,31 +17,35 @@ public class Set
     {
         clear();
     }
-    
+
     //==========================================================================
     //  Variables
     //==========================================================================
     private var content:Array;
     private var map:Dictionary;
+
     //==========================================================================
     //  Methods
     //==========================================================================
-    
+
     /**
      * Add an element to this Set.
-     * @param o    The element to add.
-     * @return    <code>false</code> is the element is already in this Set.
+     * @param o The element to add.
+     * @return <code>false</code> is the element is already in this Set.
      */
     public function add(o:*):Boolean
     {
-        if (this.contains(o)) return false;
+        if (contains(o))
+        {
+            return false;
+        }
         content.push(o);
         map[o] = true;
         return true;
     }
 
     /**
-     * Check if an object is in this Set. 
+     * Check if an object is in this Set.
      * @param o    The object to check.
      * @return    <code>true</code> if the element is in this Set.
      */
@@ -51,7 +55,7 @@ public class Set
     }
 
     /**
-     * Get an element by an index. 
+     * Get an element by an index.
      * @param index    The index to get by.
      * @return        The element got by the index.
      */
@@ -61,14 +65,14 @@ public class Set
     }
 
     /**
-     * Remove an element from this Set. 
+     * Remove an element from this Set.
      * @param o    The element to remove.
-     * @return    The index of the element. 
+     * @return    The index of the element.
      */
-    public function remove(o:Object):int 
+    public function remove(o:Object):int
     {
         var index:int = content.indexOf(o);
-        
+
         if (index >= 0)
         {
             content.splice(index, 1);

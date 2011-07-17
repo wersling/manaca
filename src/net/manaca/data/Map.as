@@ -3,7 +3,7 @@ package net.manaca.data
 import flash.utils.Dictionary;
 
 /**
- * An object that maps keys to values. A map cannot contain duplicate keys; 
+ * An object that maps keys to values. A map cannot contain duplicate keys;
  * each key can map to at most one value.
  * @author Sean Zou
  *
@@ -23,14 +23,14 @@ public class Map
         this.weakKeys = weakKeys;
         clear();
     }
-    
+
     //==========================================================================
     //  Variables
     //==========================================================================
     private var weakKeys:Boolean;
     private var content:Dictionary;
     private var length:int;
-    
+
     //==========================================================================
     //  Methods
     //==========================================================================
@@ -62,18 +62,21 @@ public class Map
      */
     public function containsValue(value:*):Boolean
     {
-        for each (var v:* in content)
+        for each (var v:*in content)
         {
-            if (v == value) return true;
+            if (v == value)
+            {
+                return true;
+            }
         }
         return false;
     }
 
     /**
-     * Returns the value to which the specified key is mapped, or null if this 
+     * Returns the value to which the specified key is mapped, or null if this
      * map contains no mapping for the key.
      * @param key the key whose associated value is to be returned.
-     * @return the value to which the specified key is mapped, or null if this 
+     * @return the value to which the specified key is mapped, or null if this
      * map contains no mapping for the key
      */
     public function getValue(key:*):*
@@ -86,7 +89,7 @@ public class Map
      * @param key key with which the specified value is to be associated
      * @param value value to be associated with the specified key
      * @return if the map has the key return false, else return true.
-     * @throws net.manaca.errors.IllegalArgumentError if the specified key or 
+     * @throws net.manaca.errors.IllegalArgumentError if the specified key or
      * value is null.
      */
     public function put(key:*, value:*):Boolean
@@ -96,7 +99,11 @@ public class Map
             return remove(key);
         }
         var oldValue:* = content[key];
-        if (oldValue == null) length++;
+
+        if (oldValue == null)
+        {
+            length++;
+        }
         content[key] = value;
         return true;
     }
@@ -105,7 +112,7 @@ public class Map
      * Removes the mapping for a key from this map if it is present.
      * @param key key whose mapping is to be removed from the map.
      * @return if has value removed return false, else return true.
-     * @throws net.manaca.errors.IllegalArgumentError if the specified key 
+     * @throws net.manaca.errors.IllegalArgumentError if the specified key
      * is null.
      */
     public function remove(key:*):Boolean
@@ -126,11 +133,15 @@ public class Map
      */
     public function putAll(map:Map):void
     {
-        if(map == null) return;
+        if (map == null)
+        {
+            return;
+        }
 
         var _keys:Array = map.keys();
         var len:uint = _keys.length;
-        for(var i:uint = 0 ;i < len; i++ )
+
+        for (var i:uint = 0; i < len; i++)
         {
             put(_keys[i], map.getValue(_keys[i]));
         }
@@ -159,15 +170,19 @@ public class Map
     /**
      * Get all keys which associate with the value.
      * @param obj    The value associated with the specified key.
-     * @return    <code>Array</code> for all keys which associate with 
+     * @return    <code>Array</code> for all keys which associate with
      * the value.
      */
     public function getKeys(obj:*):Array
     {
         var tmpArr:Array = new Array();
+
         for (var key:String in content)
         {
-            if (content[key] == obj) tmpArr.push(key);
+            if (content[key] == obj)
+            {
+                tmpArr.push(key);
+            }
         }
         return tmpArr;
     }
@@ -181,7 +196,8 @@ public class Map
     {
         var tmpArr:Array = new Array();
         var index:int = 0;
-        for (var key:* in content)
+
+        for (var key:*in content)
         {
             tmpArr[index++] = key;
         }
@@ -197,7 +213,8 @@ public class Map
     {
         var tmpArr:Array = new Array();
         var index:int = 0;
-        for each (var v:* in content)
+
+        for each (var v:*in content)
         {
             tmpArr[index++] = v;
         }

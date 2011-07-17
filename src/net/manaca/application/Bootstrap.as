@@ -16,7 +16,7 @@ use namespace manaca_internal;
 /**
  * <code>Bootstrap</code> 用于处理系统级变量和参数.
  * 通过<code>Bootstrap</code>可以获取服务器配置情况，系统设置等.
- * @author sean
+ * @author Sean Zou
  *
  */
 public class Bootstrap

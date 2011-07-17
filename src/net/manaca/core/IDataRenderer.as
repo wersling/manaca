@@ -4,7 +4,7 @@ package net.manaca.core
 /**
  * The IDataRenderer interface defines the interface for components that have a 
  * data property.
- * @author Sean
+ * @author Sean Zou
  *
  */
 public interface IDataRenderer

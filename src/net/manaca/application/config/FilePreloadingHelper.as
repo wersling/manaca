@@ -31,7 +31,7 @@ import net.manaca.utils.URLUtils;
 /**
  * The FilePreloadConfiguration loading the files by xml files node.
  * You can get these files in externalFiles map.
- * @author Sean
+ * @author Sean Zou
  *
  */
 public class FilePreloadingHelper extends EventDispatcher

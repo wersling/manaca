@@ -11,7 +11,7 @@ import mx.core.ByteArrayAsset;
 import net.manaca.errors.IllegalArgumentError;
 /**
  * 
- * @author sean
+ * @author Sean Zou
  * 
  */
 public class ConfigFileHelper extends EventDispatcher

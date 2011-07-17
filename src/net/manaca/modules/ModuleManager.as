@@ -12,7 +12,7 @@ import net.manaca.loaderqueue.LoaderQueue;
  * ModuleManager 会分派显示模块状态的事件。
  * 客户可以注册事件处理函数，然后调用 load() 方法，
  * 该方法可在 factory 就绪时（或者，在已加载时可立即）分派事件。
- * @author sean
+ * @author Sean Zou
  * 
  */
 public class ModuleManager

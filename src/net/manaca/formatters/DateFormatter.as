@@ -136,7 +136,7 @@ package net.manaca.formatters
  *    </tr>
  *  </table>
  *
- * @author Sean
+ * @author Sean Zou
  *
  */
 public class DateFormatter

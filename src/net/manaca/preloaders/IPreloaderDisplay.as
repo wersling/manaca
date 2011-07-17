@@ -3,7 +3,7 @@ package net.manaca.preloaders
 /**
  * Defines the interface that 
  * a class must implement to be used as a download progress bar.
- * @author sean
+ * @author Sean Zou
  * 
  */
 public interface IPreloaderDisplay

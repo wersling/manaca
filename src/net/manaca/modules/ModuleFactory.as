@@ -13,7 +13,7 @@ import org.robotlegs.utilities.modular.core.IModule;
 
 /**
  * @private
- * @author sean
+ * @author Sean Zou
  * 
  */
 public class ModuleFactory implements IModuleFactory

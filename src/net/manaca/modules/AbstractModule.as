@@ -15,7 +15,7 @@ import org.robotlegs.utilities.modular.core.IModuleContext;
 
 /**
  * 动态可加载模块的基类。
- * @author sean
+ * @author Sean Zou
  * 
  */
 public class AbstractModule extends LayoutContainer

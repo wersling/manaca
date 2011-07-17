@@ -39,7 +39,7 @@ import net.manaca.logging.Tracer;
  * The FontManager manager the embed fonts.
  * You can loading fonts file using the manager,
  * and set a embed file to TextFiled.
- * @author Sean
+ * @author Sean Zou
  * 
  */    
 public class FontManager extends EventDispatcher

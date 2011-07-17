@@ -8,7 +8,7 @@ import net.manaca.core.IDataRenderer;
  * Item renderers and item editors for list components must implement the 
  * IListItemRenderer interface. 
  * The IListItemRenderer interface is a set of several other interfaces. 
- * @author sean
+ * @author Sean Zou
  * 
  */    
 public interface IListItemRenderer extends IDataRenderer, IEventDispatcher

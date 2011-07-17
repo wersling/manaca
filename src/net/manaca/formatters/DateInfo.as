@@ -3,7 +3,7 @@ package net.manaca.formatters
 
 /**
  * The data formatter info.
- * @author Sean
+ * @author Sean Zou
  */
 public class DateInfo
 {

@@ -7,7 +7,7 @@ import flash.display.Sprite;
  * a List control. You can override the default item renderer by creating 
  * a custom item renderer.
  * 
- * @author sean
+ * @author Sean Zou
  */
 public class ListItemRenderer extends Sprite implements IListItemRenderer
 {

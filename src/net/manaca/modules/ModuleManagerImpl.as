@@ -8,7 +8,7 @@ import flash.utils.getQualifiedClassName;
 
 /**
  * @private
- * @author sean
+ * @author Sean Zou
  * 
  */
 final public class ModuleManagerImpl

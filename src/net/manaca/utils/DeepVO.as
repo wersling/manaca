@@ -3,7 +3,7 @@ package net.manaca.utils
 
 /**
  * 将一个SWFAddress获得的value封装成一个对象，便于操作.
- * @author wersling
+ * @author Sean Zou
  *
  */
 public class DeepVO

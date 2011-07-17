@@ -7,7 +7,7 @@ import net.manaca.logging.LogRecord;
 
 /**
  * Provides a interface send logs to alcon.
- * @author Sean
+ * @author Sean Zou
  *
  */
 public class AlconPublisher extends AbstractLogPublisher implements ILogPublisher

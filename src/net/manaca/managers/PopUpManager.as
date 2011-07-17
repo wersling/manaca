@@ -10,7 +10,7 @@ import net.manaca.utils.DepthUtil;
  * The PopUpManager singleton class creates new top-level windows and
  * places or removes those windows from the layer on top of all other
  * visible windows.
- * @author Sean
+ * @author Sean Zou
  */
 public class PopUpManager
 {

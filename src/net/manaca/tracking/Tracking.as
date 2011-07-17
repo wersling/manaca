@@ -5,7 +5,7 @@ import net.manaca.utils.ArrayUtil;
 
 /**
  *
- * @author Sean
+ * @author Sean Zou
  *
  */
 public class Tracking

@@ -10,7 +10,7 @@ import net.manaca.errors.IllegalArgumentError;
 
 /**
  *
- * @author Sean
+ * @author Sean Zou
  *
  */
 public class MouseEventConverter
