@@ -1,5 +1,33 @@
-h2. Manaca 更新历史：
+h2. Change log：
 
-h3. V2.1.1
+h3. V2.1.11
 
-*asdad* 
+* Updated to MIT License
+* Removed DefaultSender
+* Removed project setting files
+* Removed SoundPlayer
+
+h3. V2.1.10
+
+*LoaderQueue* 
+
+* Reconstruction loaderQueue
+
+*RobotLegs and Modules* 
+
+* Removed viewMap on IModuleFactory.create
+
+*Application and Preloader* 
+
+* Move application init to preloader
+
+h3. V2.1.0
+
+*RobotLegs and Modules* 
+
+* Added robotlegs-utilities-Modular to manager modules
+
+*Template* 
+
+* Added mini site template
+* Added actionScript3 and Robotlegs code generator use Ruby
