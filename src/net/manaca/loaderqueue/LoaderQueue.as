@@ -66,6 +66,30 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
      * 缓存已经加载过的url地址
      */    
     private var cacheMap:Object = {};
+    
+    /**
+     * 用于保存所有的下载项目
+     * p.s:已下载的会被清除
+     * @private
+     */
+    private var loaderDict:Dictionary/* of ILoaderAdapter */= new Dictionary();
+    
+    /**
+     * 用于决定下载的等级的顺序
+     * @private
+     */
+    private var loaderPriorityLib:Array /* of uint */ = [];
+    
+    /**
+     * 用于保存目前正在下载的对象
+     * @private
+     */
+    private var threadLib:Array /* of ILoaderAdapter */ = [];
+    
+    /**
+     * 用于在添加新的Item后延迟触发排序.
+     */
+    private var timeOutToSort:Timer;
     //==========================================================================
     //  Properties
     //==========================================================================
@@ -85,31 +109,6 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
      * 等级排序时是否使用倒序(如4,3,2,1)
      */
     public var reversePriority:Boolean = false;
-
-    /**
-     * 用于保存所有的下载项目
-     * p.s:已下载的会被清除
-     * @private
-     */
-    private var loaderDict:Dictionary/* of ILoaderAdapter */= new Dictionary();
-
-    /**
-     * 用于决定下载的等级的顺序
-     * @private
-     */
-    private var loaderPriorityLib:Array /* of uint */ = [];
-
-    /**
-     * 用于保存目前正在下载的对象
-     * @private
-     */
-    private var threadLib:Array /* of ILoaderAdapter */ = [];
-    
-    /**
-     * 用于在添加新的Item后延迟触发排序.
-     */
-    private var timeOutToSort:Timer;
-
     //==========================================================================
     //  Methods
     //==========================================================================
@@ -119,7 +118,7 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
     public function addItem(loaderAdapter:ILoaderAdapter):void
     {
         loaderAdapter.state = LoaderQueueConst.STATE_WAITING;
-        //如果ignoreCache为true,则检查是否已经加载过，如果加载过，则不添加到队列，
+        //如果jumpQueueIfCached为true,则检查是否已经加载过，如果加载过，则不添加到队列，
         //而是直接开始加载
         if(jumpQueueIfCached)
         {
