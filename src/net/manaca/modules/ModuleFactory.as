@@ -5,10 +5,6 @@ package net.manaca.modules
 {
 import flash.system.ApplicationDomain;
 
-import net.manaca.logging.Tracer;
-
-import org.robotlegs.core.IMediatorMap;
-import org.robotlegs.core.IViewMap;
 import org.robotlegs.utilities.modular.core.IModule;
 
 /**
