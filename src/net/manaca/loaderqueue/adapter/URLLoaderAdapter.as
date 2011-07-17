@@ -13,7 +13,8 @@ import flash.system.LoaderContext;
 /**
  * 将URLLoader类包装成可用于LoaderQueue的适配器
  * @see net.manaca.loaderqueue#LoaderQueue
- * @author sean
+ * @author Austin
+ * @update sean
  */
 public class URLLoaderAdapter extends AbstractLoaderAdapter
                                 implements ILoaderAdapter
@@ -46,7 +47,10 @@ public class URLLoaderAdapter extends AbstractLoaderAdapter
     {
         return adaptee.bytesTotal;
     }
-
+    
+    //----------------------------------
+    //  adaptee
+    //----------------------------------
     private var _adaptee:URLLoader;
     /**
      * @private

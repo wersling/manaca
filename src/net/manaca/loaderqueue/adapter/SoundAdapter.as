@@ -15,7 +15,8 @@ import flash.net.URLRequest;
 /**
  * 将Sound类包装成可用于LoaderQueue的适配器
  * @see net.manaca.loaderqueue#LoaderQueue
- * @author sean
+ * @author Austin
+ * @update sean
  */
 public class SoundAdapter extends AbstractLoaderAdapter
                             implements ILoaderAdapter
@@ -40,7 +41,7 @@ public class SoundAdapter extends AbstractLoaderAdapter
     //==========================================================================
     //  Properties
     //==========================================================================
-    private var _adaptee:Sound;
+    
 
     public function get bytesLoaded():Number
     {
@@ -52,11 +53,15 @@ public class SoundAdapter extends AbstractLoaderAdapter
         return adaptee.bytesTotal;
     }
     
+    //----------------------------------
+    //  adaptee
+    //----------------------------------
+    private var _adaptee:Sound;
+    
     public function get adaptee():Sound
     {
         return _adaptee;
     }
-
     //==========================================================================
     //  Methods
     //==========================================================================

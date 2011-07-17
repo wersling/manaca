@@ -6,7 +6,8 @@ package net.manaca.loaderqueue
 import flash.events.Event;
 /**
  *
- * @author sean
+ * @author Austin
+ * @update sean
  */
 public class LoaderQueueEvent extends Event
 {

@@ -16,7 +16,8 @@ import net.manaca.loaderqueue.LoaderQueueEvent;
  * 将Loader类包装成可用于LoaderQueue的适配器
  * @see net.manaca.loaderqueue#LoaderQueue
  *
- * @author sean
+ * @author Austin
+ * @update sean
  */
 public class LoaderAdapter extends AbstractLoaderAdapter
                             implements ILoaderAdapter

@@ -22,13 +22,13 @@ import flash.utils.Timer;
  *                           new URLLoaderAdapter(4,"http://ggg.ggg.com/a.swf");
  * urlLoader.addEventListener(LoaderQueueEvent.TASK_COMPLETED,
  *                                                           onLoadedCompleted);
- * urlLoader.container.addEventListener(Event.ENTER_FRAME, onEnterFrame)
  * var loaderQueue:LoaderQueue = new LoaderQueue();
  * loaderQueue.addItem(urlLoader);
  *
  * @see net.manaca.loaderqueue.adapter#URLLoaderAdapter
  *
- * @author sean
+ * @author Austin
+ * @update sean
  */
 public class LoaderQueue extends EventDispatcher implements ILoaderQueue
 {
@@ -37,19 +37,21 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
     //==========================================================================
     /**
      * Constructs a new <code>Application</code> instance.
-     * @param threadLimit 下载线程数的上限
-     * @param delay 下载队列排序延迟时间，单位毫秒
-     * @param ignoreCache 是否将已经加载过的文件加入到队列中
+     * @param threadLimit 下载线程数的上限。默认2
+     * @param delay 下载队列排序延迟时间，单位毫秒。默认500毫秒
+     * @param jumpQueueIfCached 如果该url文件已经加载过，是否跳过队列直接加载。
+     * 该参数通过加载文件的url来判断。默认为true
      */
     public function LoaderQueue(threadLimit:uint = 2, delay:int = 500, 
-                                ignoreCache:Boolean = true)
+                                jumpQueueIfCached:Boolean = true)
     {
         this.threadLimit = threadLimit;
         this.delay = delay;
-        this.ignoreCache = ignoreCache;
-        addItemTimer = new Timer(delay, 1);
-        addItemTimer.addEventListener(TimerEvent.TIMER_COMPLETE,
-                                                    onAddItemTimerCompleted);
+        this.jumpQueueIfCached = jumpQueueIfCached;
+        
+        timeOutToSort = new Timer(delay, 1);
+        timeOutToSort.addEventListener(TimerEvent.TIMER_COMPLETE,
+            timeOutToSort_timerCompleteHandler);
     }
 
     //==========================================================================
@@ -60,14 +62,19 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
      */
     private var delay:int;
     
+    /**
+     * 缓存已经加载过的url地址
+     */    
     private var cacheMap:Object = {};
     //==========================================================================
     //  Properties
     //==========================================================================
     /**
-     * 是否将已经加载过的文件加入到队列中
+     * 如果该url文件已经加载过，是否跳过队列直接加载。
+     * 该参数通过加载文件的url来判断。默认为true
+     * @default true
      */    
-    public var ignoreCache:Boolean;
+    public var jumpQueueIfCached:Boolean = true;
     
     /**
      * 最大线程数上限值
@@ -97,8 +104,11 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
      * @private
      */
     private var threadLib:Array /* of ILoaderAdapter */ = [];
-
-    private var addItemTimer:Timer;
+    
+    /**
+     * 用于在添加新的Item后延迟触发排序.
+     */
+    private var timeOutToSort:Timer;
 
     //==========================================================================
     //  Methods
@@ -111,7 +121,7 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
         loaderAdapter.state = LoaderQueueConst.STATE_WAITING;
         //如果ignoreCache为true,则检查是否已经加载过，如果加载过，则不添加到队列，
         //而是直接开始加载
-        if(ignoreCache)
+        if(jumpQueueIfCached)
         {
             if(cacheMap[loaderAdapter.url])
             {
@@ -131,9 +141,9 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
                                        loaderAdapter_disposeHandler);
 
         // 使用Timer调用是为防止同一时间多个添加造成的性能浪费
-        if (!addItemTimer.running)
+        if (!timeOutToSort.running)
         {
-            addItemTimer.start();
+            timeOutToSort.start();
         }
     }
 
@@ -147,10 +157,10 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
         loaderPriorityLib = null;
         threadLib = null;
 
-        addItemTimer.stop();
-        addItemTimer.removeEventListener(TimerEvent.TIMER_COMPLETE,
-                                                    onAddItemTimerCompleted);
-        addItemTimer = null;
+        timeOutToSort.stop();
+        timeOutToSort.removeEventListener(TimerEvent.TIMER_COMPLETE, 
+            timeOutToSort_timerCompleteHandler);
+        timeOutToSort = null;
     }
 
     /**
@@ -437,7 +447,7 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
     {
         var loaderAdapter:ILoaderAdapter =
                                           event.currentTarget as ILoaderAdapter;
-        if(ignoreCache)
+        if(jumpQueueIfCached)
         {
             cacheMap[loaderAdapter.url] = true;
         }
@@ -469,9 +479,9 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
         removeItem(event.target as ILoaderAdapter);
     }
 
-    private function onAddItemTimerCompleted(event:TimerEvent):void
+    private function timeOutToSort_timerCompleteHandler(event:TimerEvent):void
     {
-        addItemTimer.reset();
+        timeOutToSort.reset();
 
         if (!reversePriority)
         {

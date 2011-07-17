@@ -19,7 +19,7 @@ import net.manaca.utils.ArrayUtil;
 
 /**
  * 用于计算一个加载集合和总进度.
- * @author wersling
+ * @author sean
  * 
  */
 public class LoaderProgress extends EventDispatcher

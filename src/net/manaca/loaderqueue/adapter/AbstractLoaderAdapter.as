@@ -47,13 +47,13 @@ import net.manaca.loaderqueue.LoaderQueueEvent;
  * 任务消毁时派发
  * @eventType net.manaca.loaderqueue.LoaderQueueEvent.TASK_DISPOSE
  */
-
 [Event(name="taskDispose", type="net.manaca.loaderqueue.LoaderQueueEvent")]
+
 /**
  * 虚构类，用于提供给adapter子类继承使用，同时adapter子类需引用ILoaderAdapter接口
  * @see ILoaderAdapter
- *
- * @author sean
+ * @author Austin
+ * @update sean
  */
 public class AbstractLoaderAdapter extends EventDispatcher
 {

@@ -13,7 +13,8 @@ import net.manaca.loaderqueue.LoaderQueueEvent;
 /**
  * 将URLStream类包装成可用于LoaderQueue的适配器
  * @see net.manaca.loaderqueue#LoaderQueue
- * @author sean
+ * @author Austin
+ * @update sean
  */
 public class URLStreamAdapter extends AbstractLoaderAdapter implements ILoaderAdapter
 {
@@ -43,7 +44,7 @@ public class URLStreamAdapter extends AbstractLoaderAdapter implements ILoaderAd
     }
     
     //----------------------------------
-    //  container
+    //  adaptee
     //----------------------------------
     private var _adaptee:URLStream;
 

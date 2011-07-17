@@ -15,7 +15,8 @@ import flash.net.URLRequest;
  * 程序将加载第二个地址。本对象一般用于确定服务的稳定性，如果数据服务器出现问题，
  * 我们可以设置一个静态文件路径，以确保最终显示正常。
  * @see net.manaca.loaderqueue#LoaderQueue
- * @author sean
+ * @author Austin
+ * @update sean
  */
 public class BackupURLLoaderAdapter extends AbstractLoaderAdapter
     implements ILoaderAdapter

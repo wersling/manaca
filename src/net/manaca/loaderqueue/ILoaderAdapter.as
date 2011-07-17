@@ -9,6 +9,8 @@ import flash.events.IEventDispatcher;
  * 适配器接口类,所有任务适配器需引用此接口
  * @see LoaderAdapter
  * @see CommandAdapter
+ * @author Austin
+ * @update sean
  */
 public interface ILoaderAdapter extends IEventDispatcher
 {
