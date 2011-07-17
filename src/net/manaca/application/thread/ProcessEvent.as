@@ -4,7 +4,7 @@ import flash.events.Event;
 
 /**
  * The <code>ProcessEvent</code> provides a single Process event.
- * @author v-seanzo
+ * @author Sean Zou
  * 
  */
 public class ProcessEvent extends Event

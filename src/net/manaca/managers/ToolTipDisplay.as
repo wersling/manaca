@@ -12,7 +12,7 @@ import flash.text.TextFormat;
 
 /**
  * Define a defaule tooltip display.
- * @author v-seanzo
+ * @author Sean Zou
  *
  */
 public class ToolTipDisplay extends Sprite implements IToolTipDisplay

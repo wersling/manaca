@@ -18,7 +18,7 @@ import flash.events.IEventDispatcher;
  * step-by-step which would crash the flash player or would prevent user
  * interaction if done synchronously.</p>
  * 
- * @author v-seanzo
+ * @author Sean Zou
  */    
 public interface IProcess extends IEventDispatcher
 {

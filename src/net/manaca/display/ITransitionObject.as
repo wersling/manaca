@@ -5,7 +5,7 @@ import flash.events.IEventDispatcher;
 /**
  * The <code>ITransitionObject</code> interface provides a display object transition functions.
  *
- * @author v-seanzo
+ * @author Sean Zou
  *
  */
 public interface ITransitionObject extends IEventDispatcher

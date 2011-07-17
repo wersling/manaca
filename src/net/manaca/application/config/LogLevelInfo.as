@@ -2,7 +2,7 @@ package net.manaca.application.config
 {
 /**
  * LogLevelInfo
- * @author v-seanzo
+ * @author Sean Zou
  * 
  */	
 public class LogLevelInfo

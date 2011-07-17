@@ -6,7 +6,7 @@ import flash.utils.flash_proxy;
 
 /**
  * The Cookie carry a proxy provide a more useful SharedObject.
- * @author v-seanzo
+ * @author Sean Zou
  *
  */
 dynamic public class Cookie extends Proxy

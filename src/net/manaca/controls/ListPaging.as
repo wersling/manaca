@@ -9,7 +9,7 @@ import net.manaca.utils.ArrayUtil;
  * You can set a layoutList and pageConunt do paging use nextPage and 
  * previousPage.
  * 
- * @author v-seanzo
+ * @author Sean Zou
  *
  */
 public class ListPaging extends EventDispatcher

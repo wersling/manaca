@@ -22,7 +22,7 @@ import net.manaca.utils.ArrayUtil;
  * LayoutList can be layout it children by ILayoutMode.
  * you can set a array to dataProvider, the object can be display 
  * the array data by itemPenderer. and you can get/set the selected item.
- * @author v-seanzo
+ * @author Sean Zou
  *
  */
 public class LayoutList extends LayoutContainer

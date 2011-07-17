@@ -3,7 +3,7 @@ package net.manaca.utils
 
 /**
  * The ArrayUtil utility class is an all-static class with methods for working with Array objects.
- * @author v-seanzo
+ * @author Sean Zou
  *
  */
 public class ArrayUtil

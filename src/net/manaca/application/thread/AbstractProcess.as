@@ -118,7 +118,7 @@ import org.robotlegs.mvcs.Command;
  * }
  * </listing>
  * 
- * @author v-seanzo
+ * @author Sean Zou
  * 
  */    
 public class AbstractProcess extends TimeProcessor implements IProcess

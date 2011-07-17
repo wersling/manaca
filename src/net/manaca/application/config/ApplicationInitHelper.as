@@ -17,7 +17,7 @@ import net.manaca.managers.StageManager;
 
 /**
  * The ApplicationInitHelper provide a base application configuration.
- * @author v-seanzo
+ * @author Sean Zou
  *
  */
 public class ApplicationInitHelper extends EventDispatcher

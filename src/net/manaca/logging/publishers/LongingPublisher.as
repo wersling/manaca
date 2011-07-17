@@ -11,7 +11,7 @@ import net.manaca.logging.Tracer;
 /**
  * Provides a logger publisher that uses Longing display the log.
  * The LongingPublisher send log to Longing application.
- * @author v-seanzo
+ * @author Sean Zou
  *
  */
 public class LongingPublisher extends AbstractLogPublisher implements ILogPublisher

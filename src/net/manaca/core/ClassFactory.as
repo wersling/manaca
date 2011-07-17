@@ -4,7 +4,7 @@ package net.manaca.core
 /**
  * A ClassFactory instance is a "factory object" which Flash uses
  * to generate instances of another class, each with identical properties.
- * @author v-seanzo
+ * @author Sean Zou
  *
  */
 public class ClassFactory

@@ -4,7 +4,7 @@ import flash.events.Event;
 
 /**
  * The <code>BatchEvent</code> provides a single Batch event.
- * @author v-seanzo
+ * @author Sean Zou
  * 
  */    
 public class BatchEvent extends Event

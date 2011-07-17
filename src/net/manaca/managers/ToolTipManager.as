@@ -14,7 +14,7 @@ import net.manaca.errors.SingletonError;
 /**
  * The ToolTipManager lets you set basic ToolTip functionality, 
  * such as display delay and the disabling of ToolTips.
- * @author v-seanzo
+ * @author Sean Zou
  * 
  */    
 public class ToolTipManager extends EventDispatcher

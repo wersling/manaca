@@ -123,7 +123,7 @@ import net.manaca.data.Set;
 /**
  * The <code>AbstractBatch</code> provides a 
  * abstract <code>IBatch</code> implement.
- * @author v-seanzo
+ * @author Sean Zou
  *
  */
 public class AbstractBatch extends AbstractProcess implements IBatch

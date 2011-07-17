@@ -5,7 +5,7 @@ package net.manaca.application.thread
  * The ProcessState class defines the values for the state property of 
  * the IProcess state. 
  * 
- * @author v-seanzo
+ * @author Sean Zou
  * @see net.manaca.application.thread.IProcess#state
  */    
 public class ProcessState

@@ -4,7 +4,7 @@ package net.manaca.managers
 /**
  * Define ToolTipDisplay interface.
  * Every ToolTipDisplay must is DisplayDobject.
- * @author v-seanzo
+ * @author Sean Zou
  * 
  */    
 public interface IToolTipDisplay
