@@ -5,7 +5,6 @@ import flash.events.EventDispatcher;
 import flash.utils.clearInterval;
 import flash.utils.setInterval;
 
-import net.manaca.utils.ArrayUtil;
 /**
  * 任务队列总进度更新时派发
  * @eventType flash.events.Event.CHANGE
