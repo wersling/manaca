@@ -26,7 +26,7 @@ public class LoaderAdapter extends AbstractLoaderAdapter
     //  Constructor
     //==========================================================================
     /**
-     * Constructs a new <code>Application</code> instance.
+     * Constructs a new <code>LoaderAdapter</code> instance.
      *
      */
     public function LoaderAdapter(priority:uint,

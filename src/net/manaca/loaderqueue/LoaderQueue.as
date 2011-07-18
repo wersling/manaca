@@ -36,7 +36,7 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
     //  Constructor
     //==========================================================================
     /**
-     * Constructs a new <code>Application</code> instance.
+     * Constructs a new <code>LoaderQueue</code> instance.
      * @param threadLimit 下载线程数的上限。默认2
      * @param delay 下载队列排序延迟时间，单位毫秒。默认500毫秒
      * @param jumpQueueIfCached 如果该url文件已经加载过，是否跳过队列直接加载。

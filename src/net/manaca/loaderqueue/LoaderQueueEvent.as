@@ -33,7 +33,7 @@ public class LoaderQueueEvent extends Event
     //  Constructor
     //==========================================================================
     /**
-     * Constructs a new <code>Application</code> instance.
+     * Constructs a new <code>LoaderQueueEvent</code> instance.
      *
      */
     public function LoaderQueueEvent(type:String, customData:* = null)

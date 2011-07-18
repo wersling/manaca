@@ -61,7 +61,7 @@ public class AbstractLoaderAdapter extends EventDispatcher
     //  Constructor
     //==========================================================================
     /**
-     * Constructs a new <code>Application</code> instance.
+     * Constructs a new <code>AbstractLoaderAdapter</code> instance.
      *
      */
     public function AbstractLoaderAdapter(priority:uint, urlRequest:URLRequest,
