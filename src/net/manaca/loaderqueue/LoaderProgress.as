@@ -133,7 +133,10 @@ public class LoaderProgress extends EventDispatcher
         for (var i:int = 0; i < itemsLen; i++) 
         {
             loader = items[i];
-            tp += loader.bytesLoaded / loader.bytesTotal;
+            if(!isNaN(loader.bytesLoaded / loader.bytesTotal))
+            {
+                tp += loader.bytesLoaded / loader.bytesTotal;
+            }
         }
         _totalProgress = tp / itemsLen;
         dispatchEvent(new Event(Event.CHANGE));
