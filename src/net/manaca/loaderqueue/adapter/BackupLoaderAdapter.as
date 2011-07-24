@@ -149,7 +149,7 @@ public class BackupLoaderAdapter extends AbstractLoaderAdapter
             stop();
             isUseBackup = true;
             _adaptee = new Loader();
-            adapteeAgent = _adaptee;
+            adapteeAgent = _adaptee.contentLoaderInfo;
             start();
         }
         else
