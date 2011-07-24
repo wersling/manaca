@@ -3,10 +3,12 @@
  */
 package net.manaca.loaderqueue
 {
+import flash.events.IEventDispatcher;
+
 /**
  * LoaderQueue的接口，主要用于提供给第三方模块调用
  */
-public interface ILoaderQueue
+public interface ILoaderQueue extends IEventDispatcher
 {
     /**
      * Adds a new ILoaderAdapter to be loaded. 

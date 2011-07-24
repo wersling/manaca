@@ -117,6 +117,9 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
      */
     public function addItem(loaderAdapter:ILoaderAdapter):void
     {
+        dispatchEvent(
+            new LoaderQueueEvent(LoaderQueueEvent.TASK_ADDED, loaderAdapter));
+        
         loaderAdapter.state = LoaderQueueConst.STATE_WAITING;
         //如果jumpQueueIfCached为true,则检查是否已经加载过，如果加载过，则不添加到队列，
         //而是直接开始加载
@@ -138,7 +141,7 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
 
         loaderAdapter.addEventListener(LoaderQueueEvent.TASK_DISPOSE,
                                        loaderAdapter_disposeHandler);
-
+        
         // 使用Timer调用是为防止同一时间多个添加造成的性能浪费
         if (!timeOutToSort.running)
         {
@@ -181,6 +184,8 @@ public class LoaderQueue extends EventDispatcher implements ILoaderQueue
     {
         disposeItem(loaderAdapter);
         loaderAdapter.state = LoaderQueueConst.STATE_REMOVED;
+        dispatchEvent(
+            new LoaderQueueEvent(LoaderQueueEvent.TASK_REMOVED, loaderAdapter));
     }
 
     /**

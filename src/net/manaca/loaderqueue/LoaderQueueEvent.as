@@ -15,6 +15,16 @@ public class LoaderQueueEvent extends Event
     //  Class variables
     //==========================================================================
     /**
+     * 任务添加到队列时触发
+     */    
+    static public const TASK_ADDED:String = "taskAdded";
+    
+    /**
+     * 任务从队列删除时触发
+     */    
+    static public const TASK_REMOVED:String = "taskRemoved";
+    
+    /**
      * 单个项目(adapter实例)下载时触发
      */
     static public const TASK_COMPLETED:String = "taskCompleted";

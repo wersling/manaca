@@ -162,6 +162,7 @@ public class PreloaderBase extends MovieClip
     
     protected function updateProgress(percent:uint):void
     {
+        trace(percent)
         if(progressBar)
         {
             progressBar.updateProgress(percent);
@@ -226,8 +227,16 @@ public class PreloaderBase extends MovieClip
     
     private function preInit_progressHandler(event:ProgressEvent):void
     {
-        updateProgress(
-            event.bytesLoaded / event.bytesLoaded * (100 - swfRatio) + swfRatio);
+        if(!isNaN(event.bytesLoaded / event.bytesTotal))
+        {
+            updateProgress(
+                event.bytesLoaded / event.bytesTotal * 
+                (100 - swfRatio) + swfRatio);
+        }
+        else
+        {
+            updateProgress(swfRatio);
+        }
     }
 }
 }
