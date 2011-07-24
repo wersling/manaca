@@ -162,7 +162,6 @@ public class PreloaderBase extends MovieClip
     
     protected function updateProgress(percent:uint):void
     {
-        trace(percent)
         if(progressBar)
         {
             progressBar.updateProgress(percent);
