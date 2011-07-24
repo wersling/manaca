@@ -1,19 +1,19 @@
-h2. Manaca: Flash和Flex项目开发框架及基础代码库。
+h2. manaca: Flash和Flex项目开发框架及基础代码库。
 
-Manaca是一个轻量级的AS3开源库。
+manaca是一个轻量级的AS3开源库。
 
-h3. Manaca可以为您的开发带来如下帮助:
+h3. manaca可以为您的开发带来如下帮助:
 
-* 采用xml配置几乎每个项目都要编写的代码，简单而清晰，节约创建项目的时间;
-* 内置的Logging为您调试项目带来方便；
-* 内置preloader解决方案，使预加载不再麻烦；
-* 集成的Loaderqueue使您再也不用为文件加载顺序和优先级而烦恼; LoaderInspector提供一个可视化对象，方便查看所有文件的加载状况；
-* 集成 "Robotlegs":https://github.com/robotlegs/robotlegs-framework 和模块功能，确保你的项目在MVC框架下不再混乱，并从此从内存泄露的恶梦中解脱；（当然，如果你不打算用MVC，也可以使用其他的一些功能）
-* ITransitionObject为您解决多数mini site中进出场动画控制烦恼；
-* 集成 "Yahoo Layout":http://developer.yahoo.com/flash/astra-flash/layout-containers/ 框架使界面布局更简单；
-* 集成 "swfaddress":http://www.asual.com/swfaddress/ , "swfobject":http://code.google.com/p/swfobject/ ,  "swfmacmousewheel2":http://blog.pixelbreaker.com/flash/as30-mousewheel-on-mac-os-x 和html template，使项目部署更简单；
-* FontManager为字体嵌入提供简单易用的方法 "[Demo]":http://wersling.github.com/manaca/embed-font/EmbedFontInFlexExample.swf "[Source Code]":http://wersling.github.com/manaca/embed-font/srcview/ ；
-* ToolTipManager使得处理提示信息更方便；
+* 采用xml配置几乎每个项目都要编写的代码，简单而清晰，节约创建项目的时间。
+* 内置的Logging为您调试项目带来方便。
+* 内置preloader解决方案，使预加载不再麻烦。
+* 集成的Loaderqueue使您再也不用为文件加载顺序和优先级而烦恼; LoaderInspector提供一个可视化对象，方便查看所有文件的加载状况。 "Demo":http://wersling.github.com/manaca/loaderqueue-demo/LoaderQueueDemo.html
+* 集成 "Robotlegs":https://github.com/robotlegs/robotlegs-framework 和模块功能，确保你的项目在MVC框架下不再混乱，并从此从内存泄露的恶梦中解脱（当然，如果你不打算用MVC，也可以使用其他的一些功能）。
+* ITransitionObject为您解决多数mini site中进出场动画控制烦恼。
+* 集成 "Yahoo Layout":http://developer.yahoo.com/flash/astra-flash/layout-containers/ 框架使界面布局更简单。
+* 集成 "swfaddress":http://www.asual.com/swfaddress/ , "swfobject":http://code.google.com/p/swfobject/ ,  "swfmacmousewheel2":http://blog.pixelbreaker.com/flash/as30-mousewheel-on-mac-os-x 和html template，使项目部署更简单。
+* FontManager为字体嵌入提供简单易用的方法。 "Demo":http://wersling.github.com/manaca/embed-font/EmbedFontInFlexExample.swf "Source Code":http://wersling.github.com/manaca/embed-font/srcview/ 
+* ToolTipManager使得处理提示信息更方便。
 * XMLNote和 "asSchema":http://code.google.com/p/asschema 结合，使读写xml不再是麻烦。
 
 h3. 如何开始
