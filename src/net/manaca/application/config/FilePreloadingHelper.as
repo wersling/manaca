@@ -81,7 +81,7 @@ public class FilePreloadingHelper extends EventDispatcher
     public function get percentage():uint
     {
         return loaderProgressCounter ? 
-            int(loaderProgressCounter.totalProgress * 100): 0;
+            int(loaderProgressCounter.totalProgress * 100) : 0;
     }
 
     //----------------------------------

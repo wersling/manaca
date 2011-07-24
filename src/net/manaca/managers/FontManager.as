@@ -2,6 +2,7 @@ package net.manaca.managers
 {
 import flash.display.Loader;
 import flash.display.LoaderInfo;
+import flash.errors.IllegalOperationError;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.IOErrorEvent;
@@ -10,9 +11,6 @@ import flash.net.URLRequest;
 import flash.text.Font;
 import flash.text.TextField;
 import flash.text.TextFormat;
-
-import net.manaca.errors.IllegalStateError;
-import net.manaca.logging.Tracer;
 
 //--------------------------------------
 //  Events
@@ -167,14 +165,12 @@ public class FontManager extends EventDispatcher
                 for (var i:uint = 0; i < len; i++)
                 {
                     Font.registerFont(fonts[i]);
-                    
-                    Tracer.debug("Register font:" + fonts[i].toString());
                 }
             }
         }
         else
         {
-            throw new IllegalStateError("Register fonts failed!");
+            throw new IllegalOperationError("Register fonts failed!");
         }
     }
     

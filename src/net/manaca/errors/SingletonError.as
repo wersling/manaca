@@ -42,7 +42,8 @@ public class SingletonError extends FrameworkError
      */
     public function SingletonError(instance:Object)
     {
-        var message:String = "Only one " + getQualifiedClassName(instance) + " instance can be instantiated.";
+        var message:String = "Only one " + 
+            getQualifiedClassName(instance) + " instance can be instantiated.";
         super(message, 0);
     }
 }
