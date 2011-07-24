@@ -8,8 +8,7 @@ import flash.events.ProgressEvent;
 import net.manaca.application.Bootstrap;
 import net.manaca.application.IApplicationSetup;
 import net.manaca.core.manaca_internal;
-import net.manaca.errors.FrameworkError;
-import net.manaca.loaderqueue.LoaderQueue;
+import net.manaca.loaderqueue.inspector.LoaderInspector;
 import net.manaca.modules.ModuleManager;
 import net.manaca.modules.ModuleVO;
 
@@ -35,7 +34,6 @@ public class ApplicationSetup extends EventDispatcher implements IApplicationSet
     private var config:*;
     private var configXML:XML;
     private var filePreloading:FilePreloadingHelper;
-    private const loaderQueueIns:LoaderQueue = new LoaderQueue(8, 100);
     //==========================================================================
     //  Properties
     //==========================================================================
@@ -54,7 +52,10 @@ public class ApplicationSetup extends EventDispatcher implements IApplicationSet
     private function initApp():void
     {
         Bootstrap.getInstance().manaca_internal::init(configXML);
-        
+        var loaderInspector:LoaderInspector = 
+            new LoaderInspector(Bootstrap.getInstance().loaderQueue);
+        stage.addChild(loaderInspector);
+        stage.removeChild(loaderInspector);
         //init stage,logging
         new ApplicationInitHelper().init(stage, configXML);
         
