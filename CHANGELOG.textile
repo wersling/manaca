@@ -6,6 +6,8 @@ h3. V2.1.11
 * Removed DefaultSender
 * Removed project setting files
 * Removed SoundPlayer
+* Added InputTextController
+* Added LoaderInspector
 
 h3. V2.1.10
 

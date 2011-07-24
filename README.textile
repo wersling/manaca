@@ -7,7 +7,7 @@ h3. Manaca可以为您的开发带来如下帮助:
 * 采用xml配置几乎每个项目都要编写的代码，简单而清晰，节约创建项目的时间;
 * 内置的Logging为您调试项目带来方便；
 * 内置preloader解决方案，使预加载不再麻烦；
-* 内置的Loaderqueue使您再也不用为文件加载顺序和优先级而烦恼;
+* 集成的Loaderqueue使您再也不用为文件加载顺序和优先级而烦恼; LoaderInspector提供一个可视化对象，方便查看所有文件的加载状况；
 * 集成 "Robotlegs":https://github.com/robotlegs/robotlegs-framework 和模块功能，确保你的项目在MVC框架下不再混乱，并从此从内存泄露的恶梦中解脱；（当然，如果你不打算用MVC，也可以使用其他的一些功能）
 * ITransitionObject为您解决多数mini site中进出场动画控制烦恼；
 * 集成 "Yahoo Layout":http://developer.yahoo.com/flash/astra-flash/layout-containers/ 框架使界面布局更简单；
