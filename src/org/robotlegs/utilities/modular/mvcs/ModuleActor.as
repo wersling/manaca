@@ -3,6 +3,7 @@ package org.robotlegs.utilities.modular.mvcs
     import flash.events.Event;
     
     import org.robotlegs.mvcs.Actor;
+    import org.robotlegs.utilities.modular.base.IModuleEvent;
     import org.robotlegs.utilities.modular.core.IModuleEventDispatcher;
 
     public class ModuleActor extends Actor
@@ -41,10 +42,10 @@ package org.robotlegs.utilities.modular.mvcs
             _moduleEventDispatcher = value;
         }
         
-        protected function dispatchToModules(event:Event):Boolean
+        protected function dispatchToModules(event:IModuleEvent):Boolean
         {
-            if(moduleEventDispatcher.hasEventListener(event.type))
-               return moduleEventDispatcher.dispatchEvent(event);
+            if(moduleEventDispatcher.hasEventListener(Event(event).type))
+                return moduleEventDispatcher.dispatchEvent(Event(event));
             return true;
         }
     }

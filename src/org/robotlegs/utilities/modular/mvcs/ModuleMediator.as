@@ -7,19 +7,20 @@
 
 package org.robotlegs.utilities.modular.mvcs
 {
-	import flash.events.Event;
-	
-	import org.robotlegs.mvcs.Mediator;
-	import org.robotlegs.utilities.modular.core.IModuleCommandMap;
-	import org.robotlegs.utilities.modular.core.IModuleEventDispatcher;
-	
-	public class ModuleMediator extends Mediator
-	{
-		[Inject]
-		public var moduleDispatcher:IModuleEventDispatcher;
-	   		
-		[Inject]
-		public var moduleCommandMap:IModuleCommandMap;
+    import flash.events.Event;
+    
+    import org.robotlegs.mvcs.Mediator;
+    import org.robotlegs.utilities.modular.base.IModuleEvent;
+    import org.robotlegs.utilities.modular.core.IModuleCommandMap;
+    import org.robotlegs.utilities.modular.core.IModuleEventDispatcher;
+    
+    public class ModuleMediator extends Mediator
+    {
+        [Inject]
+        public var moduleDispatcher:IModuleEventDispatcher;
+               
+        [Inject]
+        public var moduleCommandMap:IModuleCommandMap;
 
         /**
          * Map an event type to globally redispatch to all modules within an application.
@@ -46,11 +47,11 @@ package org.robotlegs.utilities.modular.mvcs
          * @param event
          * 
          */
-		protected function dispatchToModules(event:Event):Boolean
+        protected function dispatchToModules(event:IModuleEvent):Boolean
         {
-            if(moduleDispatcher.hasEventListener(event.type))
-			    return moduleDispatcher.dispatchEvent(event);
+            if(moduleDispatcher.hasEventListener(Event(event).type))
+                return moduleDispatcher.dispatchEvent(Event(event));
             return false;
-		}
-	}
+        }
+    }
 }

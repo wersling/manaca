@@ -7,23 +7,24 @@
 
 package org.robotlegs.utilities.modular.mvcs
 {
-	import flash.display.DisplayObjectContainer;
-	import flash.events.Event;
-	import flash.system.ApplicationDomain;
-	
-	import org.robotlegs.adapters.SwiftSuspendersInjector;
-	import org.robotlegs.base.CommandMap;
-	import org.robotlegs.base.ContextEvent;
-	import org.robotlegs.base.MediatorMap;
-	import org.robotlegs.core.ICommandMap;
-	import org.robotlegs.core.IInjector;
-	import org.robotlegs.core.IMediatorMap;
-	import org.robotlegs.mvcs.Context;
-	import org.robotlegs.utilities.modular.base.ModuleCommandMap;
-	import org.robotlegs.utilities.modular.base.ModuleEventDispatcher;
-	import org.robotlegs.utilities.modular.core.IModuleCommandMap;
-	import org.robotlegs.utilities.modular.core.IModuleContext;
-	import org.robotlegs.utilities.modular.core.IModuleEventDispatcher;
+    import flash.display.DisplayObjectContainer;
+    import flash.events.Event;
+    import flash.system.ApplicationDomain;
+    
+    import org.robotlegs.adapters.SwiftSuspendersInjector;
+    import org.robotlegs.base.CommandMap;
+    import org.robotlegs.base.ContextEvent;
+    import org.robotlegs.base.MediatorMap;
+    import org.robotlegs.core.ICommandMap;
+    import org.robotlegs.core.IInjector;
+    import org.robotlegs.core.IMediatorMap;
+    import org.robotlegs.mvcs.Context;
+    import org.robotlegs.utilities.modular.base.IModuleEvent;
+    import org.robotlegs.utilities.modular.base.ModuleCommandMap;
+    import org.robotlegs.utilities.modular.base.ModuleEventDispatcher;
+    import org.robotlegs.utilities.modular.core.IModuleCommandMap;
+    import org.robotlegs.utilities.modular.core.IModuleContext;
+    import org.robotlegs.utilities.modular.core.IModuleEventDispatcher;
 
     /**
      * Contains additional mappings and facilitates the use of a parent injector
@@ -67,21 +68,21 @@ package org.robotlegs.utilities.modular.mvcs
             return _commandMap || (_commandMap = new CommandMap(eventDispatcher, injector.createChild(_applicationDomain), reflector));
         }
 
-   		/**
-		 * @private
-		 */
-		override protected function set commandMap(value:ICommandMap):void
-		{
-			_commandMap = value;
-		}
+           /**
+         * @private
+         */
+        override protected function set commandMap(value:ICommandMap):void
+        {
+            _commandMap = value;
+        }
 
-		/**
-		 * @private
-		 */
-		override protected function set mediatorMap(value:IMediatorMap):void
-		{
-			_mediatorMap = value;
-		}
+        /**
+         * @private
+         */
+        override protected function set mediatorMap(value:IMediatorMap):void
+        {
+            _mediatorMap = value;
+        }
         /**
          * The <code>IMediatorMap</code> for this <code>IContext</code>
          */
@@ -120,10 +121,10 @@ package org.robotlegs.utilities.modular.mvcs
             }          
         }
         
-        protected function dispatchToModules(event:Event):Boolean
+        protected function dispatchToModules(event:IModuleEvent):Boolean
         {
-            if(moduleDispatcher.hasEventListener(event.type))
-                return moduleDispatcher.dispatchEvent(event);
+            if(moduleDispatcher.hasEventListener(Event(event).type))
+                return moduleDispatcher.dispatchEvent(Event(event));
             return true;
         }
         
