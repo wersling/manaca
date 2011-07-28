@@ -1,6 +1,8 @@
 /bin
 /src/ManacaClasses.as
+/src/FlexUnitApplication.mxml
 /.settings
 /.project
 /.actionScriptProperties
 /.flexLibProperties
+/.FlexUnitSettings
