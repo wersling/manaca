@@ -3,15 +3,17 @@
  */
 package <%= @vars.package %>
 {
-import <%= @vars.package %>.controller.<%= @vars.module_name %>StartupCommand;
-import <%= @vars.package %>.controller.<%= @vars.module_name %>ShutdownCommand;
-
 import flash.display.DisplayObjectContainer;
 
 import org.robotlegs.base.ContextEvent;
-import org.robotlegs.mvcs.Context;
+import org.robotlegs.core.IInjector;
+import org.robotlegs.utilities.modular.mvcs.ModuleContext;
+
+import <%= @vars.package %>.controller.<%= @vars.module_name %>StartupCommand;
+import <%= @vars.package %>.controller.<%= @vars.module_name %>ShutdownCommand;
+
 //TODO 需要添加asdoc
-public class <%= @vars.module_name %>Context extends Context
+public class <%= @vars.module_name %>Context extends ModuleContext
 {
     //==========================================================================
     //  Constructor
@@ -20,10 +22,11 @@ public class <%= @vars.module_name %>Context extends Context
      * 构造一个新的<code><%= @vars.module_name %>Context</code>实例.
      * 
      */
-    public function <%= @vars.module_name %>Context(contextView:DisplayObjectContainer=null, 
-                                       autoStartup:Boolean=true)
+    public function <%= @vars.module_name %>Context(contextView:DisplayObjectContainer, 
+            autoStartup:Boolean,
+            injector:IInjector)
     {
-        super(contextView, autoStartup);
+        super(contextView, autoStartup, injector);
     }
     //==========================================================================
     //  Methods

@@ -4,6 +4,8 @@
 package <%= @vars.package %>
 {
 import net.manaca.modules.AbstractModule;
+
+import org.robotlegs.core.IInjector;
 //TODO 需要添加asdoc
 public class <%= @vars.module_name %>Module extends AbstractModule implements I<%= @vars.module_name %>Module
 {
@@ -17,7 +19,18 @@ public class <%= @vars.module_name %>Module extends AbstractModule implements I<
     public function <%= @vars.module_name %>Module()
     {
         super();
-        context = new <%= @vars.module_name %>Context(this);
     }
+    
+    //==========================================================================
+    //  Properties
+    //==========================================================================
+    [Inject]
+    /**
+     * @inheritDoc 
+     */
+     public function set parentInjector(value:IInjector):void
+     {
+         context = new <%= @vars.module_name %>Context(this, true, value);
+     }
 }
 }

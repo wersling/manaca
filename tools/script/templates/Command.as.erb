@@ -3,7 +3,7 @@
  */
 package <%= @vars.package %>.controller
 {
-import <%= @vars.package %>.controller.events.<%= @vars.par %>Event;
+import flash.events.Event;
 
 import org.robotlegs.mvcs.Command;
 //TODO 需要添加asdoc
@@ -27,7 +27,7 @@ public class <%= @vars.par %>Command extends Command
     /**
      * @private
      */
-    public var event:<%= @vars.par %>Event;
+    public var event:Event;
     
     //==========================================================================
     //  Methods

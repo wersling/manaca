@@ -3,22 +3,32 @@
  */
 package <%= @vars.package %>.controller
 {
+import flash.events.Event;
+
 import org.robotlegs.utilities.modular.mvcs.ModuleCommand;
 //TODO 需要添加asdoc
-public class <%= @vars.module_name %>StartupCommand extends ModuleCommand
+public class <%= @vars.par %>Command extends ModuleCommand
 {
     //==========================================================================
     //  Constructor
     //==========================================================================
     /**
-     * 构造一个新的<code><%= @vars.module_name %>StartupCommand</code>实例.
+     * 构造一个新的<code><%= @vars.par %>Command</code>实例.
      * 
      */
-    public function <%= @vars.module_name %>StartupCommand()
+    public function <%= @vars.par %>Command()
     {
         super();
     }
-  
+    //==========================================================================
+    //  Properties
+    //==========================================================================
+    [Inject]
+    /**
+     * @private
+     */
+    public var event:Event;
+    
     //==========================================================================
     //  Methods
     //==========================================================================
@@ -27,11 +37,7 @@ public class <%= @vars.module_name %>StartupCommand extends ModuleCommand
      */
     override public function execute() : void
     {
-        // model
-
-        // view
-        
-        // controller
+        //TODO 该方法需要实现
     }
 }
 }
