@@ -1,6 +1,3 @@
-/*
- * Copyright (c) 2011, 9nali.com All rights reserved.
- */
 package com.yahoo.astra.layout.modes
 {
 import com.yahoo.astra.layout.modes.BoxLayout;
