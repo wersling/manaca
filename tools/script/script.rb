@@ -62,7 +62,9 @@ TEMPLATE_DATA="vo/Data.erb"
 PROJECT_DIR_MODEL="model/"
 PROJECT_DIR_VIEW="view/"
 PROJECT_DIR_CONTROLLER="controller/"
+PROJECT_DIR_SERVICE="service"
 PROJECT_DIR_EVENTS="events/"
+PROJECT_DIR_STARTUP="startup/"
 
 #模块定义类
 class Module
@@ -190,6 +192,8 @@ def create_module(module_name, par, par2)
     makedir("#{@module.file_path}#{PROJECT_DIR_MODEL}")
     makedir("#{@module.file_path}#{PROJECT_DIR_VIEW}")
     makedir("#{@module.file_path}#{PROJECT_DIR_CONTROLLER}")
+    makedir("#{@module.file_path}#{PROJECT_DIR_CONTROLLER}#{PROJECT_DIR_STARTUP}")
+    makedir("#{@module.file_path}#{PROJECT_DIR_SERVICE}")
     
     #生成Module文件
     generate_template("#{TEMPLATE_DIR}/#{TRMPLATE_MODULE}", "#{@module.file_path }#{@module.module_name}Module.as", @module)
@@ -198,9 +202,9 @@ def create_module(module_name, par, par2)
     #生成Module接口文件
     generate_template("#{TEMPLATE_DIR}/#{TRMPLATE_MODULE_INTERFACE}", "#{@module.file_path }I#{@module.module_name}Module.as", @module)
     #生成StartupCommand文件
-    generate_template("#{TEMPLATE_DIR}/#{TRMPLATE_STRATUP_COMMAND}", "#{@module.file_path }#{PROJECT_DIR_CONTROLLER}#{@module.module_name}StartupCommand.as", @module)
+    generate_template("#{TEMPLATE_DIR}/#{TRMPLATE_STRATUP_COMMAND}", "#{@module.file_path }#{PROJECT_DIR_CONTROLLER}#{PROJECT_DIR_STARTUP}#{@module.module_name}StartupCommand.as", @module)
     #生成ShutdownCommand文件
-    generate_template("#{TEMPLATE_DIR}/#{TRMPLATE_SHUTDOWN_COMMAND}", "#{@module.file_path }#{PROJECT_DIR_CONTROLLER}#{@module.module_name}ShutdownCommand.as", @module)
+    generate_template("#{TEMPLATE_DIR}/#{TRMPLATE_SHUTDOWN_COMMAND}", "#{@module.file_path }#{PROJECT_DIR_CONTROLLER}#{PROJECT_DIR_STARTUP}#{@module.module_name}ShutdownCommand.as", @module)
     #生成ModuleMediator文件
     if @module.par.index("m")
         generate_template("#{TEMPLATE_DIR}/#{TRMPLATE_MODULE_MEDIATOR}", "#{@module.file_path }#{PROJECT_DIR_VIEW}#{@module.module_name}ModuleMediator.as", @module)
@@ -224,7 +228,7 @@ def create_module(module_name, par, par2)
     
     write_file("#{SOURCE_DIR}#{CONFIG_FILE}", full_data)
     
-    create_view(module_name, module_name)
+    create_view(module_name, module_name, par2)
 end
 
 def create_view(module_name, view_name, par2)
@@ -248,7 +252,7 @@ def create_view(module_name, view_name, par2)
     generate_template("#{TEMPLATE_DIR}/#{TRMPLATE_VIEW_EVENT}", "#{@module.file_path }view/events/#{@module.par}ViewEvent.as", @module)
     
     #更新配置文件
-    startupCommand = "#{@module.file_path }#{PROJECT_DIR_CONTROLLER}#{@module.module_name}StartupCommand.as"
+    startupCommand = "#{@module.file_path }#{PROJECT_DIR_CONTROLLER}#{PROJECT_DIR_STARTUP}#{@module.module_name}StartupCommand.as"
     full_data = read_file(startupCommand)
     
     #插入位置
