@@ -15,7 +15,6 @@ import net.manaca.loaderqueue.adapter.URLLoaderAdapter;
 import net.manaca.loaderqueue.adapter.URLStreamAdapter;
 import net.manaca.logging.Tracer;
 import net.manaca.modules.ModuleVO;
-import net.manaca.utils.URLUtils;
 
 /**
  * 任务队列总进度更新时派发
@@ -115,11 +114,6 @@ public class FilePreloadingHelper extends EventDispatcher
             var loader:ILoaderAdapter = null;
             var url:String = String(file.@url);
             
-            if(String(file.@clearCache) == "true")
-            {
-                url = URLUtils.clearCacheUrl(url);
-            }
-            
             switch(String(file.@type))
             {
                 case FileTypeInfo.IMAGE:
@@ -142,6 +136,10 @@ public class FilePreloadingHelper extends EventDispatcher
                     loader = new URLStreamAdapter(1, new URLRequest(url));
                     break;
                 }
+            }
+            if(String(file.@clearCache) == "true")
+            {
+                loader.preventCache = true;
             }
             if(loader)
             {
