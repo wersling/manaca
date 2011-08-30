@@ -3,6 +3,7 @@ package net.manaca.preloaders
 import flash.display.MovieClip;
 import flash.display.Sprite;
 import flash.display.StageAlign;
+import flash.display.StageQuality;
 import flash.display.StageScaleMode;
 import flash.events.Event;
 import flash.events.IEventDispatcher;
@@ -39,6 +40,7 @@ public class PreloaderBase extends MovieClip
         
         stage.align = StageAlign.TOP_LEFT;
         stage.scaleMode = StageScaleMode.NO_SCALE;
+        stage.quality = StageQuality.HIGH;
         
         if(root && root.loaderInfo)
         {

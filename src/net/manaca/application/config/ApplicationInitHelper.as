@@ -1,19 +1,14 @@
 package net.manaca.application.config
 {
 import flash.display.Stage;
-import flash.display.StageAlign;
-import flash.display.StageQuality;
-import flash.display.StageScaleMode;
 import flash.events.EventDispatcher;
 import flash.system.Security;
-import flash.utils.Dictionary;
 
 import net.manaca.errors.IllegalArgumentError;
 import net.manaca.logging.LogLevel;
 import net.manaca.logging.Tracer;
 import net.manaca.logging.publishers.Output;
 import net.manaca.logging.publishers.TracePublisher;
-import net.manaca.managers.StageManager;
 
 /**
  * The ApplicationInitHelper provide a base application configuration.
@@ -60,17 +55,8 @@ public class ApplicationInitHelper extends EventDispatcher
         
         this.config = config;
         
-        initStage();
         initLogging();
         initSecurity();
-    }
-    
-    private function initStage():void
-    {
-        StageManager.initialize(stage);
-        stage.align = StageAlign.TOP_LEFT;
-        stage.scaleMode = StageScaleMode.NO_SCALE;
-        stage.quality = StageQuality.HIGH;
     }
     
     private function initLogging():void

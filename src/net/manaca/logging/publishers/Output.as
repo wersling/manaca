@@ -76,7 +76,7 @@ public class Output extends Sprite implements ILogPublisher
     
     //default text format
     private const defaultTextFormat:TextFormat = 
-        new TextFormat("Verdana,Tahoma,_sans");
+        new TextFormat("_sans");
     
     //search text field
     private var searchLabel:TextField;

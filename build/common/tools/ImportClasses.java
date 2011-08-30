@@ -95,9 +95,9 @@ public class ImportClasses {
         {
             //has "public class" or "public interface"
             if(row.indexOf("public") != -1 &&
-                    //命名空间
+                    //namespace
                     (row.indexOf("namespace") != -1 || 
-                    //类或接口
+                    //class or interface
                      row.indexOf("class") != -1 || row.indexOf("interface") != -1))
             {
                 return true;
