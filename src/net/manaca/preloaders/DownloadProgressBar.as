@@ -72,9 +72,10 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
     protected function addedToStageHandler(event:Event):void
     {
         removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-        addEventListener(Event.REMOVED_FROM_STAGE, addedToStageHandler);
+        addEventListener(Event.REMOVED_FROM_STAGE, removeFromStageHandler);
         stage.addEventListener(Event.RESIZE, resizeHandler);
         resizeHandler(null);
+        
     }
     
     protected function removeFromStageHandler(event:Event):void
