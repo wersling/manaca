@@ -40,8 +40,9 @@ public class InputTextController
     //==========================================================================
     //  Variables
     //==========================================================================
-    private var errorColor:uint;
-    private var isPassword:Boolean;
+    public var errorColor:uint = 0xFF0000;
+    public var textColor:uint = 0x000000;
+    public var isPassword:Boolean;
     //==========================================================================
     //  Properties
     //==========================================================================
@@ -145,7 +146,7 @@ public class InputTextController
         if (inputText.text == infoText || inputText.text == _errorText)
         {
             inputText.text = "";
-            inputText.textColor = 0x000000;
+            inputText.textColor = textColor;
         }
     }
 

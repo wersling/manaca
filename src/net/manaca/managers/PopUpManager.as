@@ -2,6 +2,7 @@ package net.manaca.managers
 {
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
+import flash.display.Stage;
 
 import net.manaca.errors.SingletonError;
 import net.manaca.utils.DepthUtil;
@@ -86,8 +87,18 @@ public class PopUpManager
     {
         if(popUp && popUp.parent)
         {
-            popUp.x = int((popUp.parent.width - popUp.width) / 2);
-            popUp.y = int((popUp.parent.height - popUp.height) / 2);
+            if(popUp.parent is Stage)
+            {
+                popUp.x = 
+                    int((Stage(popUp.parent).stageWidth - popUp.width) / 2);
+                popUp.y = 
+                    int((Stage(popUp.parent).stageHeight - popUp.height) / 2);
+            }
+            else
+            {
+                popUp.x = int((popUp.parent.width - popUp.width) / 2);
+                popUp.y = int((popUp.parent.height - popUp.height) / 2);
+            }
         }
     }
 
