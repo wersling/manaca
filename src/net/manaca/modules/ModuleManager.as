@@ -3,7 +3,8 @@
  */
 package net.manaca.modules
 {
-import net.manaca.data.Map;
+import flash.utils.Dictionary;
+
 import net.manaca.loaderqueue.LoaderQueue;
 
 /**
@@ -20,7 +21,7 @@ public class ModuleManager
     /**
      * @private
      */    
-    static private const moduleMap:Map = new Map();
+    static private const moduleMap:Dictionary = new Dictionary();
     
     /**
      * @praivte
@@ -66,7 +67,7 @@ public class ModuleManager
         var vo:ModuleVO;
         for each(vo in moudles)
         {
-            moduleMap.put(vo.name, vo);
+            moduleMap[vo.name] = vo;
         }
         loaderQueueIns = loaderQueue;
     }
@@ -79,7 +80,7 @@ public class ModuleManager
      */    
     static public function getModuleVOByName(moduleName:String):ModuleVO
     {
-        return moduleMap.getValue(moduleName);
+        return moduleMap[moduleName];
     }
     
     /**

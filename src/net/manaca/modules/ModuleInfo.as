@@ -14,7 +14,6 @@ import flash.utils.ByteArray;
 import net.manaca.loaderqueue.LoaderQueue;
 import net.manaca.loaderqueue.LoaderQueueEvent;
 import net.manaca.loaderqueue.adapter.LoaderAdapter;
-import net.manaca.logging.Tracer;
 
 //--------------------------------------
 //  Events
@@ -250,7 +249,6 @@ public class ModuleInfo extends EventDispatcher implements IModuleInfo
                 loader_errorHandler);
             loader.addEventListener(LoaderQueueEvent.TASK_PROGRESS,
                 loader_progressHandler);
-            Tracer.debug("[Module] loading module : " + urlRequest.url);
             loaderQueue.addItem(loader);
         }
     }
@@ -333,7 +331,6 @@ public class ModuleInfo extends EventDispatcher implements IModuleInfo
     private function loader_errorHandler(event:LoaderQueueEvent):void
     {
         _error = true;
-        Tracer.error("[Module] " + event.toString());
         var moduleEvent:ModuleEvent = new ModuleEvent(ModuleEvent.ERROR);
         moduleEvent.errorText = event.toString();
         dispatchEvent(moduleEvent);
